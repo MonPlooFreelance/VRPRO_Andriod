@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="vrpro.vrpro.activity.CreateOrderActivity"
+    android:weightSum="1">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/AppTheme.ActionBar"/>
+
+    <RelativeLayout
+        android:id="@+id/profileCustomerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_below="@+id/toolbar"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical|left"
+            android:text="เลขที่ใบเสนอราคา :"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtQuatationNo"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            android:gravity="center_vertical|left"
+            android:text="60#0-VR1043"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/txtQuatationNo"
+            android:layout_toRightOf="@+id/txtQuatationNo"
+            android:gravity="center_vertical|left"
+            android:text="วันที่ :"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtQuatationDate"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:gravity="center_vertical|left"
+            android:text="26/06/2017 14:59:20"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical|left"
+            android:text="ข้อมูลลูกค้า :"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/txtCustomerName"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="ชื่อ - นามสกุล"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/txtProjectName"
+            android:layout_width="440dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="ชื่อโครงการ"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_toRightOf="@+id/txtCustomerName"
+            android:layout_toEndOf="@+id/txtCustomerName"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/txtCustomerAddress"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="ที่อยู่ลูกค้า"
+            android:inputType="text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:layout_below="@+id/txtCustomerName"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/txtCustomerPhone"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="เบอร์โทรศัพท์"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/txtCustomerAddress"
+            android:layout_alignLeft="@+id/txtCustomerAddress"
+            android:layout_alignStart="@+id/txtCustomerAddress" />
+
+        <EditText
+            android:id="@+id/txtCustomerEmail"
+            android:layout_width="440dp"
+            android:layout_height="50dp"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="อีเมล์"
+            android:inputType="text"
+            android:padding="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_toRightOf="@+id/txtCustomerName"
+            android:layout_toEndOf="@+id/txtCustomerName"
+            android:layout_below="@+id/txtCustomerAddress"
+            android:layout_marginTop="20dp" />
+
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listViewEachOrder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/profileCustomerLayout"
+        android:layout_weight="1.00"
+        android:drawSelectorOnTop="false"
+        android:visibility="visible"
+        />
+
+    <EditText
+        android:id="@+id/txtRemarks"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_boarder_2"
+        android:hint="@string/remarks"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:gravity="top"
+        android:lines="4"
+         />
+
+    <LinearLayout
+        android:id="@+id/discount_totalpriceLinear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/remarks"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
+        >
+
+        <EditText
+            android:id="@+id/txtDiscount"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:background="@drawable/selector_boarder_2"
+            android:hint="ส่วนลดราคา"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:id="@+id/totalPriceLinear"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|left"
+                android:scaleType="fitCenter"
+                android:text="ราคาสุทธิ :"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|left"
+                android:scaleType="fitCenter"
+                android:text="0"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/remarks"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        >
+
+        <Button
+            android:id="@+id/saveOrder"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="70dp"
+            android:text="บันทึก"
+            android:scaleType="fitCenter"
+            tools:ignore="ObsoleteLayoutParam"
+            android:layout_marginRight="10dp"
+            />
+
+        <Button
+            android:id="@+id/summaryPrice"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="70dp"
+            android:text="@string/summaryprice"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"
+            tools:ignore="ObsoleteLayoutParam" />
+    </LinearLayout>
+
+
+</LinearLayout>

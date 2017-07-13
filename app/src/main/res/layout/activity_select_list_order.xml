@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vrpro.vrpro.activity.SelectListOrderActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/AppTheme.ActionBar"/>
+
+    <Spinner
+        android:id="@+id/spinnerFloor"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerPosition"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_alignTop="@+id/spinnerFloor"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerDW"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/spinnerFloor"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:textSize="20dp"/>
+
+
+    <Spinner
+        android:id="@+id/spinnerTypeOfM"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/spinnerDW"
+        android:layout_alignLeft="@+id/spinnerFloor"
+        android:layout_alignStart="@+id/spinnerFloor"
+        android:layout_marginTop="60dp"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerSpecialCase"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_alignTop="@+id/spinnerTypeOfM"
+        android:layout_alignLeft="@+id/spinnerPosition"
+        android:layout_alignStart="@+id/spinnerPosition"
+        android:layout_below="@+id/position"
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="60dp"
+        tools:ignore="UnknownIdInLayout"
+        android:visibility="invisible"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/specialOrderTxtView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="คำขอพิเศษ"
+        android:textSize="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_below="@+id/spinnerTypeOfM"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:id="@+id/specialOrderLinear"
+        android:layout_width="match_parent"
+        android:layout_height="470dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="60dp"
+        android:padding="5dp"
+        android:layout_below="@+id/specialOrderTxtView"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addEachOrder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:text="เพิ่ม"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/txtWidthEachOrder"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_boarder_2"
+        android:hint="ความกว้าง"
+        android:textAlignment="center"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/specialOrderLinear"
+        android:layout_alignLeft="@+id/specialOrderLinear"
+        android:layout_alignStart="@+id/specialOrderLinear"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp" />
+
+    <EditText
+        android:id="@+id/txtHeightEachOrder"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_boarder_2"
+        android:hint="ความสูง"
+        android:textAlignment="center"
+        android:inputType="numberDecimal"
+        android:padding="10dp"
+        android:layout_below="@+id/specialOrderLinear"
+        android:layout_marginTop="40dp"
+        android:layout_alignRight="@+id/specialOrderLinear"
+        android:layout_alignEnd="@+id/specialOrderLinear"
+        android:layout_marginRight="70dp"
+        android:layout_marginEnd="70dp"
+        />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:text="X"
+        android:layout_alignBaseline="@+id/txtWidthEachOrder"
+        android:layout_alignBottom="@+id/txtWidthEachOrder"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

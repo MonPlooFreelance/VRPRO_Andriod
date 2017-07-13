@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">VRPRO</string>
+    <string name="salename">sale name</string>
+    <string name="submit">submit</string>
+    <string name="phonenumber">phone number</string>
+    <string name="profile">Profile</string>
+    <string name="button">Button</string>
+    <string name="no">No.</string>
+    <string name="customer_name">customer_name</string>
+    <string name="project_name">project_name</string>
+    <string name="quatation_date">quatation_date</string>
+    <string name="total_price">total_price</string>
+    <string name="d_w">d_w</string>
+    <string name="floor">floor</string>
+    <string name="position">position</string>
+    <string name="specialword">specialWord</string>
+    <string name="type_of_m">type_of_m</string>
+    <string name="remarks">Remarks</string>
+    <string name="summaryprice">สรุปราคา</string>
+    <string name="createOrder">สร้างใบเสนอราคา</string>
+    <string name="preference_key">vrpro.vrpro</string>
+</resources>
