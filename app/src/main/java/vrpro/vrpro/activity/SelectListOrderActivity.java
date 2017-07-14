@@ -170,6 +170,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
             tempTotalPrice = tempRealTotalPrice+totalPrice-Double.parseDouble(orderModelFromDB.getDiscount());
         }
         Log.i(LOG_TAG,"tempTotalPrice : " + tempTotalPrice);
+        if(tempTotalPrice<0)
+            tempTotalPrice =0.0;
         orderModelFromDB.setTotalPrice(tempTotalPrice);
         orderModelFromDB.setRealTotalPrice(tempRealTotalPrice+totalPrice);
         sqlLite.updateOrderModel(orderModelFromDB);
