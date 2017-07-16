@@ -18,6 +18,7 @@ public class EachOrderModel {
     private Double totolPrice;
     private Double width;
     private Double height;
+    private Double pricePer1mm;
 
 
     public Integer getID() {
@@ -106,5 +107,13 @@ public class EachOrderModel {
 
     public void setTotolPrice(Double totolPrice) {
         this.totolPrice = totolPrice;
+    }
+
+    public Double getPricePer1mm() {
+        return pricePer1mm;
+    }
+
+    public void setPricePer1mm(Double pricePer1mm) {
+        this.pricePer1mm = pricePer1mm;
     }
 }

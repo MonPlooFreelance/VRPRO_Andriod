@@ -3,7 +3,6 @@ package vrpro.vrpro.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.SimpleTimeZone;
 
 import vrpro.vrpro.Model.EachOrderModel;
 import vrpro.vrpro.Model.OrderModel;
@@ -32,13 +30,13 @@ public class SQLiteUtil extends SQLiteOpenHelper {
     private String PROFILE_SALE_ID = "ID";
     private String PROFILE_SALE_NAME = "sale_name";
     private String PROFILE_SALE_PHONE = "sale_phone";
-    private String PROFILE_QUATATION_NO = "quotation_no";
-    private String PROFILE_QUATATION_RUNNING_NO = "quotation_running_no";
+    private String PROFILE_QUOTATION_NO = "quotation_no";
+    private String PROFILE_QUOTATION_RUNNING_NO = "quotation_running_no";
 
     private String ORDER_TABLE = "order_table";
     private String ORDER_ID = "ID";
-    private String ORDER_QUATATION_NO = "quotation_no";
-    private String ORDER_QUATATION_DATE = "quotation_date";
+    private String ORDER_QUOTATION_NO = "quotation_no";
+    private String ORDER_QUOTATION_DATE = "quotation_date";
     private String ORDER_PROJECT_NAME = "project_name";
     private String ORDER_CUSTOMER_NAME = "customer_name";
     private String ORDER_CUSTOMER_ADDRESS = "customer_address";
@@ -51,7 +49,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
     private String EACH_ORDER_TABLE = "each_order_list_table";
     private String EACH_ORDER_ID = "ID";
-    private String EACH_ORDER_QUATATION_NO = "quotation_no";
+    private String EACH_ORDER_QUOTATION_NO = "quotation_no";
     private String EACH_ORDER_FLOOR = "floor";
     private String EACH_ORDER_POSITION = "position";
     private String EACH_ORDER_DW = "dw";
@@ -61,6 +59,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
     private String EACH_ORDER_WIDTH = "width";
     private String EACH_ORDER_HEIGHT = "height";
     private String EACH_ORDER_TOTAL_PRICE = "total_price";
+    private String EACH_ORDER_PRICE_PER_1MM = "price_per_1mm";
 
     public SQLiteUtil(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -88,10 +87,10 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
     private void createTableEachOrderList(SQLiteDatabase db) {
         String CREATE_TABLE_EACH_ORDER_LIST = String.format("CREATE TABLE %s " +
-                        "(%s INTEGER PRIMARY KEY  AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+                        "(%s INTEGER PRIMARY KEY  AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 EACH_ORDER_TABLE,
                 EACH_ORDER_ID,
-                EACH_ORDER_QUATATION_NO,
+                EACH_ORDER_QUOTATION_NO,
                 EACH_ORDER_FLOOR,
                 EACH_ORDER_POSITION,
                 EACH_ORDER_DW,
@@ -100,7 +99,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
                 EACH_ORDER_SPECIAL_REQ,
                 EACH_ORDER_WIDTH,
                 EACH_ORDER_HEIGHT,
-                EACH_ORDER_TOTAL_PRICE);
+                EACH_ORDER_TOTAL_PRICE,
+                EACH_ORDER_PRICE_PER_1MM);
 
         db.execSQL(CREATE_TABLE_EACH_ORDER_LIST);
 
@@ -112,8 +112,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
                         "(%s INTEGER PRIMARY KEY  AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 ORDER_TABLE,
                 ORDER_ID,
-                ORDER_QUATATION_NO,
-                ORDER_QUATATION_DATE,
+                ORDER_QUOTATION_NO,
+                ORDER_QUOTATION_DATE,
                 ORDER_PROJECT_NAME,
                 ORDER_CUSTOMER_NAME,
                 ORDER_CUSTOMER_ADDRESS,
@@ -136,8 +136,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
                 PROFILE_SALE_ID,
                 PROFILE_SALE_NAME,
                 PROFILE_SALE_PHONE,
-                PROFILE_QUATATION_NO,
-                PROFILE_QUATATION_RUNNING_NO);
+                PROFILE_QUOTATION_NO,
+                PROFILE_QUOTATION_RUNNING_NO);
 
         db.execSQL(CREATE_TABLE_PROFILE_SALE);
 
@@ -153,8 +153,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(PROFILE_SALE_NAME, profileSaleModel.getSaleName());
         values.put(PROFILE_SALE_PHONE, profileSaleModel.getSalePhone());
-        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuotationNo());
-        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
+        values.put(PROFILE_QUOTATION_NO, profileSaleModel.getQuotationNo());
+        values.put(PROFILE_QUOTATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
 
         sqLiteDatabase.insert(PROFILE_SALE_TABLE, null, values);
 
@@ -195,8 +195,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
         values.put(PROFILE_SALE_NAME, profileSaleModel.getSaleName());
         values.put(PROFILE_SALE_PHONE, profileSaleModel.getSalePhone());
-        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuotationNo());
-        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
+        values.put(PROFILE_QUOTATION_NO, profileSaleModel.getQuotationNo());
+        values.put(PROFILE_QUOTATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
 
         int row = sqLiteDatabase.update(PROFILE_SALE_TABLE,
                 values,
@@ -211,8 +211,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         sqLiteDatabase = this.getWritableDatabase();
         Log.i(LOG_TAG,"orderModel.getRemarks() : " + orderModel.getRemarks());
         ContentValues values = new ContentValues();
-        values.put(ORDER_QUATATION_NO, orderModel.getQuotationNo());
-        values.put(ORDER_QUATATION_DATE, orderModel.getQuotationDate());
+        values.put(ORDER_QUOTATION_NO, orderModel.getQuotationNo());
+        values.put(ORDER_QUOTATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
         values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
@@ -271,7 +271,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         sqLiteDatabase = this.getWritableDatabase();
 
-        String selection = ORDER_QUATATION_NO+ " = ?"; // MISSING in your update!!
+        String selection = ORDER_QUOTATION_NO + " = ?"; // MISSING in your update!!
         String[] selectionArgs = new String[] { quotationNo };
 
 
@@ -306,8 +306,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         sqLiteDatabase  = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
-        values.put(ORDER_QUATATION_NO, orderModel.getQuotationNo());
-        values.put(ORDER_QUATATION_DATE, orderModel.getQuotationDate());
+        values.put(ORDER_QUOTATION_NO, orderModel.getQuotationNo());
+        values.put(ORDER_QUOTATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
         values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
@@ -345,7 +345,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuotationNo());
+        values.put(EACH_ORDER_QUOTATION_NO, eachOrderModel.getQuotationNo());
         values.put(EACH_ORDER_FLOOR, eachOrderModel.getFloor());
         values.put(EACH_ORDER_POSITION, eachOrderModel.getPosition());
         values.put(EACH_ORDER_DW, eachOrderModel.getDw());
@@ -355,7 +355,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_WIDTH, eachOrderModel.getWidth());
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
         values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotolPrice());
-
+        values.put(EACH_ORDER_PRICE_PER_1MM,eachOrderModel.getPricePer1mm());
 
         sqLiteDatabase.insert(EACH_ORDER_TABLE, null, values);
 
@@ -369,7 +369,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         sqLiteDatabase = this.getWritableDatabase();
 
-        String selection = EACH_ORDER_QUATATION_NO+ " = ?"; // MISSING in your update!!
+        String selection = EACH_ORDER_QUOTATION_NO + " = ?"; // MISSING in your update!!
         String[] selectionArgs = new String[] { quotationNo };
 
         Cursor cursor = sqLiteDatabase.query
@@ -392,6 +392,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setWidth(cursor.getDouble(8));
             eachOrderModel.setHeight(cursor.getDouble(9));
             eachOrderModel.setTotolPrice(cursor.getDouble(10));
+            eachOrderModel.setPricePer1mm(cursor.getDouble(11));
             eachOrderModelList.add(eachOrderModel);
             cursor.moveToNext();
 
@@ -430,7 +431,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setWidth(cursor.getDouble(8));
             eachOrderModel.setHeight(cursor.getDouble(9));
             eachOrderModel.setTotolPrice(cursor.getDouble(10));
-
+            eachOrderModel.setPricePer1mm(cursor.getDouble(11));
             cursor.moveToNext();
         }
         sqLiteDatabase.close();
@@ -457,7 +458,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
-        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuotationNo());
+        values.put(EACH_ORDER_QUOTATION_NO, eachOrderModel.getQuotationNo());
         values.put(EACH_ORDER_FLOOR, eachOrderModel.getFloor());
         values.put(EACH_ORDER_POSITION, eachOrderModel.getPosition());
         values.put(EACH_ORDER_DW, eachOrderModel.getDw());
@@ -467,6 +468,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_WIDTH, eachOrderModel.getWidth());
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
         values.put(EACH_ORDER_TOTAL_PRICE, eachOrderModel.getTotolPrice());
+        values.put(EACH_ORDER_PRICE_PER_1MM, eachOrderModel.getPricePer1mm());
 
         int row = sqLiteDatabase.update(EACH_ORDER_TABLE,
                 values,

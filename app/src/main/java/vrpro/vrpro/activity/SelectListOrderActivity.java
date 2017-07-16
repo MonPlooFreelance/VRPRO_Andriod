@@ -58,6 +58,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private String shared_eachOrderModel_id;
     private String grobalSelectSpecialCase;
     private ArrayList<String> grobalSpecialReq;
+    private Double pricePer1mm;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,17 +134,18 @@ public class SelectListOrderActivity extends AppCompatActivity {
                     if(eachOrderModelFromDB.getID() != null){
                         Log.i(LOG_TAG,"update eachOrderModel to DB");
                         updateEachOrderModelToDB();
-                        updateOrderModelToDB(totalPrice,"update");
+                        updateOrderModelToDB(totalPrice,"update",pricePer1mm);
 
                     }else{
                         Log.i(LOG_TAG,"insert eachOrderModel to DB");
                         insertEachOrderModelToDB();
-                        updateOrderModelToDB(totalPrice,"insert");
+                        updateOrderModelToDB(totalPrice,"insert",pricePer1mm);
                     }
 
                     gotoCreateOrderActivity();
                     Log.i(LOG_TAG,"Floor : " + floor + " position : " + position + " DW : " + DW +" typeOfM : " + typeOfM + " specialWord : " + specialWord + " specialReq : " + specialReq);
                     Log.i(LOG_TAG,"totalprice : " + totalPrice);
+                    Log.i(LOG_TAG,"pricePer1mm : " + pricePer1mm);
                 }
 
             }
@@ -150,7 +153,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     }
 
 
-    private void updateOrderModelToDB(Double totalPrice,String activityDB) {
+    private void updateOrderModelToDB(Double totalPrice,String activityDB,Double pricePer1mm) {
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         orderModelFromDB = new OrderModel();
         orderModelFromDB = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
@@ -174,6 +177,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
             tempTotalPrice =0.0;
         orderModelFromDB.setTotalPrice(tempTotalPrice);
         orderModelFromDB.setRealTotalPrice(tempRealTotalPrice+totalPrice);
+        orderModelFromDB.setRealTotalPrice(pricePer1mm);
         sqlLite.updateOrderModel(orderModelFromDB);
     }
 
@@ -329,6 +333,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
         }
+        pricePer1mm = tempPrice;
         return totalPrice;
     }
 
@@ -352,6 +357,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setWidth(Double.parseDouble(txtWidth.getText().toString()));
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
         eachOrderModel.setTotolPrice(totalPrice);
+        eachOrderModel.setPricePer1mm(pricePer1mm);
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         sqlLite.updateEachOrderModel(eachOrderModel);
     }
@@ -369,6 +375,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setWidth(Double.parseDouble(txtWidth.getText().toString()));
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
         eachOrderModel.setTotolPrice(totalPrice);
+        eachOrderModel.setPricePer1mm(pricePer1mm);
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         sqlLite.insertEachOrderModel(eachOrderModel);
     }
