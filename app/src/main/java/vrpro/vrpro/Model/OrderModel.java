@@ -7,8 +7,8 @@ package vrpro.vrpro.Model;
 public class OrderModel {
 
     private Integer ID;
-    private String quatationNo;
-    private String quatationDate;
+    private String quotationNo;
+    private String quotationDate;
     private String projectName;
     private String customerName;
     private String customerAdress;
@@ -27,20 +27,20 @@ public class OrderModel {
         this.ID = ID;
     }
 
-    public String getQuatationDate() {
-        return quatationDate;
+    public String getQuotationDate() {
+        return quotationDate;
     }
 
-    public void setQuatationDate(String quatationDate) {
-        this.quatationDate = quatationDate;
+    public void setQuotationDate(String quotationDate) {
+        this.quotationDate = quotationDate;
     }
 
-    public String getQuatationNo() {
-        return quatationNo;
+    public String getQuotationNo() {
+        return quotationNo;
     }
 
-    public void setQuatationNo(String quatationNo) {
-        this.quatationNo = quatationNo;
+    public void setQuotationNo(String quotationNo) {
+        this.quotationNo = quotationNo;
     }
 
     public String getProjectName() {

@@ -40,8 +40,8 @@ public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
                 inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.order_row, null);
 
-                holder.txtQuatationDate = (TextView) convertView.findViewById(R.id.quatationDate);
-                holder.txtQuatationNo = (TextView) convertView.findViewById(R.id.quatationNo);
+                holder.txtQuotationDate = (TextView) convertView.findViewById(R.id.quotationDate);
+                holder.txtQuotationNo = (TextView) convertView.findViewById(R.id.quotationNo);
                 holder.txtProjectName = (TextView) convertView.findViewById(R.id.projectName);
                 holder.txtCustomerName = (TextView) convertView.findViewById(R.id.customerName);
                 holder.txtTotalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
@@ -56,14 +56,14 @@ public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
 
             if (orderMap != null) {
                 Log.i(LOG_TAG,"if");
-//                holder.txtQuatationDate.setText(orderMap.get("quatationDate").toString());
-//                holder.txtQuatationNo.setText(orderMap.get("txtQuatationNo").toString());
+//                holder.txtQuotationDate.setText(orderMap.get("quotationDate").toString());
+//                holder.txtQuotationNo.setText(orderMap.get("txtQuotationNo").toString());
 //                holder.txtProjectName.setText(orderMap.get("txtProjectName").toString());
 //                holder.txtCustomerName.setText(orderMap.get("txtCustomerName").toString());
 //                holder.txtTotalPrice.setText(orderMap.get("txtTotalPrice").toString());
 
-                holder.txtQuatationDate.setText("24/06/2017");
-                holder.txtQuatationNo.setText("60#0-VR1043");
+                holder.txtQuotationDate.setText("24/06/2017");
+                holder.txtQuotationNo.setText("60#0-VR1043");
                 holder.txtProjectName.setText("ม.คาซ่า ศิตี้ ดอนเมือง ศรีสมาน");
                 holder.txtCustomerName.setText("จิราภัสร์ จิรเดชวิโรจน์");
                 holder.txtTotalPrice.setText("10,000 บาท");
@@ -78,8 +78,8 @@ public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
     }
 
     private static class ViewHolder {
-        TextView txtQuatationDate;
-        TextView txtQuatationNo;
+        TextView txtQuotationDate;
+        TextView txtQuotationNo;
         TextView txtProjectName;
         TextView txtCustomerName;
         TextView txtTotalPrice;

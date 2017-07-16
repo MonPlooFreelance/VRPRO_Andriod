@@ -41,7 +41,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtQuatationNo"
+            android:id="@+id/txtQuotationNo"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
@@ -59,14 +59,14 @@
             android:layout_height="50dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/txtQuatationNo"
-            android:layout_toRightOf="@+id/txtQuatationNo"
+            android:layout_toEndOf="@+id/txtQuotationNo"
+            android:layout_toRightOf="@+id/txtQuotationNo"
             android:gravity="center_vertical|left"
             android:text="วันที่ :"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtQuatationDate"
+            android:id="@+id/txtQuotationDate"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EachOrderModel {
     private Integer ID;
-    private String quatationNo;
+    private String quotationNo;
     private String floor;
     private String position;
     private String dw;
@@ -28,12 +28,12 @@ public class EachOrderModel {
         this.ID = ID;
     }
 
-    public String getQuatationNo() {
-        return quatationNo;
+    public String getQuotationNo() {
+        return quotationNo;
     }
 
-    public void setQuatationNo(String quatationNo) {
-        this.quatationNo = quatationNo;
+    public void setQuotationNo(String quotationNo) {
+        this.quotationNo = quotationNo;
     }
 
     public Double getWidth() {

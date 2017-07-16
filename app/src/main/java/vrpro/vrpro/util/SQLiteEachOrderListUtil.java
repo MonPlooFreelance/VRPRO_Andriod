@@ -27,7 +27,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
 
     private String EACH_ORDER_TABLE = "each_order_list";
     private String EACH_ORDER_ID = "ID";
-    private String EACH_ORDER_QUATATION_NO = "quatation_no";
+    private String EACH_ORDER_QUATATION_NO = "quotation_no";
     private String EACH_ORDER_FLOOR = "floor";
     private String EACH_ORDER_POSITION = "position";
     private String EACH_ORDER_DW = "dw";
@@ -85,7 +85,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuatationNo());
+        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuotationNo());
         values.put(EACH_ORDER_FLOOR, eachOrderModel.getFloor());
         values.put(EACH_ORDER_POSITION, eachOrderModel.getPosition());
         values.put(EACH_ORDER_DW, eachOrderModel.getDw());
@@ -102,15 +102,15 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public List<EachOrderModel> getEachOrderList(String quatationNo) {
-        Log.i(LOG_TAG,"getEachOrderList >>> quatationNo : " + quatationNo);
+    public List<EachOrderModel> getEachOrderList(String quotationNo) {
+        Log.i(LOG_TAG,"getEachOrderList >>> quotationNo : " + quotationNo);
         List<EachOrderModel> eachOrderModelList = new ArrayList<EachOrderModel>();
         EachOrderModel eachOrderModel;
 
         sqLiteDatabase = this.getWritableDatabase();
 
         String selection = EACH_ORDER_QUATATION_NO+ " = ?"; // MISSING in your update!!
-        String[] selectionArgs = new String[] { quatationNo };
+        String[] selectionArgs = new String[] { quotationNo };
 
         Cursor cursor = sqLiteDatabase.query
                 (EACH_ORDER_TABLE, null, selection, selectionArgs, null, null, null, null);
@@ -122,7 +122,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
         while(!cursor.isAfterLast()) {
             eachOrderModel = new EachOrderModel();
             eachOrderModel.setID(cursor.getInt(0));
-            eachOrderModel.setQuatationNo(cursor.getString(1));
+            eachOrderModel.setQuotationNo(cursor.getString(1));
             eachOrderModel.setFloor(cursor.getString(2));
             eachOrderModel.setPosition(cursor.getString(3));
             eachOrderModel.setDw(cursor.getString(4));

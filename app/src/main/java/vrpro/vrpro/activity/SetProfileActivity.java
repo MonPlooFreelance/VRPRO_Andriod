@@ -23,8 +23,8 @@ public class SetProfileActivity extends AppCompatActivity {
     private final String LOG_TAG = "SetProfileActivity";
     private EditText txtSaleName;
     private EditText txtPhoneNumber;
-    private EditText txtSetQuatationNo;
-    private EditText txtSetQuatationRunningNo;
+    private EditText txtSetQuotationNo;
+    private EditText txtSetQuotationRunningNo;
     private SQLiteUtil sqlLite;
     private ProfileSaleModel profileSaleModel;
     private ProfileSaleModel profileSaleModelFromDB;
@@ -46,8 +46,8 @@ public class SetProfileActivity extends AppCompatActivity {
 
         txtSaleName = (EditText) findViewById(R.id.txtsaleName);
         txtPhoneNumber = (EditText) findViewById(R.id.txtphoneNumber);
-        txtSetQuatationNo = (EditText) findViewById(R.id.txtSetQuatationNo);
-        txtSetQuatationRunningNo = (EditText) findViewById(R.id.txtSetQuatationRunningNo);
+        txtSetQuotationNo = (EditText) findViewById(R.id.txtSetQuotationNo);
+        txtSetQuotationRunningNo = (EditText) findViewById(R.id.txtSetQuotationRunningNo);
 
         initialProfile();
 
@@ -64,8 +64,8 @@ public class SetProfileActivity extends AppCompatActivity {
     private void initialProfile() {
         TextView txtvwUserName = (TextView) findViewById(R.id.viewUsername);
         TextView txtvwUserPhone = (TextView) findViewById(R.id.viewPhoneNumber);
-        TextView txtvwQuatationNo = (TextView) findViewById(R.id.viewQuatationNo);
-        TextView txtvwQuatationRunningNo = (TextView) findViewById(R.id.viewQuatationRunningNo);
+        TextView txtvwQuotationNo = (TextView) findViewById(R.id.viewQuotationNo);
+        TextView txtvwQuotationRunningNo = (TextView) findViewById(R.id.viewQuotationRunningNo);
 
         sqlLite = new SQLiteUtil(this);
         profileSaleModelFromDB = sqlLite.getProfileSaleModel();
@@ -73,14 +73,14 @@ public class SetProfileActivity extends AppCompatActivity {
             Log.i(LOG_TAG,"Ever set profile in DB");
             txtvwUserName.setText(profileSaleModelFromDB.getSaleName());
             txtvwUserPhone.setText(profileSaleModelFromDB.getSalePhone());
-            txtvwQuatationNo.setText(profileSaleModelFromDB.getQuatationNo());
-            txtvwQuatationRunningNo.setText(String.valueOf(profileSaleModelFromDB.getQuatationRunningNo()));
+            txtvwQuotationNo.setText(profileSaleModelFromDB.getQuotationNo());
+            txtvwQuotationRunningNo.setText(String.valueOf(profileSaleModelFromDB.getQuotationRunningNo()));
         }else{
             Log.i(LOG_TAG,"Not set profile in DB");
             txtvwUserName.setText("");
             txtvwUserPhone.setText("");
-            txtvwQuatationNo.setText("");
-            txtvwQuatationRunningNo.setText("");
+            txtvwQuotationNo.setText("");
+            txtvwQuotationRunningNo.setText("");
         }
     }
 
@@ -88,7 +88,7 @@ public class SetProfileActivity extends AppCompatActivity {
         if (isInputsEmpty()) {
             Toast.makeText(this, "Please enter your name, phone number and quataion.", Toast.LENGTH_SHORT).show();
         } else {
-            Log.i(LOG_TAG, "sale name : " + txtSaleName.getText().toString() + " phone number : " + txtPhoneNumber.getText().toString()+ " quatation no : " + txtSetQuatationNo.getText().toString() + "running no : " + txtSetQuatationRunningNo.getText().toString());
+            Log.i(LOG_TAG, "sale name : " + txtSaleName.getText().toString() + " phone number : " + txtPhoneNumber.getText().toString()+ " quotation no : " + txtSetQuotationNo.getText().toString() + "running no : " + txtSetQuotationRunningNo.getText().toString());
             sqlLite = new SQLiteUtil(this);
             profileSaleModelFromDB = sqlLite.getProfileSaleModel();
             if(profileSaleModelFromDB.getSaleName() != null){
@@ -98,8 +98,8 @@ public class SetProfileActivity extends AppCompatActivity {
             }
 
             editor = sharedPref.edit();
-            editor.putString("quatationNoDefine", txtSetQuatationNo.getText().toString());
-            editor.putInt("quatationRunningNoDefine", Integer.parseInt(txtSetQuatationRunningNo.getText().toString()));
+            editor.putString("quotationNoDefine", txtSetQuotationNo.getText().toString());
+            editor.putInt("quotationRunningNoDefine", Integer.parseInt(txtSetQuotationRunningNo.getText().toString()));
             editor.putString("everCreateOrder", null);
             editor.commit();
             gotoHomeActicity();
@@ -110,8 +110,8 @@ public class SetProfileActivity extends AppCompatActivity {
         profileSaleModel = new ProfileSaleModel();
         profileSaleModel.setSaleName(txtSaleName.getText().toString());
         profileSaleModel.setSalePhone(txtPhoneNumber.getText().toString());
-        profileSaleModel.setQuatationNo(txtSetQuatationNo.getText().toString());
-        profileSaleModel.setQuatationRunningNo(Integer.parseInt(txtSetQuatationRunningNo.getText().toString()));
+        profileSaleModel.setQuotationNo(txtSetQuotationNo.getText().toString());
+        profileSaleModel.setQuotationRunningNo(Integer.parseInt(txtSetQuotationRunningNo.getText().toString()));
         profileSaleModel.setID(profileSaleModelFromDB.getID());
         sqlLite = new SQLiteUtil(this);
         sqlLite.updateProfileSaleModel(profileSaleModel);
@@ -121,14 +121,14 @@ public class SetProfileActivity extends AppCompatActivity {
         profileSaleModel = new ProfileSaleModel();
         profileSaleModel.setSaleName(txtSaleName.getText().toString());
         profileSaleModel.setSalePhone(txtPhoneNumber.getText().toString());
-        profileSaleModel.setQuatationNo(txtSetQuatationNo.getText().toString());
-        profileSaleModel.setQuatationRunningNo(Integer.parseInt(txtSetQuatationRunningNo.getText().toString()));
+        profileSaleModel.setQuotationNo(txtSetQuotationNo.getText().toString());
+        profileSaleModel.setQuotationRunningNo(Integer.parseInt(txtSetQuotationRunningNo.getText().toString()));
         sqlLite = new SQLiteUtil(this);
         sqlLite.insertProfileSaleModel(profileSaleModel);
     }
 
     private boolean isInputsEmpty() {
-        return isEmpty(txtSaleName) || isEmpty(txtPhoneNumber) || isEmpty(txtSetQuatationNo) || isEmpty(txtSetQuatationRunningNo);
+        return isEmpty(txtSaleName) || isEmpty(txtPhoneNumber) || isEmpty(txtSetQuotationNo) || isEmpty(txtSetQuotationRunningNo);
     }
 
     private boolean isEmpty(EditText etText) {

@@ -140,16 +140,16 @@ public class HomeActivity extends AppCompatActivity {
 
     private void gotoCreateOrderActivity(String position) {
         Log.i(LOG_TAG,"gotoCreateOrderActivity >>>. " + position );
-        String shared_quatationNoDefine = sharedPref.getString("quatationNoDefine",null);
-        if(shared_quatationNoDefine == null){
-            Toast.makeText(this, "Please set quatation number before create new order.", Toast.LENGTH_SHORT).show();
+        String shared_quotationNoDefine = sharedPref.getString("quotationNoDefine",null);
+        if(shared_quotationNoDefine == null){
+            Toast.makeText(this, "Please set quotation number before create new order.", Toast.LENGTH_SHORT).show();
         }else{
             Intent myIntent = new Intent(HomeActivity.this, CreateOrderActivity.class);
             editor = sharedPref.edit();
             if(position.equals("CREATE NEW ORDER")){
-                editor.putString("quatationNo", "CREATE NEW ORDER");
+                editor.putString("quotationNo", "CREATE NEW ORDER");
             }else{
-                editor.putString("quatationNo",orderModelList.get(Integer.parseInt(position)).getQuatationNo());
+                editor.putString("quotationNo",orderModelList.get(Integer.parseInt(position)).getQuotationNo());
             }
             editor.commit();
             startActivity(myIntent);

@@ -1,11 +1,17 @@
 package vrpro.vrpro.activity;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +44,7 @@ import vrpro.vrpro.Model.OrderModel;
 import vrpro.vrpro.Model.ProfileSaleModel;
 import vrpro.vrpro.R;
 import vrpro.vrpro.adapter.ListEachOrderAdapter;
+import vrpro.vrpro.util.PDFTemplateUtils;
 import vrpro.vrpro.util.SQLiteEachOrderListUtil;
 import vrpro.vrpro.util.SQLiteUtil;
 
@@ -47,8 +55,8 @@ public class CreateOrderActivity extends AppCompatActivity {
     private Toolbar mActionBarToolbar;
     private ListView listEachOrderListView;
     private SQLiteUtil sqlLite;
-    private String quatationNo;
-    private String quatationDate;
+    private String quotationNo;
+    private String quotationDate;
     private String projectName;
     private String customerName;
     private String customerAdress;
@@ -58,8 +66,8 @@ public class CreateOrderActivity extends AppCompatActivity {
     private String discount;
     private Double totalPrice;
 
-    private TextView txtQuatationNo;
-    private TextView txtQuatationDate;
+    private TextView txtQuotationNo;
+    private TextView txtQuotationDate;
     private EditText txtProjectName;
     private EditText txtCustomerName;
     private EditText txtCustomerAdress;
@@ -73,9 +81,9 @@ public class CreateOrderActivity extends AppCompatActivity {
     private OrderModel orderModelFromDB;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
-    private String shared_quatationNo;
-    private String shared_quatationNoDefine;
-    private Integer shared_quatationRunningNoDefine;
+    private String shared_quotationNo;
+    private String shared_quotationNoDefine;
+    private Integer shared_quotationRunningNoDefine;
     private String shared_everCreareOrder;
     private Integer runningQuataionNo;
 
@@ -93,8 +101,8 @@ public class CreateOrderActivity extends AppCompatActivity {
 
         sharedPref = this.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
 
-        txtQuatationNo = (TextView) findViewById(R.id.txtQuatationNo);
-        txtQuatationDate = (TextView) findViewById(R.id.txtQuatationDate);
+        txtQuotationNo = (TextView) findViewById(R.id.txtQuotationNo);
+        txtQuotationDate = (TextView) findViewById(R.id.txtQuotationDate);
         txtProjectName = (EditText) findViewById(R.id.txtProjectName);
         txtCustomerName = (EditText) findViewById(R.id.txtCustomerName);
         txtCustomerAdress = (EditText) findViewById(R.id.txtCustomerAddress);
@@ -104,9 +112,9 @@ public class CreateOrderActivity extends AppCompatActivity {
         txtDiscount = (EditText) findViewById(R.id.txtDiscount);
         txtTotalPrice = (TextView) findViewById(R.id.txtTotalPrice);
 
-        shared_quatationNo = sharedPref.getString("quatationNo",null);
-        shared_quatationNoDefine = sharedPref.getString("quatationNoDefine",null);
-        shared_quatationRunningNoDefine = sharedPref.getInt("quatationRunningNoDefine",0);
+        shared_quotationNo = sharedPref.getString("quotationNo",null);
+        shared_quotationNoDefine = sharedPref.getString("quotationNoDefine",null);
+        shared_quotationRunningNoDefine = sharedPref.getInt("quotationRunningNoDefine",0);
         shared_everCreareOrder = sharedPref.getString("everCreateOrder",null);
 
 
@@ -138,7 +146,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         summaryPriceBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_TAG, "summary price");
+                isStoragePermissionGranted();
             }
         });
 
@@ -150,7 +158,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                     Toast.makeText(CreateOrderActivity.this, "กรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
                 }else{
 
-                    if(orderModelFromDB.getQuatationNo() != null){
+                    if(orderModelFromDB.getQuotationNo() != null){
                         Log.i(LOG_TAG,"Update Order");
                         totalPrice = Double.parseDouble(txtTotalPrice.getText().toString());
                         updateOrderModelToDB(totalPrice,orderModelFromDB.getRealTotalPrice());
@@ -159,7 +167,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                     }else{
                         Log.i(LOG_TAG,"Save Order");
                         saveOrderToDB();
-                        setQuatationNoDefineToSharedPref();
+                        setQuotationNoDefineToSharedPref();
                         setEverCreateOrderToSharedPref();
                         gotoHomeActivity();
                     }
@@ -168,19 +176,103 @@ public class CreateOrderActivity extends AppCompatActivity {
         });
     }
 
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(LOG_TAG,"Permission is granted");
+                generatePDF();
+                return true;
+            } else {
+
+                Log.v(LOG_TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else {
+            Log.v(LOG_TAG,"Permission is granted");
+            generatePDF();
+            return true;
+        }
+    }
+
+    public void generatePDF() {
+        String filepath = "VRPRO";
+        String filename = shared_quotationNo+".pdf";
+        if (isExternalStorageAvailable() && !isExternalStorageReadOnly()) {
+            Log.i(LOG_TAG, "file name : "+filename);
+            OrderModel orderModel = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
+            List<EachOrderModel> eachOrderModelList = sqlLite.getEachOrderModelListByQuotationNo(shared_quotationNo);
+            ProfileSaleModel profileSaleModel = sqlLite.getProfileSaleModel();
+            PDFTemplateUtils fop = new PDFTemplateUtils(CreateOrderActivity.this, orderModel, eachOrderModelList, profileSaleModel);
+            File file = new File(getExternalFilesDir(filepath), filename);
+            Log.i(LOG_TAG, "write path : "+file.getAbsolutePath());
+            if (fop.write(file)) {
+                Toast.makeText(getApplicationContext(),
+                        filename + " created", Toast.LENGTH_SHORT)
+                        .show();
+                openFile(filepath, filename);
+            } else {
+                Toast.makeText(getApplicationContext(), "I/O error",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "External Storage is Not Avaliable.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void openFile(String filepath, String fileName){
+        final File file = new File(getExternalFilesDir(filepath), fileName);
+//        File file = new File("/sdcard/"+fileName+".pdf");
+        Log.i(LOG_TAG, "read file : "+file.getAbsolutePath());
+        if (file.exists()) {
+            Log.i(LOG_TAG, "found file");
+            Uri path = Uri.fromFile(file);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(path, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            try {
+                startActivity(intent);
+            }
+            catch (ActivityNotFoundException e) {
+                Toast.makeText(CreateOrderActivity.this,
+                        "No Application Available to View PDF",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         sqlLite = new SQLiteUtil(CreateOrderActivity.this);
         orderModelFromDB = new OrderModel();
-        orderModelFromDB = sqlLite.getOrderModelByQuatationNo(shared_quatationNo);
+        orderModelFromDB = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
         initialData();
     }
 
     private void updateOrderModelToDB(Double totalPrice,Double realTotalPrice) {
         Log.i(LOG_TAG,"updateOrderModelToDB");
-        Log.i(LOG_TAG,"quatationNo : " +  txtQuatationNo.getText().toString());
-        Log.i(LOG_TAG,"quatationDate : " + txtQuatationDate.getText().toString());
+        Log.i(LOG_TAG,"quotationNo : " +  txtQuotationNo.getText().toString());
+        Log.i(LOG_TAG,"quotationDate : " + txtQuotationDate.getText().toString());
         Log.i(LOG_TAG,"projectName : " + txtProjectName.getText().toString());
         Log.i(LOG_TAG,"customerName : " + txtCustomerName.getText().toString());
         Log.i(LOG_TAG,"customerAdress : " + txtCustomerAdress.getText().toString());
@@ -193,8 +285,8 @@ public class CreateOrderActivity extends AppCompatActivity {
 
         orderModel = new OrderModel();
         orderModel.setID(orderModelFromDB.getID());
-        orderModel.setQuatationNo( txtQuatationNo.getText().toString());
-        orderModel.setQuatationDate(txtQuatationDate.getText().toString());
+        orderModel.setQuotationNo( txtQuotationNo.getText().toString());
+        orderModel.setQuotationDate(txtQuotationDate.getText().toString());
         orderModel.setProjectName(txtProjectName.getText().toString());
         orderModel.setCustomerName(txtCustomerName.getText().toString());
         orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
@@ -209,43 +301,43 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private void initialData(){
-        Log.i(LOG_TAG,"shared_quatationNo : " + shared_quatationNo);
-        Log.i(LOG_TAG,"shared_quatationNoDefine : " + shared_quatationNoDefine);
-        Log.i(LOG_TAG,"shared_quatationRunningNoDefine : " + shared_quatationRunningNoDefine);
+        Log.i(LOG_TAG,"shared_quotationNo : " + shared_quotationNo);
+        Log.i(LOG_TAG,"shared_quotationNoDefine : " + shared_quotationNoDefine);
+        Log.i(LOG_TAG,"shared_quotationRunningNoDefine : " + shared_quotationRunningNoDefine);
         Log.i(LOG_TAG,"shared_everCreateOrder : " + shared_everCreareOrder);
-        if(shared_quatationNo.equals("CREATE NEW ORDER")){
+        if(shared_quotationNo.equals("CREATE NEW ORDER")){
             Log.i(LOG_TAG,"Create New Order");
-            if(shared_quatationRunningNoDefine == 0){
-                shared_quatationRunningNoDefine = shared_quatationRunningNoDefine + 1;
+            if(shared_quotationRunningNoDefine == 0){
+                shared_quotationRunningNoDefine = shared_quotationRunningNoDefine + 1;
             }
             sqlLite = new SQLiteUtil(this);
             ProfileSaleModel profileSaleModelFromDB = sqlLite.getProfileSaleModel();
-            Log.i(LOG_TAG,">> getQuatationRunningNo " + profileSaleModelFromDB.getQuatationRunningNo());
+            Log.i(LOG_TAG,">> getQuotationRunningNo " + profileSaleModelFromDB.getQuotationRunningNo());
             if(shared_everCreareOrder == null){
                 Log.i(LOG_TAG,"First Order Of Sale");
-                runningQuataionNo = shared_quatationRunningNoDefine;
-                txtQuatationNo.setText(shared_quatationNoDefine+shared_quatationRunningNoDefine);
+                runningQuataionNo = shared_quotationRunningNoDefine;
+                txtQuotationNo.setText(shared_quotationNoDefine+shared_quotationRunningNoDefine);
                 txtTotalPrice.setText("0.0");
             }else {
                 Log.i(LOG_TAG, "Not First Order Of Sale");
-                runningQuataionNo = shared_quatationRunningNoDefine + 1;
-                String showQautationNo = shared_quatationNoDefine + String.valueOf(runningQuataionNo);
+                runningQuataionNo = shared_quotationRunningNoDefine + 1;
+                String showQautationNo = shared_quotationNoDefine + String.valueOf(runningQuataionNo);
                 Log.i(LOG_TAG, "showQautationNo : " + showQautationNo);
-                txtQuatationNo.setText(showQautationNo);
+                txtQuotationNo.setText(showQautationNo);
                 txtTotalPrice.setText("0.0");
             }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             sdf.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-            txtQuatationDate.setText(sdf.format(calendar.getTime()));
-            setQuatationNoToSharedPref();
+            txtQuotationDate.setText(sdf.format(calendar.getTime()));
+            setQuotationNoToSharedPref();
 
         }else {
-            Log.i(LOG_TAG, "Open Order Quatation No : " + shared_quatationNo);
+            Log.i(LOG_TAG, "Open Order Quotation No : " + shared_quotationNo);
             sqlLite = new SQLiteUtil(CreateOrderActivity.this);
-            txtQuatationNo.setText(orderModelFromDB.getQuatationNo());
-            txtQuatationDate.setText(orderModelFromDB.getQuatationDate());
+            txtQuotationNo.setText(orderModelFromDB.getQuotationNo());
+            txtQuotationDate.setText(orderModelFromDB.getQuotationDate());
             txtProjectName.setText(orderModelFromDB.getProjectName());
             txtCustomerName.setText(orderModelFromDB.getCustomerName());
             txtCustomerAdress.setText(orderModelFromDB.getCustomerAdress());
@@ -254,20 +346,20 @@ public class CreateOrderActivity extends AppCompatActivity {
             txtRemarks.setText(orderModelFromDB.getRemarks());
             txtDiscount.setText(String.valueOf(orderModelFromDB.getDiscount()));
             txtTotalPrice.setText(String.valueOf(orderModelFromDB.getTotalPrice()));
-            getDataToListView(shared_quatationNo);
+            getDataToListView(shared_quotationNo);
         }
     }
 
-    private void setQuatationNoToSharedPref() {
+    private void setQuotationNoToSharedPref() {
         editor = sharedPref.edit();
-        editor.putString("quatationNo", txtQuatationNo.getText().toString());
+        editor.putString("quotationNo", txtQuotationNo.getText().toString());
         editor.commit();
     }
 
-    private void setQuatationNoDefineToSharedPref() {
+    private void setQuotationNoDefineToSharedPref() {
         editor = sharedPref.edit();
-        editor.putString("quatationNoDefine", shared_quatationNoDefine);
-        editor.putInt("quatationRunningNoDefine",runningQuataionNo);
+        editor.putString("quotationNoDefine", shared_quotationNoDefine);
+        editor.putInt("quotationRunningNoDefine",runningQuataionNo);
         editor.commit();
     }
 
@@ -278,8 +370,8 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private void saveOrderToDB() {
-        quatationNo = txtQuatationNo.getText().toString();
-        quatationDate =  txtQuatationDate.getText().toString();
+        quotationNo = txtQuotationNo.getText().toString();
+        quotationDate =  txtQuotationDate.getText().toString();
         projectName = txtProjectName.getText().toString();
         customerName = txtCustomerName.getText().toString();
         customerAdress = txtCustomerAdress.getText().toString();
@@ -290,8 +382,8 @@ public class CreateOrderActivity extends AppCompatActivity {
         discount = txtDiscount.getText().toString();
         totalPrice = Double.parseDouble(txtTotalPrice.getText().toString());
 
-        Log.i(LOG_TAG,"quatationNo : " + quatationNo);
-        Log.i(LOG_TAG,"quatationDate : " + quatationDate);
+        Log.i(LOG_TAG,"quotationNo : " + quotationNo);
+        Log.i(LOG_TAG,"quotationDate : " + quotationDate);
         Log.i(LOG_TAG,"projectName : " + projectName);
         Log.i(LOG_TAG,"customerName : " + customerName);
         Log.i(LOG_TAG,"customerAdress : " + customerAdress);
@@ -302,8 +394,8 @@ public class CreateOrderActivity extends AppCompatActivity {
         Log.i(LOG_TAG,"totalPrice : " + totalPrice);
 
         orderModel = new OrderModel();
-        orderModel.setQuatationNo(quatationNo);
-        orderModel.setQuatationDate(quatationDate);
+        orderModel.setQuotationNo(quotationNo);
+        orderModel.setQuotationDate(quotationDate);
         orderModel.setProjectName(projectName);
         orderModel.setCustomerName(customerName);
         orderModel.setCustomerAdress(customerAdress);
@@ -339,11 +431,11 @@ public class CreateOrderActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getDataToListView(String quatationNo) {
+    private void getDataToListView(String quotationNo) {
         eachOrderModelList = new ArrayList<EachOrderModel>();
         sqlLite = new SQLiteUtil(this);
 
-        eachOrderModelList  = sqlLite.getEachOrderModelListByQuatationNo(quatationNo);
+        eachOrderModelList  = sqlLite.getEachOrderModelListByQuotationNo(quotationNo);
         listEachOrderListView = (ListView) findViewById(R.id.listViewEachOrder);
 
         ListEachOrderAdapter listEachOrderAdaper = new ListEachOrderAdapter(this, eachOrderModelList);
@@ -414,11 +506,11 @@ public class CreateOrderActivity extends AppCompatActivity {
                 }else{
                     sqlLite = new SQLiteUtil(CreateOrderActivity.this);
                     orderModelFromDB = new OrderModel();
-                    orderModelFromDB = sqlLite.getOrderModelByQuatationNo(shared_quatationNo);
-                    if(orderModelFromDB.getQuatationNo() == null){
+                    orderModelFromDB = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
+                    if(orderModelFromDB.getQuotationNo() == null){
                         Log.i(LOG_TAG,"Save Order");
                         saveOrderToDB();
-                        setQuatationNoDefineToSharedPref();
+                        setQuotationNoDefineToSharedPref();
                         setEverCreateOrderToSharedPref();
                     }
                     gotoSelectListActivity("CREATE NEW EACH ORDER");
@@ -442,7 +534,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         }
 
         updateOrderModelToDB(totalPrice,realTotalPrice);
-        getDataToListView(shared_quatationNo);
+        getDataToListView(shared_quotationNo);
         onStart();
     }
 
@@ -456,7 +548,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
 //    private void gotoSelectListActivity() {
 //        Intent myIntent = new Intent(this, SelectListOrderActivity.class);
-////        myIntent.putExtra("quatationNo",quatationNo);
+////        myIntent.putExtra("quotationNo",quotationNo);
 //        this.startActivity(myIntent);
 //    }
 

@@ -59,20 +59,20 @@ public class ListOrderAdapter extends BaseAdapter {
         if(convertView == null)
             convertView = layoutInflater.inflate(R.layout.order_row, null);
         holder = new ListOrderAdapter.ViewHolder();
-        holder.txtQuatationDate = (TextView) convertView.findViewById(R.id.quatationDate);
-        holder.txtQuatationNo = (TextView) convertView.findViewById(R.id.quatationNo);
+        holder.txtQuotationDate = (TextView) convertView.findViewById(R.id.quotationDate);
+        holder.txtQuotationNo = (TextView) convertView.findViewById(R.id.quotationNo);
         holder.txtProjectName = (TextView) convertView.findViewById(R.id.projectName);
         holder.txtCustomerName = (TextView) convertView.findViewById(R.id.customerName);
         holder.txtTotalPrice = (TextView) convertView.findViewById(R.id.totalPrice);
 
-        holder.txtQuatationDate.setText(orderModel.getQuatationDate());
-        holder.txtQuatationNo.setText(orderModel.getQuatationNo());
+        holder.txtQuotationDate.setText(orderModel.getQuotationDate());
+        holder.txtQuotationNo.setText(orderModel.getQuotationNo());
         holder.txtProjectName.setText(orderModel.getProjectName());
         holder.txtCustomerName.setText(orderModel.getCustomerName());
         holder.txtTotalPrice.setText(String.valueOf(orderModel.getTotalPrice()));
 
-//        holder.txtQuatationDate.setText("24/06/2017");
-//        holder.txtQuatationNo.setText("60#0-VR1043");
+//        holder.txtQuotationDate.setText("24/06/2017");
+//        holder.txtQuotationNo.setText("60#0-VR1043");
 //        holder.txtProjectName.setText("ม.คาซ่า ศิตี้ ดอนเมือง ศรีสมาน");
 //        holder.txtCustomerName.setText("จิราภัสร์ จิรเดชวิโรจน์");
 //        holder.txtTotalPrice.setText("10,000 บาท");
@@ -81,8 +81,8 @@ public class ListOrderAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        TextView txtQuatationDate;
-        TextView txtQuatationNo;
+        TextView txtQuotationDate;
+        TextView txtQuotationNo;
         TextView txtProjectName;
         TextView txtCustomerName;
         TextView txtTotalPrice;

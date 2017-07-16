@@ -8,8 +8,8 @@ public class ProfileSaleModel {
     private Integer ID;
     private String saleName;
     private String salePhone;
-    private String quatationNo;
-    private Integer quatationRunningNo;
+    private String quotationNo;
+    private Integer quotationRunningNo;
 
     public Integer getID() {
         return ID;
@@ -35,19 +35,19 @@ public class ProfileSaleModel {
         this.salePhone = salePhone;
     }
 
-    public String getQuatationNo() {
-        return quatationNo;
+    public String getQuotationNo() {
+        return quotationNo;
     }
 
-    public void setQuatationNo(String quatationNo) {
-        this.quatationNo = quatationNo;
+    public void setQuotationNo(String quotationNo) {
+        this.quotationNo = quotationNo;
     }
 
-    public Integer getQuatationRunningNo() {
-        return quatationRunningNo;
+    public Integer getQuotationRunningNo() {
+        return quotationRunningNo;
     }
 
-    public void setQuatationRunningNo(Integer quatationRunningNo) {
-        this.quatationRunningNo = quatationRunningNo;
+    public void setQuotationRunningNo(Integer quotationRunningNo) {
+        this.quotationRunningNo = quotationRunningNo;
     }
 }

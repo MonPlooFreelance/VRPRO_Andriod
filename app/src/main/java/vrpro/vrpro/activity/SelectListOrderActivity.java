@@ -47,7 +47,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private Integer posSpecialWord;
     private Integer sizeOfspecialReq;
     private Double totalPrice = 0.0;
-    private String shared_quatationNo;
+    private String shared_quotationNo;
     EditText txtWidth;
     EditText txtHeight;
     private SQLiteUtil sqlLite;
@@ -69,10 +69,10 @@ public class SelectListOrderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("รายการ");
 
         sharedPref = this.getSharedPreferences("vrpro.vrpro", Context.MODE_PRIVATE);
-        shared_quatationNo = sharedPref.getString("quatationNo",null);
+        shared_quotationNo = sharedPref.getString("quotationNo",null);
         shared_eachOrderModel_id = sharedPref.getString("eachOrderModel_id",null);
 
-        Log.i(LOG_TAG,"shared_quatationNo : " + shared_quatationNo);
+        Log.i(LOG_TAG,"shared_quotationNo : " + shared_quotationNo);
 
         txtWidth = (EditText) findViewById(R.id.txtWidthEachOrder);
         txtHeight = (EditText) findViewById(R.id.txtHeightEachOrder);
@@ -153,7 +153,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private void updateOrderModelToDB(Double totalPrice,String activityDB) {
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         orderModelFromDB = new OrderModel();
-        orderModelFromDB = sqlLite.getOrderModelByQuatationNo(shared_quatationNo);
+        orderModelFromDB = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
         double tempTotalPrice=0.0;
         Double tempRealTotalPrice=0.0;
         Log.i(LOG_TAG,"totalPrice : " + totalPrice);
@@ -342,7 +342,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private void updateEachOrderModelToDB() {
         EachOrderModel eachOrderModel = new EachOrderModel();
         eachOrderModel.setID(eachOrderModelFromDB.getID());
-        eachOrderModel.setQuatationNo(shared_quatationNo);
+        eachOrderModel.setQuotationNo(shared_quotationNo);
         eachOrderModel.setFloor(floor);
         eachOrderModel.setPosition(position);
         eachOrderModel.setDw(DW);
@@ -359,7 +359,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
     private void insertEachOrderModelToDB() {
         EachOrderModel eachOrderModel = new EachOrderModel();
-        eachOrderModel.setQuatationNo(shared_quatationNo);
+        eachOrderModel.setQuotationNo(shared_quotationNo);
         eachOrderModel.setFloor(floor);
         eachOrderModel.setPosition(position);
         eachOrderModel.setDw(DW);

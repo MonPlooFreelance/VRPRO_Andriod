@@ -32,13 +32,13 @@ public class SQLiteUtil extends SQLiteOpenHelper {
     private String PROFILE_SALE_ID = "ID";
     private String PROFILE_SALE_NAME = "sale_name";
     private String PROFILE_SALE_PHONE = "sale_phone";
-    private String PROFILE_QUATATION_NO = "quatation_no";
-    private String PROFILE_QUATATION_RUNNING_NO = "quatation_running_no";
+    private String PROFILE_QUATATION_NO = "quotation_no";
+    private String PROFILE_QUATATION_RUNNING_NO = "quotation_running_no";
 
     private String ORDER_TABLE = "order_table";
     private String ORDER_ID = "ID";
-    private String ORDER_QUATATION_NO = "quatation_no";
-    private String ORDER_QUATATION_DATE = "quatation_date";
+    private String ORDER_QUATATION_NO = "quotation_no";
+    private String ORDER_QUATATION_DATE = "quotation_date";
     private String ORDER_PROJECT_NAME = "project_name";
     private String ORDER_CUSTOMER_NAME = "customer_name";
     private String ORDER_CUSTOMER_ADDRESS = "customer_address";
@@ -51,7 +51,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
     private String EACH_ORDER_TABLE = "each_order_list_table";
     private String EACH_ORDER_ID = "ID";
-    private String EACH_ORDER_QUATATION_NO = "quatation_no";
+    private String EACH_ORDER_QUATATION_NO = "quotation_no";
     private String EACH_ORDER_FLOOR = "floor";
     private String EACH_ORDER_POSITION = "position";
     private String EACH_ORDER_DW = "dw";
@@ -153,8 +153,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(PROFILE_SALE_NAME, profileSaleModel.getSaleName());
         values.put(PROFILE_SALE_PHONE, profileSaleModel.getSalePhone());
-        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuatationNo());
-        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuatationRunningNo());
+        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuotationNo());
+        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
 
         sqLiteDatabase.insert(PROFILE_SALE_TABLE, null, values);
 
@@ -178,8 +178,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             profileSaleModel.setID(cursor.getInt(0));
             profileSaleModel.setSaleName(cursor.getString(1));
             profileSaleModel.setSalePhone(cursor.getString(2));
-            profileSaleModel.setQuatationNo(cursor.getString(3));
-            profileSaleModel.setQuatationRunningNo(cursor.getInt(4));
+            profileSaleModel.setQuotationNo(cursor.getString(3));
+            profileSaleModel.setQuotationRunningNo(cursor.getInt(4));
             cursor.moveToNext();
         }
         sqLiteDatabase.close();
@@ -195,8 +195,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
         values.put(PROFILE_SALE_NAME, profileSaleModel.getSaleName());
         values.put(PROFILE_SALE_PHONE, profileSaleModel.getSalePhone());
-        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuatationNo());
-        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuatationRunningNo());
+        values.put(PROFILE_QUATATION_NO, profileSaleModel.getQuotationNo());
+        values.put(PROFILE_QUATATION_RUNNING_NO, profileSaleModel.getQuotationRunningNo());
 
         int row = sqLiteDatabase.update(PROFILE_SALE_TABLE,
                 values,
@@ -211,8 +211,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         sqLiteDatabase = this.getWritableDatabase();
         Log.i(LOG_TAG,"orderModel.getRemarks() : " + orderModel.getRemarks());
         ContentValues values = new ContentValues();
-        values.put(ORDER_QUATATION_NO, orderModel.getQuatationNo());
-        values.put(ORDER_QUATATION_DATE, orderModel.getQuatationDate());
+        values.put(ORDER_QUATATION_NO, orderModel.getQuotationNo());
+        values.put(ORDER_QUATATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
         values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
@@ -246,8 +246,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         while(!cursor.isAfterLast()) {
             orderModel = new OrderModel();
             orderModel.setID(cursor.getInt(0));
-            orderModel.setQuatationNo(cursor.getString(1));
-            orderModel.setQuatationDate(cursor.getString(2));
+            orderModel.setQuotationNo(cursor.getString(1));
+            orderModel.setQuotationDate(cursor.getString(2));
             orderModel.setProjectName(cursor.getString(3));
             orderModel.setCustomerName(cursor.getString(4));
             orderModel.setCustomerAdress(cursor.getString(5));
@@ -265,14 +265,14 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         return orderModelList;
     }
 
-    public OrderModel getOrderModelByQuatationNo(String quatationNo) {
-        Log.i(LOG_TAG,"getOrderByQuatationNo >>>> quatationNo : " + quatationNo);
+    public OrderModel getOrderModelByQuotationNo(String quotationNo) {
+        Log.i(LOG_TAG,"getOrderByQuotationNo >>>> quotationNo : " + quotationNo);
         OrderModel orderModel = new OrderModel();
 
         sqLiteDatabase = this.getWritableDatabase();
 
         String selection = ORDER_QUATATION_NO+ " = ?"; // MISSING in your update!!
-        String[] selectionArgs = new String[] { quatationNo };
+        String[] selectionArgs = new String[] { quotationNo };
 
 
         Cursor cursor = sqLiteDatabase.query
@@ -284,8 +284,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         while(!cursor.isAfterLast()) {
             orderModel.setID(cursor.getInt(0));
-            orderModel.setQuatationNo(cursor.getString(1));
-            orderModel.setQuatationDate(cursor.getString(2));
+            orderModel.setQuotationNo(cursor.getString(1));
+            orderModel.setQuotationDate(cursor.getString(2));
             orderModel.setProjectName(cursor.getString(3));
             orderModel.setCustomerName(cursor.getString(4));
             orderModel.setCustomerAdress(cursor.getString(5));
@@ -306,8 +306,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         sqLiteDatabase  = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
-        values.put(ORDER_QUATATION_NO, orderModel.getQuatationNo());
-        values.put(ORDER_QUATATION_DATE, orderModel.getQuatationDate());
+        values.put(ORDER_QUATATION_NO, orderModel.getQuotationNo());
+        values.put(ORDER_QUATATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
         values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
@@ -345,7 +345,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuatationNo());
+        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuotationNo());
         values.put(EACH_ORDER_FLOOR, eachOrderModel.getFloor());
         values.put(EACH_ORDER_POSITION, eachOrderModel.getPosition());
         values.put(EACH_ORDER_DW, eachOrderModel.getDw());
@@ -362,15 +362,15 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public List<EachOrderModel> getEachOrderModelListByQuatationNo(String quatationNo) {
-        Log.i(LOG_TAG,"getEachOrderList >>> quatationNo : " + quatationNo);
+    public List<EachOrderModel> getEachOrderModelListByQuotationNo(String quotationNo) {
+        Log.i(LOG_TAG,"getEachOrderList >>> quotationNo : " + quotationNo);
         List<EachOrderModel> eachOrderModelList = new ArrayList<EachOrderModel>();
         EachOrderModel eachOrderModel;
 
         sqLiteDatabase = this.getWritableDatabase();
 
         String selection = EACH_ORDER_QUATATION_NO+ " = ?"; // MISSING in your update!!
-        String[] selectionArgs = new String[] { quatationNo };
+        String[] selectionArgs = new String[] { quotationNo };
 
         Cursor cursor = sqLiteDatabase.query
                 (EACH_ORDER_TABLE, null, selection, selectionArgs, null, null, null, null);
@@ -382,7 +382,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         while(!cursor.isAfterLast()) {
             eachOrderModel = new EachOrderModel();
             eachOrderModel.setID(cursor.getInt(0));
-            eachOrderModel.setQuatationNo(cursor.getString(1));
+            eachOrderModel.setQuotationNo(cursor.getString(1));
             eachOrderModel.setFloor(cursor.getString(2));
             eachOrderModel.setPosition(cursor.getString(3));
             eachOrderModel.setDw(cursor.getString(4));
@@ -420,7 +420,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
         while(!cursor.isAfterLast()) {
             eachOrderModel.setID(cursor.getInt(0));
-            eachOrderModel.setQuatationNo(cursor.getString(1));
+            eachOrderModel.setQuotationNo(cursor.getString(1));
             eachOrderModel.setFloor(cursor.getString(2));
             eachOrderModel.setPosition(cursor.getString(3));
             eachOrderModel.setDw(cursor.getString(4));
@@ -457,7 +457,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
 //        values.put(PROFILE_SALE_ID, profileSaleModeodel.getID());
-        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuatationNo());
+        values.put(EACH_ORDER_QUATATION_NO, eachOrderModel.getQuotationNo());
         values.put(EACH_ORDER_FLOOR, eachOrderModel.getFloor());
         values.put(EACH_ORDER_POSITION, eachOrderModel.getPosition());
         values.put(EACH_ORDER_DW, eachOrderModel.getDw());
