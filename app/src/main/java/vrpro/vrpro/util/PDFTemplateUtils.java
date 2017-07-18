@@ -224,7 +224,7 @@ public class PDFTemplateUtils {
             cell = new PdfPCell(new Phrase(createDetailString(eachOrderModel), bodyFont));
             cell.setBorder(Rectangle.LEFT);
             itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase("4,500", bodyFont));
+            cell = new PdfPCell(new Phrase(String.valueOf(eachOrderModel.getPricePer1mm()), bodyFont));
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             itemTable.addCell(cell);
             cell = new PdfPCell(new Phrase("1.00", bodyFont));
