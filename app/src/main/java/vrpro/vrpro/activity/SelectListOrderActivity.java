@@ -134,12 +134,12 @@ public class SelectListOrderActivity extends AppCompatActivity {
                     if(eachOrderModelFromDB.getID() != null){
                         Log.i(LOG_TAG,"update eachOrderModel to DB");
                         updateEachOrderModelToDB();
-                        updateOrderModelToDB(totalPrice,"update",pricePer1mm);
+                        updateOrderModelToDB(totalPrice,"update");
 
                     }else{
                         Log.i(LOG_TAG,"insert eachOrderModel to DB");
                         insertEachOrderModelToDB();
-                        updateOrderModelToDB(totalPrice,"insert",pricePer1mm);
+                        updateOrderModelToDB(totalPrice,"insert");
                     }
 
                     gotoCreateOrderActivity();
@@ -153,7 +153,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     }
 
 
-    private void updateOrderModelToDB(Double totalPrice,String activityDB,Double pricePer1mm) {
+    private void updateOrderModelToDB(Double totalPrice,String activityDB) {
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         orderModelFromDB = new OrderModel();
         orderModelFromDB = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
@@ -177,7 +177,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
             tempTotalPrice =0.0;
         orderModelFromDB.setTotalPrice(tempTotalPrice);
         orderModelFromDB.setRealTotalPrice(tempRealTotalPrice+totalPrice);
-        orderModelFromDB.setRealTotalPrice(pricePer1mm);
         sqlLite.updateOrderModel(orderModelFromDB);
     }
 
