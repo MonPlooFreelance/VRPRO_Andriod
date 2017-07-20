@@ -372,7 +372,6 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private void saveOrderToDB() {
-
         Log.i(LOG_TAG,"updateOrderModelToDB");
         Log.i(LOG_TAG,"quotationNo : " +  txtQuotationNo.getText().toString());
         Log.i(LOG_TAG,"quotationDate : " + txtQuotationDate.getText().toString());
