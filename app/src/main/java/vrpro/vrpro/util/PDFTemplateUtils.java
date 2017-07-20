@@ -50,7 +50,7 @@ public class PDFTemplateUtils {
     private Font itemTableHeader = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD, BaseColor.WHITE);
     private Font itemTableFooter = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD);
     private Font tail = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD, BaseColor.RED);
-    private DecimalFormat priceFormat = new DecimalFormat("#,###");
+    private DecimalFormat priceFormat = new DecimalFormat("#,###.##");
     private DecimalFormat areaFormat=new DecimalFormat("0.00");
     private Context context;
     private OrderModel orderModel;
@@ -63,6 +63,7 @@ public class PDFTemplateUtils {
         this.orderModel = orderModel;
         this.eachOrderModelList = eachOrderModelList;
         this.profileSaleModel = profileSaleModel;
+        Log.i(LOG_TAG, "totoalPrice : "+ orderModel.getTotalPrice());
         lastTotalPrice = orderModel.getTotalPrice() + 2000d;
     }
 
@@ -167,11 +168,13 @@ public class PDFTemplateUtils {
         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
         itemTable.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("มัดจำ                 7,000       บาท", bodyFontBold));
+        double depositPrice = calculateDepositPrice(lastTotalPrice);
+
+        cell = new PdfPCell(new Phrase("มัดจำ                 "+priceFormat.format(depositPrice)+"       บาท", bodyFontBold));
         cell.setBorder(0);
         itemTable.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("ติดตั้ง                 10,296       บาท", bodyFontBold));
+        cell = new PdfPCell(new Phrase("ติดตั้ง                 "+priceFormat.format(lastTotalPrice-depositPrice)+"       บาท", bodyFontBold));
         cell.setBorder(0);
         itemTable.addCell(cell);
 
@@ -195,6 +198,14 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         itemTable.addCell(cell);
         return itemTable;
+    }
+
+    private double calculateDepositPrice(double lastTotalPrice) {
+        int temp = (int) ((lastTotalPrice*0.4)/1000);
+        Log.i(LOG_TAG, "price temp : "+temp);
+        double depositPrice = (temp+1)*1000;
+        Log.i(LOG_TAG, "depositPrice : "+depositPrice);
+        return depositPrice;
     }
 
     private Element getItemDetail(List<EachOrderModel> eachOrderModelList) throws DocumentException {
@@ -242,6 +253,7 @@ public class PDFTemplateUtils {
             cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             itemTable.addCell(cell);
+            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
             cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             itemTable.addCell(cell);
@@ -342,14 +354,12 @@ public class PDFTemplateUtils {
 
     private String calculateArea(double width, double height) {
         double multipliedResult = width * height;
-        Log.i(LOG_TAG, "width * height : "+width * height);
         double roundUp = Math.round(multipliedResult*100)/100d;
-        Log.i(LOG_TAG, "roundUp : "+roundUp);
         return areaFormat.format(roundUp);
     }
 
     private String createDetailString(EachOrderModel eachOrderModel) {
-        return eachOrderModel.getDw() +" (ก "+eachOrderModel.getWidth()+" x ส "+eachOrderModel.getHeight()+"        "
+        return eachOrderModel.getDw() +" (ก "+eachOrderModel.getWidth()+" x ส "+eachOrderModel.getHeight()+")        "
                 +eachOrderModel.getTypeOfM()+" "+eachOrderModel.getSpecialWord()+" / "+getSpacialReqString(eachOrderModel.getSpecialReq());
     }
 
