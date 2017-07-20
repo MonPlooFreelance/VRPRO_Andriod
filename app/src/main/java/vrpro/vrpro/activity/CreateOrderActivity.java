@@ -63,7 +63,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     private String customerPhone;
     private String customerEmail;
     private String remarks;
-    private String discount;
+    private Double discount;
     private Double totalPrice;
 
     private TextView txtQuotationNo;
@@ -111,6 +111,8 @@ public class CreateOrderActivity extends AppCompatActivity {
         txtRemarks = (EditText) findViewById(R.id.txtRemarks);
         txtDiscount = (EditText) findViewById(R.id.txtDiscount);
         txtTotalPrice = (TextView) findViewById(R.id.txtTotalPrice);
+
+
 
         shared_quotationNo = sharedPref.getString("quotationNo",null);
         shared_quotationNoDefine = sharedPref.getString("quotationNoDefine",null);
@@ -293,7 +295,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
         orderModel.setCustomerEmail(txtCustomerEmail.getText().toString());
         orderModel.setRemarks(txtRemarks.getText().toString());
-        orderModel.setDiscount(txtDiscount.getText().toString());
+        orderModel.setDiscount(txtDiscount.getText().toString().trim().length() == 0 ? 0 : Double.parseDouble(txtDiscount.getText().toString()));
         orderModel.setTotalPrice(totalPrice);
         orderModel.setRealTotalPrice(realTotalPrice);
         sqlLite = new SQLiteUtil(CreateOrderActivity.this);
@@ -344,7 +346,7 @@ public class CreateOrderActivity extends AppCompatActivity {
             txtCustomerPhone.setText(orderModelFromDB.getCustomerPhone());
             txtCustomerEmail.setText(orderModelFromDB.getCustomerEmail());
             txtRemarks.setText(orderModelFromDB.getRemarks());
-            txtDiscount.setText(String.valueOf(orderModelFromDB.getDiscount()));
+            txtDiscount.setText(orderModelFromDB.getDiscount() == 0.0 ? "" : String.valueOf(orderModelFromDB.getDiscount()));
             txtTotalPrice.setText(String.valueOf(orderModelFromDB.getTotalPrice()));
             getDataToListView(shared_quotationNo);
         }
@@ -370,44 +372,35 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private void saveOrderToDB() {
-        quotationNo = txtQuotationNo.getText().toString();
-        quotationDate =  txtQuotationDate.getText().toString();
-        projectName = txtProjectName.getText().toString();
-        customerName = txtCustomerName.getText().toString();
-        customerAdress = txtCustomerAdress.getText().toString();
-        customerPhone = txtCustomerPhone.getText().toString();
-        customerEmail = txtCustomerEmail.getText().toString();
 
-        remarks = txtRemarks.getText().toString();
-        discount = txtDiscount.getText().toString();
-        totalPrice = Double.parseDouble(txtTotalPrice.getText().toString());
-
-        Log.i(LOG_TAG,"quotationNo : " + quotationNo);
-        Log.i(LOG_TAG,"quotationDate : " + quotationDate);
-        Log.i(LOG_TAG,"projectName : " + projectName);
-        Log.i(LOG_TAG,"customerName : " + customerName);
-        Log.i(LOG_TAG,"customerAdress : " + customerAdress);
-        Log.i(LOG_TAG,"customerPhone : " + customerPhone);
-        Log.i(LOG_TAG,"customerEmail : " + customerEmail);
-        Log.i(LOG_TAG,"remarks : " + remarks);
-        Log.i(LOG_TAG,"discount : " + discount);
+        Log.i(LOG_TAG,"updateOrderModelToDB");
+        Log.i(LOG_TAG,"quotationNo : " +  txtQuotationNo.getText().toString());
+        Log.i(LOG_TAG,"quotationDate : " + txtQuotationDate.getText().toString());
+        Log.i(LOG_TAG,"projectName : " + txtProjectName.getText().toString());
+        Log.i(LOG_TAG,"customerName : " + txtCustomerName.getText().toString());
+        Log.i(LOG_TAG,"customerAdress : " + txtCustomerAdress.getText().toString());
+        Log.i(LOG_TAG,"customerPhone : " + txtCustomerPhone.getText().toString());
+        Log.i(LOG_TAG,"customerEmail : " + txtCustomerEmail.getText().toString());
+        Log.i(LOG_TAG,"remarks : " + txtRemarks.getText().toString());
+        Log.i(LOG_TAG,"discount : " + txtDiscount.getText().toString());
         Log.i(LOG_TAG,"totalPrice : " + totalPrice);
 
         orderModel = new OrderModel();
-        orderModel.setQuotationNo(quotationNo);
-        orderModel.setQuotationDate(quotationDate);
-        orderModel.setProjectName(projectName);
-        orderModel.setCustomerName(customerName);
-        orderModel.setCustomerAdress(customerAdress);
-        orderModel.setCustomerPhone(customerPhone);
-        orderModel.setCustomerEmail(customerEmail);
-        orderModel.setRemarks(remarks);
-        orderModel.setDiscount(discount);
-        orderModel.setTotalPrice(totalPrice);
-
+        orderModel.setID(orderModelFromDB.getID());
+        orderModel.setQuotationNo( txtQuotationNo.getText().toString());
+        orderModel.setQuotationDate(txtQuotationDate.getText().toString());
+        orderModel.setProjectName(txtProjectName.getText().toString());
+        orderModel.setCustomerName(txtCustomerName.getText().toString());
+        orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
+        orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
+        orderModel.setCustomerEmail(txtCustomerEmail.getText().toString());
+        orderModel.setRemarks(txtRemarks.getText().toString());
+        orderModel.setDiscount(txtDiscount.getText().toString().trim().length() == 0 ? 0 : Double.parseDouble(txtDiscount.getText().toString()));
+        orderModel.setTotalPrice(Double.parseDouble(txtTotalPrice.getText().toString()));
         sqlLite = new SQLiteUtil(CreateOrderActivity.this);
         sqlLite.insertOrderModel(orderModel);
     }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

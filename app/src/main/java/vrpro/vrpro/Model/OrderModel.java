@@ -14,7 +14,7 @@ public class OrderModel {
     private String customerAdress;
     private String customerPhone;
     private String customerEmail;
-    private String discount;
+    private Double discount;
     private Double totalPrice;
     private String remarks;
     private Double realTotalPrice;
@@ -83,11 +83,11 @@ public class OrderModel {
         this.customerEmail = customerEmail;
     }
 
-    public String getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

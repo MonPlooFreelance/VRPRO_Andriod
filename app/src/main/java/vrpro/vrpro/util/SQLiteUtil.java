@@ -254,7 +254,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             orderModel.setCustomerPhone(cursor.getString(6));
             orderModel.setCustomerEmail(cursor.getString(7));
             orderModel.setRemarks(cursor.getString(8));
-            orderModel.setDiscount(cursor.getString(9));
+            orderModel.setDiscount(cursor.getDouble(9));
             orderModel.setTotalPrice(cursor.getDouble(10));
             orderModel.setRealTotalPrice(cursor.getDouble(11));
             orderModelList.add(orderModel);
@@ -292,7 +292,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             orderModel.setCustomerPhone(cursor.getString(6));
             orderModel.setCustomerEmail(cursor.getString(7));
             orderModel.setRemarks(cursor.getString(8));
-            orderModel.setDiscount((cursor.getString(9)));
+            orderModel.setDiscount((cursor.getDouble(9)));
             orderModel.setTotalPrice(cursor.getDouble(10));
             orderModel.setRealTotalPrice(cursor.getDouble(11));
             cursor.moveToNext();

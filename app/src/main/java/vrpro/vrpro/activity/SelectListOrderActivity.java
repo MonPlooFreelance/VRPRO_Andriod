@@ -167,10 +167,10 @@ public class SelectListOrderActivity extends AppCompatActivity {
         }else{
             tempRealTotalPrice = orderModelFromDB.getRealTotalPrice() - eachOrderModelFromDB.getTotolPrice();
         }
-        if(orderModelFromDB.getDiscount() == null || orderModelFromDB.getDiscount().trim().length() == 0){
+        if(orderModelFromDB.getDiscount() == null){
             tempTotalPrice = tempRealTotalPrice+totalPrice;
         }else{
-            tempTotalPrice = tempRealTotalPrice+totalPrice-Double.parseDouble(orderModelFromDB.getDiscount());
+            tempTotalPrice = tempRealTotalPrice+totalPrice-orderModelFromDB.getDiscount();
         }
         Log.i(LOG_TAG,"tempTotalPrice : " + tempTotalPrice);
         if(tempTotalPrice<0)
