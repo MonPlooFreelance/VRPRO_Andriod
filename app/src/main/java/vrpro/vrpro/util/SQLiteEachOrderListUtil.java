@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import vrpro.vrpro.Model.EachOrderModel;
-import vrpro.vrpro.Model.ProfileSaleModel;
 
 /**
  * Created by Plooer on 6/27/2017 AD.

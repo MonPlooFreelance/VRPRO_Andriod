@@ -47,8 +47,8 @@ public class PDFTemplateUtils {
     private Font bodyFontBold = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD);
     private Font bodyFont = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
     private Font bodyFontBoldRed = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD, BaseColor.RED);
-    private Font itemTableHeader = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD, BaseColor.WHITE);
-    private Font itemTableFooter = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD);
+    private Font itemTableHeader = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD, BaseColor.WHITE);
+    private Font itemTableFooter = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD);
     private Font tail = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD, BaseColor.RED);
     private DecimalFormat priceFormat = new DecimalFormat("#,###.##");
     private DecimalFormat areaFormat=new DecimalFormat("0.00");
@@ -63,7 +63,7 @@ public class PDFTemplateUtils {
         this.orderModel = orderModel;
         this.eachOrderModelList = eachOrderModelList;
         this.profileSaleModel = profileSaleModel;
-        Log.i(LOG_TAG, "totoalPrice : "+ orderModel.getTotalPrice());
+        Log.i(LOG_TAG, "totolPrice : "+ orderModel.getTotalPrice());
         lastTotalPrice = orderModel.getTotalPrice() + 2000d;
     }
 
@@ -94,7 +94,7 @@ public class PDFTemplateUtils {
             document.add(new Paragraph(phrase));
             document.add(new Paragraph("\n"));
             document.add(getPaymentDetail());
-            document.add(new Paragraph("\n"));document.add(new Paragraph("\n"));
+            document.add(new Paragraph("\n"));
             document.add(getSignatureDetail(orderModel, profileSaleModel));
             document.close();
             return true;
@@ -316,39 +316,98 @@ public class PDFTemplateUtils {
         cell = new PdfPCell(new Phrase("2,000", bodyFontBold));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         itemTable.addCell(cell);
+        
+        Log.i(LOG_TAG, "discount : "+this.orderModel.getDiscount());
+        if(this.orderModel.getDiscount() != null && this.orderModel.getDiscount() != 0.0d) {
 
-        cell = new PdfPCell(new Phrase("3.", bodyFont));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        cell.setBorder(Rectangle.LEFT);
-        cell.setUseVariableBorders(true);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("ชุดทำความสะอาดมุ้งลวด หน้าต่างบานเลื่อน 300 บ./ชุด", bodyFont));
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("300", bodyFontBold));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("0", bodyFontBold));
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("0", bodyFontBold));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("3.", bodyFont));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setBorder(Rectangle.LEFT);
+            cell.setUseVariableBorders(true);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("ชุดทำความสะอาดมุ้งลวด หน้าต่างบานเลื่อน 300 บ./ชุด", bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("300", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("0", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("0", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
 
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        cell.setUseVariableBorders(true);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("มุ้งลวด - เฟรมอลูมิเนียมสีขาว/มุ้งไฟเบอร์สีเทา", bodyFont));
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("TOTAL", bodyFontBold));
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setColspan(2);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase(priceFormat.format(lastTotalPrice), bodyFontBold));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        itemTable.addCell(cell);
+            cell = new PdfPCell();
+            cell.setBorder(Rectangle.LEFT);
+            cell.setUseVariableBorders(true);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("มุ้งลวด - เฟรมอลูมิเนียมสีขาว/มุ้งไฟเบอร์สีเทา", bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell("");
+            itemTable.addCell("");
+            itemTable.addCell("");
+
+            cell = new PdfPCell(new Phrase("4.", bodyFont));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setBorder(Rectangle.LEFT);
+            cell.setUseVariableBorders(true);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("ส่วนลด", bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell("");
+            itemTable.addCell("");
+            cell = new PdfPCell(new Phrase(priceFormat.format(orderModel.getDiscount()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            itemTable.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(""));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("TOTAL", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setColspan(2);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase(priceFormat.format(lastTotalPrice), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+        } else {
+            cell = new PdfPCell(new Phrase("3.", bodyFont));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setBorder(Rectangle.LEFT);
+            cell.setUseVariableBorders(true);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("ชุดทำความสะอาดมุ้งลวด หน้าต่างบานเลื่อน 300 บ./ชุด", bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("300", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("0", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("0", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+
+            cell = new PdfPCell();
+            cell.setBorder(Rectangle.LEFT);
+            cell.setUseVariableBorders(true);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("มุ้งลวด - เฟรมอลูมิเนียมสีขาว/มุ้งไฟเบอร์สีเทา", bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("TOTAL", bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setColspan(2);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase(priceFormat.format(lastTotalPrice), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+        }
         return itemTable;
     }
 
@@ -422,24 +481,34 @@ public class PDFTemplateUtils {
 
     private PdfPCell createCellHeaderItemTable(String title){
         PdfPCell cell = new PdfPCell(new Phrase(title, itemTableHeader));
-        cell.setFixedHeight(30f);
+        cell.setFixedHeight(35f);
         cell.setBackgroundColor(BaseColor.RED);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setVerticalAlignment(Element.ALIGN_CENTER);
+        cell.setPadding(0);
         return cell;
+
     }
 
     private PdfPCell createCellFooterItemTable(String title){
         PdfPCell cell = new PdfPCell(new Phrase(title, itemTableFooter));
-        cell.setFixedHeight(30f);
+        cell.setFixedHeight(35f);
         if(isPriceText(title)){
             cell.setBackgroundColor(new BaseColor(176, 182, 188));
         } else {
             cell.setBackgroundColor(new BaseColor(192, 199, 205));
         }
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        if(isNotTotalString(title)){
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+        }
+        cell.setPadding(0);
         return cell;
+    }
+
+    private boolean isNotTotalString(String title) {
+        boolean result = !title.equals("รวมเงิน\nTOTAL");
+        Log.i(LOG_TAG, "isNotTotalString : "+result);
+        return result;
     }
 
     private boolean isPriceText(String printString){

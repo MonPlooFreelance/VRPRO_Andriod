@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import java.util.List;
+
 import java.util.Map;
 
 import vrpro.vrpro.R;
@@ -16,14 +16,11 @@ import vrpro.vrpro.R;
  * Created by Plooer on 6/24/2017 AD.
  */
 
-//public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
 public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
 
     private final String LOG_TAG = "HomeOrderAdapter";
 
-//    public HomeOrderAdapter(Context context, int resource, List<Map<String, Object>> items) {
     public HomeOrderAdapter(Context context, int resource, Integer items) {
-
         super(context, resource, items);
         Log.i(LOG_TAG,"HomeOrderAdapter");
     }
@@ -56,20 +53,12 @@ public class HomeOrderAdapter extends ArrayAdapter<Map<String, Object>> {
 
             if (orderMap != null) {
                 Log.i(LOG_TAG,"if");
-//                holder.txtQuotationDate.setText(orderMap.get("quotationDate").toString());
-//                holder.txtQuotationNo.setText(orderMap.get("txtQuotationNo").toString());
-//                holder.txtProjectName.setText(orderMap.get("txtProjectName").toString());
-//                holder.txtCustomerName.setText(orderMap.get("txtCustomerName").toString());
-//                holder.txtTotalPrice.setText(orderMap.get("txtTotalPrice").toString());
-
                 holder.txtQuotationDate.setText("24/06/2017");
                 holder.txtQuotationNo.setText("60#0-VR1043");
                 holder.txtProjectName.setText("ม.คาซ่า ศิตี้ ดอนเมือง ศรีสมาน");
                 holder.txtCustomerName.setText("จิราภัสร์ จิรเดชวิโรจน์");
                 holder.txtTotalPrice.setText("10,000 บาท");
-
             }
-
             return convertView;
         } catch (Exception e){
             Log.e(LOG_TAG, e.getMessage(), e);

@@ -77,13 +77,6 @@ public class ListEachOrderAdapter extends BaseAdapter{
 
         holder.txtTotalPrices.setText(String.valueOf(eachOrderModel.getTotolPrice()));
 
-//        holder.txtFloor.setText("1");
-//        holder.txtPositon.setText("ประตูหน้า");
-//        holder.txtDW.setText("D 1");
-//        holder.txtTypeOfM.setText("มุ้งกรอบเหล็กเปิด");
-//        holder.txtSpecialWord.setText("# / มงุ้เลอ่ืน 1 บาน");
-//        holder.txtTotalPrices.setText("4,500 บาท");
-
         return convertView;
     }
 

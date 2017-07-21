@@ -1,25 +1,16 @@
 package vrpro.vrpro.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import vrpro.vrpro.Model.EachOrderModel;
 import vrpro.vrpro.Model.OrderModel;
 import vrpro.vrpro.R;
-import vrpro.vrpro.util.OnDataPass;
 
 /**
  * Created by Plooer on 6/24/2017 AD.
@@ -70,12 +61,6 @@ public class ListOrderAdapter extends BaseAdapter {
         holder.txtProjectName.setText(orderModel.getProjectName());
         holder.txtCustomerName.setText(orderModel.getCustomerName());
         holder.txtTotalPrice.setText(String.valueOf(orderModel.getTotalPrice()));
-
-//        holder.txtQuotationDate.setText("24/06/2017");
-//        holder.txtQuotationNo.setText("60#0-VR1043");
-//        holder.txtProjectName.setText("ม.คาซ่า ศิตี้ ดอนเมือง ศรีสมาน");
-//        holder.txtCustomerName.setText("จิราภัสร์ จิรเดชวิโรจน์");
-//        holder.txtTotalPrice.setText("10,000 บาท");
 
         return convertView;
     }
