@@ -124,11 +124,13 @@ public class CreateOrderActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus){
-                    double tempTotalPrice;
-                    if(isEmpty(txtDiscount)){
-                        tempTotalPrice = orderModelFromDB.getRealTotalPrice() - 0;
-                    }else{
-                        tempTotalPrice = orderModelFromDB.getRealTotalPrice() - Double.parseDouble(txtDiscount.getText().toString());
+                    double tempTotalPrice = 0;
+                    if(orderModelFromDB.getRealTotalPrice()!=null){
+                        if(isEmpty(txtDiscount)){
+                            tempTotalPrice = orderModelFromDB.getRealTotalPrice() - 0;
+                        }else{
+                            tempTotalPrice = orderModelFromDB.getRealTotalPrice() - Double.parseDouble(txtDiscount.getText().toString());
+                        }
                     }
 
                     Log.i(LOG_TAG,"realTotalPrice : " + orderModelFromDB.getRealTotalPrice());
