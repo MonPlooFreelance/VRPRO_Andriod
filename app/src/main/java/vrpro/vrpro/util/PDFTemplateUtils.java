@@ -294,6 +294,8 @@ public class PDFTemplateUtils {
         itemTable.addCell("");
         itemTable.addCell("");
 
+        addRemarkPart(itemTable);
+
         cell = new PdfPCell();
         cell.setBorder(Rectangle.LEFT);
         itemTable.addCell(cell);
@@ -357,6 +359,28 @@ public class PDFTemplateUtils {
         cell.setBackgroundColor(lightGrayColor);
         itemTable.addCell(cell);
 
+        addDiscountPart(itemTable);
+
+        return itemTable;
+    }
+
+    private void addRemarkPart(PdfPTable itemTable) {
+        PdfPCell cell;
+        if(this.orderModel.getRemarks() != null && !("".equals(this.orderModel.getRemarks()))) {
+            cell = new PdfPCell();
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase("-"+this.orderModel.getRemarks(), bodyFont));
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell("");
+            itemTable.addCell("");
+            itemTable.addCell("");
+        }
+    }
+
+    private void addDiscountPart(PdfPTable itemTable) {
+        PdfPCell cell;
         if(this.orderModel.getDiscount() != null && this.orderModel.getDiscount() != 0.0d) {
             Log.i(LOG_TAG, "have discount : "+this.orderModel.getDiscount());
             cell = new PdfPCell(new Phrase(""));
@@ -374,8 +398,6 @@ public class PDFTemplateUtils {
             itemTable.addCell(cell);
             Log.i(LOG_TAG, "finish get discount");
         }
-
-        return itemTable;
     }
 
     private String calculateArea(double width, double height) {
