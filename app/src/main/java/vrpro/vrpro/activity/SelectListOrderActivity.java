@@ -52,7 +52,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
     EditText txtHeight;
     private SQLiteUtil sqlLite;
     private SharedPreferences sharedPref;
-    private OrderModel orderModel;
     private OrderModel orderModelFromDB;
     private EachOrderModel eachOrderModelFromDB;
     private String shared_eachOrderModel_id;
@@ -343,6 +342,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
     }
+
+
     private void updateEachOrderModelToDB() {
         EachOrderModel eachOrderModel = new EachOrderModel();
         eachOrderModel.setID(eachOrderModelFromDB.getID());

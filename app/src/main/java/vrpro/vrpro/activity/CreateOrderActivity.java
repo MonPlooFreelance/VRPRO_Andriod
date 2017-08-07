@@ -55,15 +55,6 @@ public class CreateOrderActivity extends AppCompatActivity {
     private Toolbar mActionBarToolbar;
     private ListView listEachOrderListView;
     private SQLiteUtil sqlLite;
-    private String quotationNo;
-    private String quotationDate;
-    private String projectName;
-    private String customerName;
-    private String customerAdress;
-    private String customerPhone;
-    private String customerEmail;
-    private String remarks;
-    private Double discount;
     private Double totalPrice;
 
     private TextView txtQuotationNo;
@@ -487,7 +478,6 @@ public class CreateOrderActivity extends AppCompatActivity {
             }
             editor.commit();
             startActivity(myIntent);
-
     }
 
     @Override
@@ -539,12 +529,6 @@ public class CreateOrderActivity extends AppCompatActivity {
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() == 0;
     }
-
-//    private void gotoSelectListActivity() {
-//        Intent myIntent = new Intent(this, SelectListOrderActivity.class);
-////        myIntent.putExtra("quotationNo",quotationNo);
-//        this.startActivity(myIntent);
-//    }
 
     private void gotoHomeActivity() {
         Intent myIntent = new Intent(this, HomeActivity.class);

@@ -20,8 +20,8 @@ import vrpro.vrpro.Model.EachOrderModel;
 public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
 
     private final String LOG_TAG = "SQLiteEachOrderListUtil";
-    private String DATABASE_NAME = "vrpro.db";
-    private Integer DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "vrpro.db";
+    private static final  Integer DATABASE_VERSION = 1;
     private SQLiteDatabase sqLiteDatabase;
 
     private String EACH_ORDER_TABLE = "each_order_list";
@@ -38,7 +38,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
     private String EACH_ORDER_TOTAL_PRICE = "total_price";
 
     public SQLiteEachOrderListUtil(Context context) {
-        super(context, "vrpro.db", null, 2);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.i(LOG_TAG,"SQLiteEachOrderListUtil constructor");
     }
 

@@ -104,7 +104,7 @@
     <LinearLayout
         android:id="@+id/specialOrderLinear"
         android:layout_width="match_parent"
-        android:layout_height="470dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="60dp"
@@ -114,15 +114,7 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/addEachOrder"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_weight="1"
-        android:text="เพิ่ม"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <EditText
         android:id="@+id/txtWidthEachOrder"
@@ -139,7 +131,8 @@
         android:layout_alignLeft="@+id/specialOrderLinear"
         android:layout_alignStart="@+id/specialOrderLinear"
         android:layout_marginLeft="70dp"
-        android:layout_marginStart="70dp" />
+        android:layout_marginStart="70dp"
+        />
 
     <EditText
         android:id="@+id/txtHeightEachOrder"
@@ -167,5 +160,14 @@
         android:layout_alignBottom="@+id/txtWidthEachOrder"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/addEachOrder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="เพิ่ม"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
 
 </RelativeLayout>
