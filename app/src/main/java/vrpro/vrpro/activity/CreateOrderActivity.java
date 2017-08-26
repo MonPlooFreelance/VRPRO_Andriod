@@ -11,7 +11,9 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.BuildConfig;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -224,14 +226,23 @@ public class CreateOrderActivity extends AppCompatActivity {
         Log.i(LOG_TAG, "read file : "+file.getAbsolutePath());
         if (file.exists()) {
             Log.i(LOG_TAG, "found file");
-            Uri path = Uri.fromFile(file);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(path, "application/pdf");
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             try {
-                startActivity(intent);
-            }
-            catch (ActivityNotFoundException e) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Uri path = FileProvider.getUriForFile(CreateOrderActivity.this,
+                            CreateOrderActivity.this.getApplicationContext().getPackageName() + ".my.package.name.provider",
+                            file);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(path);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                } else {
+                    Uri path = Uri.fromFile(file);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(path, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            } catch (ActivityNotFoundException e) {
                 Toast.makeText(CreateOrderActivity.this,
                         "No Application Available to View PDF",
                         Toast.LENGTH_SHORT).show();
