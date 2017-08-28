@@ -1,4 +1,4 @@
-package vrpro.vrpro.util;
+package app.vrpro.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,9 +31,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrpro.vrpro.Model.EachOrderModel;
-import vrpro.vrpro.Model.OrderModel;
-import vrpro.vrpro.Model.ProfileSaleModel;
+import app.vrpro.Model.EachOrderModel;
+import app.vrpro.Model.OrderModel;
+import app.vrpro.Model.ProfileSaleModel;
 
 /**
  * Created by manitkannika on 7/4/2017 AD.

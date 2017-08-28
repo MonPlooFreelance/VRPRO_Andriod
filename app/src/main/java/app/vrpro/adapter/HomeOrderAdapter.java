@@ -1,4 +1,4 @@
-package vrpro.vrpro.adapter;
+package app.vrpro.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
-import vrpro.vrpro.R;
+import app.vrpro.R;
 
 /**
  * Created by Plooer on 6/24/2017 AD.

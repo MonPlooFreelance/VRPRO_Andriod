@@ -1,4 +1,4 @@
-package vrpro.vrpro.adapter;
+package app.vrpro.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vrpro.vrpro.Model.OrderModel;
-import vrpro.vrpro.R;
+import app.vrpro.Model.OrderModel;
+import app.vrpro.R;
 
 /**
  * Created by Plooer on 6/24/2017 AD.

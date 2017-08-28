@@ -1,4 +1,4 @@
-package vrpro.vrpro.adapter;
+package app.vrpro.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-import vrpro.vrpro.Model.EachOrderModel;
-import vrpro.vrpro.R;
+import app.vrpro.Model.EachOrderModel;
+import app.vrpro.R;
 
 /**
  * Created by Plooer on 6/25/2017 AD.

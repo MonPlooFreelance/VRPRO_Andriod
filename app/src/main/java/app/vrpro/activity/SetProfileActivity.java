@@ -1,4 +1,4 @@
-package vrpro.vrpro.activity;
+package app.vrpro.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vrpro.vrpro.Model.ProfileSaleModel;
-import vrpro.vrpro.R;
-import vrpro.vrpro.util.SQLiteUtil;
+import app.vrpro.Model.ProfileSaleModel;
+import app.vrpro.R;
+import app.vrpro.util.SQLiteUtil;
 
 public class SetProfileActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package vrpro.vrpro.util;
+package app.vrpro.util;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import vrpro.vrpro.Model.EachOrderModel;
+import app.vrpro.Model.EachOrderModel;
 
 /**
  * Created by Plooer on 6/27/2017 AD.

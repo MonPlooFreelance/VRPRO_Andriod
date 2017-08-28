@@ -1,4 +1,4 @@
-package vrpro.vrpro.Model;
+package app.vrpro.Model;
 
 import java.util.ArrayList;
 

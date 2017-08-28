@@ -1,4 +1,4 @@
-package vrpro.vrpro.activity;
+package app.vrpro.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,14 +21,13 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
-import vrpro.vrpro.Model.OrderModel;
-import vrpro.vrpro.R;
-import vrpro.vrpro.adapter.ListOrderAdapter;
-import vrpro.vrpro.util.SQLiteUtil;
+import app.vrpro.Model.OrderModel;
+import app.vrpro.R;
+import app.vrpro.adapter.ListOrderAdapter;
+import app.vrpro.util.SQLiteUtil;
 
 public class HomeActivity extends AppCompatActivity {
 

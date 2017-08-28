@@ -1,4 +1,4 @@
-package vrpro.vrpro.util;
+package app.vrpro.util;
 
 /**
  * Created by manitkan on 07/06/16.

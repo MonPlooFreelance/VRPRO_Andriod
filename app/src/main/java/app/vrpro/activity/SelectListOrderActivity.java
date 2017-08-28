@@ -1,4 +1,4 @@
-package vrpro.vrpro.activity;
+package app.vrpro.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,10 +23,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import vrpro.vrpro.Model.EachOrderModel;
-import vrpro.vrpro.Model.OrderModel;
-import vrpro.vrpro.R;
-import vrpro.vrpro.util.SQLiteUtil;
+import app.vrpro.Model.EachOrderModel;
+import app.vrpro.Model.OrderModel;
+import app.vrpro.R;
+import app.vrpro.util.SQLiteUtil;
 
 public class SelectListOrderActivity extends AppCompatActivity {
 

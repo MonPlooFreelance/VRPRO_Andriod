@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="vrpro.vrpro">
+    package="app.vrpro">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -27,7 +27,7 @@
             android:value="750e23a235481e6f9436666c70da4eea93a0ffc5"
             />
 
-        <activity android:name=".activity.HomeActivity">
+        <activity android:name="app.vrpro.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SetProfileActivity"
+            android:name="app.vrpro.activity.SetProfileActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".activity.CreateOrderActivity"
+            android:name="app.vrpro.activity.CreateOrderActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".activity.SelectListOrderActivity"
+            android:name="app.vrpro.activity.SelectListOrderActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

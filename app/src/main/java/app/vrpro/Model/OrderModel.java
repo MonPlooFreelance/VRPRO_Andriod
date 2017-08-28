@@ -1,4 +1,4 @@
-package vrpro.vrpro.Model;
+package app.vrpro.Model;
 
 /**
  * Created by Plooer on 6/25/2017 AD.
