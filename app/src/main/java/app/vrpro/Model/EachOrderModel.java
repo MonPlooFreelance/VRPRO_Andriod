@@ -19,6 +19,7 @@ public class EachOrderModel {
     private Double width;
     private Double height;
     private Double pricePer1mm;
+    private String SpecialWordReport;
 
 
     public Integer getID() {
@@ -115,5 +116,13 @@ public class EachOrderModel {
 
     public void setPricePer1mm(Double pricePer1mm) {
         this.pricePer1mm = pricePer1mm;
+    }
+
+    public String getSpecialWordReport() {
+        return SpecialWordReport;
+    }
+
+    public void setSpecialWordReport(String specialWordReport) {
+        SpecialWordReport = specialWordReport;
     }
 }

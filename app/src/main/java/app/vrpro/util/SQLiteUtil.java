@@ -60,6 +60,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
     private String EACH_ORDER_HEIGHT = "height";
     private String EACH_ORDER_TOTAL_PRICE = "total_price";
     private String EACH_ORDER_PRICE_PER_1MM = "price_per_1mm";
+    private String EACH_ORDER_SPECIAL_WORD_REPORT = "special_word_report";
 
     public SQLiteUtil(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -87,7 +88,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
     private void createTableEachOrderList(SQLiteDatabase db) {
         String CREATE_TABLE_EACH_ORDER_LIST = String.format("CREATE TABLE %s " +
-                        "(%s INTEGER PRIMARY KEY  AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+                        "(%s INTEGER PRIMARY KEY  AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 EACH_ORDER_TABLE,
                 EACH_ORDER_ID,
                 EACH_ORDER_QUOTATION_NO,
@@ -100,7 +101,8 @@ public class SQLiteUtil extends SQLiteOpenHelper {
                 EACH_ORDER_WIDTH,
                 EACH_ORDER_HEIGHT,
                 EACH_ORDER_TOTAL_PRICE,
-                EACH_ORDER_PRICE_PER_1MM);
+                EACH_ORDER_PRICE_PER_1MM,
+                EACH_ORDER_SPECIAL_WORD_REPORT);
 
         db.execSQL(CREATE_TABLE_EACH_ORDER_LIST);
 
@@ -210,6 +212,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         Log.i(LOG_TAG,"setOrder");
         sqLiteDatabase = this.getWritableDatabase();
         Log.i(LOG_TAG,"orderModel.getRemarks() : " + orderModel.getRemarks());
+        Log.i(LOG_TAG,"totalPrice : " + orderModel.getTotalPrice());
         ContentValues values = new ContentValues();
         values.put(ORDER_QUOTATION_NO, orderModel.getQuotationNo());
         values.put(ORDER_QUOTATION_DATE, orderModel.getQuotationDate());
@@ -341,6 +344,10 @@ public class SQLiteUtil extends SQLiteOpenHelper {
 
     public void insertEachOrderModel(EachOrderModel eachOrderModel) {
         Log.i(LOG_TAG,"setEachOrderList");
+
+
+        Log.i(LOG_TAG,"eachOrderModel.getSpecialWordReport() : "  + eachOrderModel.getSpecialWordReport());
+
         sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -356,6 +363,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
         values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotolPrice());
         values.put(EACH_ORDER_PRICE_PER_1MM,eachOrderModel.getPricePer1mm());
+        values.put(EACH_ORDER_SPECIAL_WORD_REPORT,eachOrderModel.getSpecialWordReport());
 
         sqLiteDatabase.insert(EACH_ORDER_TABLE, null, values);
 
@@ -393,6 +401,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setHeight(cursor.getDouble(9));
             eachOrderModel.setTotolPrice(cursor.getDouble(10));
             eachOrderModel.setPricePer1mm(cursor.getDouble(11));
+            eachOrderModel.setSpecialWordReport(cursor.getString(12));
             eachOrderModelList.add(eachOrderModel);
             cursor.moveToNext();
 
@@ -432,6 +441,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setHeight(cursor.getDouble(9));
             eachOrderModel.setTotolPrice(cursor.getDouble(10));
             eachOrderModel.setPricePer1mm(cursor.getDouble(11));
+            eachOrderModel.setSpecialWordReport(cursor.getString(12));
             cursor.moveToNext();
         }
         sqLiteDatabase.close();
@@ -469,6 +479,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
         values.put(EACH_ORDER_TOTAL_PRICE, eachOrderModel.getTotolPrice());
         values.put(EACH_ORDER_PRICE_PER_1MM, eachOrderModel.getPricePer1mm());
+        values.put(EACH_ORDER_SPECIAL_WORD_REPORT, eachOrderModel.getSpecialWordReport());
 
         int row = sqLiteDatabase.update(EACH_ORDER_TABLE,
                 values,

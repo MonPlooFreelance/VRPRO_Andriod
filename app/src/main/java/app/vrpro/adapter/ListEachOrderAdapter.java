@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import app.vrpro.Model.EachOrderModel;
 import app.vrpro.R;
+import app.vrpro.util.DecimalUtil;
 
 /**
  * Created by Plooer on 6/25/2017 AD.
@@ -62,18 +64,9 @@ public class ListEachOrderAdapter extends BaseAdapter{
         holder.txtPositon.setText(eachOrderModel.getPosition());
         holder.txtDW.setText(eachOrderModel.getDw());
         holder.txtTypeOfM.setText(eachOrderModel.getTypeOfM());
-
-        Log.i(LOG_TAG,"eachOrderModel.getSpecialReq() : "  + eachOrderModel.getSpecialReq());
-        if(eachOrderModel.getSpecialWord().equals("")){
-            holder.txtSpecialWord.setText("# / " + eachOrderModel.getSpecialReq().toString().replace("[", "").replace("]", ""));
-        }else if(eachOrderModel.getSpecialReq().isEmpty()){
-            holder.txtSpecialWord.setText(eachOrderModel.getSpecialWord());
-        }
-        else{
-            holder.txtSpecialWord.setText(eachOrderModel.getSpecialWord() + " / " + eachOrderModel.getSpecialReq().toString().replace("[", "").replace("]", ""));
-        }
-
-        holder.txtTotalPrices.setText(String.valueOf(eachOrderModel.getTotolPrice()));
+        holder.txtSpecialWord.setText(eachOrderModel.getSpecialWordReport());
+        Log.i(LOG_TAG,"eachOrderModel.getSpecialWordReport() : "  + eachOrderModel.getSpecialWordReport());
+        holder.txtTotalPrices.setText(String.valueOf(DecimalUtil.insertCommaDouble(eachOrderModel.getTotolPrice())));
 
         return convertView;
     }

@@ -58,7 +58,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private String grobalSelectSpecialCase;
     private ArrayList<String> grobalSpecialReq;
     private Double pricePer1mm;
-
+    private String specialWordReport;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +184,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         Double width = Double.parseDouble(txtWidth.getText().toString());
         Double height = Double.parseDouble(txtHeight.getText().toString());
         Log.i(LOG_TAG, "width : " + width + " height : " + height);
-        areaCal = width*height;
+        areaCal = (width/100)*(height/100);
         Double tempPrice=0.0;
         Log.i(LOG_TAG,"areaCal Before : " + areaCal);
         if(areaCal<0.5){
@@ -194,140 +194,118 @@ public class SelectListOrderActivity extends AppCompatActivity {
         }
         Log.i(LOG_TAG,"areaCal After : " + areaCal);
         Log.i(LOG_TAG,"specialReq : " + specialReq);
+
+
         if(typeOfM.equals("มุ้งกรอบเหล็กเปิด")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_krob_lek_perd));
-            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_mung_krob))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_mung_krob));
             }
-            if(specialReq.contains(getString(R.string.special_req_door_closer))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_door_closer));
+            if(specialReq.contains(getString(R.string.special_req_key))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_key));
             }
-            if(specialReq.contains(getString(R.string.special_req_acrylic_0_65))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_0_65));
-            }else if(specialReq.contains(getString(R.string.special_req_acrylic_1_00))) {
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_1_00));
-            }else if(specialReq.contains(getString(R.string.special_req_acrylic_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_full));
+            if(specialReq.contains(getString(R.string.special_req_acrylic))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic));
             }
-
             if(specialReq.contains(getString(R.string.special_req_door_for_pets))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_door_for_pets));
             }
-
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_0_65))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_0_65));
-            }else if(specialReq.contains(getString(R.string.special_req_pet_screen_1_00))) {
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_1_00));
-            }else if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
+            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
             }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
-            totalPrice = areaCal * tempPrice;
-
+            totalPrice = tempPrice;
         }else if(typeOfM.equals("มุ้งกรอบเหล็กเลื่อน")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_krob_lek_leuan));
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_mung_krob))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_mung_krob));
+            }
+            if(specialReq.contains(getString(R.string.special_req_key))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_key));
+            }
+            if(specialReq.contains(getString(R.string.special_req_acrylic))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic));
+            }
+            if(specialReq.contains(getString(R.string.special_req_door_for_pets))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_door_for_pets));
+            }
+            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
+            }
             if(specialReq.contains(getString(R.string.special_req_meu_jub_fung))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_meu_jub_fung));
             }
-            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
-            }
-
-            if(specialReq.contains(getString(R.string.special_req_acrylic_0_65))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_0_65));
-            }else if(specialReq.contains(getString(R.string.special_req_acrylic_1_00))) {
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_1_00));
-            }else if(specialReq.contains(getString(R.string.special_req_acrylic_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_acrylic_full));
-            }
-
-            if(specialReq.contains(getString(R.string.special_req_door_for_pets))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_door_for_pets));
-            }
-
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_0_65))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_0_65));
-            }else if(specialReq.contains(getString(R.string.special_req_pet_screen_1_00))) {
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_1_00));
-            }else if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
-            }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
-            totalPrice = areaCal * tempPrice;
+            totalPrice = tempPrice;
         }else if(typeOfM.equals("มุ้งประตูเปิด")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_pratoo_perd));
-            if(specialReq.contains(getString(R.string.special_req_perm_krob))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_mung_krob))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_mung_krob));
             }
             if(specialReq.contains(getString(R.string.special_req_kor_sub))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
             }
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
+            if(specialReq.contains(getString(R.string.special_req_perm_krob_pratoo))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob_pratoo));
             }
+
             Log.i(LOG_TAG,"temp price : " + tempPrice);
-            totalPrice = areaCal * tempPrice;
-        }else if(typeOfM.equals("มุ้งเลื่อน")){
+            totalPrice = tempPrice;
+        }else if(typeOfM.equals("มุ้งเลื่อน(S)")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_leuan));
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
+            }
+            if(specialReq.contains(getString(R.string.special_req_lock_mung))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_lock_mung));
+            }
+            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
+            }
             if(specialReq.contains(getString(R.string.special_req_perm_rang))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_perm_rang));
             }
             if(specialReq.contains(getString(R.string.special_req_perm_krob))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
             }
-            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
-            }
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
-            }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
         }else if(typeOfM.equals("มุ้งเปิด")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_perd));
-
-            if(specialReq.contains(getString(R.string.special_req_perm_krob))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))) {
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
             }
-
-            if(specialReq.contains(getString(R.string.special_req_ban_kred))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_ban_kred));
-            }
-
             if(specialReq.contains(getString(R.string.special_req_kor_sub))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
             }
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
+            if(specialReq.contains(getString(R.string.special_req_perm_krob))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
+            }
+            if(specialReq.contains(getString(R.string.special_req_ban_kred))){
+                tempPrice += Double.parseDouble(getString(R.string.price_of_ban_kred));
             }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
         }else if(typeOfM.equals("มุ้ง Fix")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_fix));
-
+            if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))) {
+                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
+            }
             if(specialReq.contains(getString(R.string.special_req_perm_krob))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
             }
-
-            if(specialReq.contains(getString(R.string.special_req_ban_kred))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_ban_kred));
-            }
-
-            if(specialReq.contains(getString(R.string.special_req_pet_screen_full))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_full));
-            }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
-        }else if(typeOfM.equals("มุ้งจีบพับเก็บ")){
-            tempPrice = Double.parseDouble(getString(R.string.price_of_mung_pub));
-
-            if(specialWord.equals(getString(R.string.special_req_rang_tere))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_rang_tere));
-            }
-
-            if(specialWord.equals(getString(R.string.special_req_keb_rang))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_ked_rang));
-            }
+        }else if(typeOfM.equals("มุ้งจีบ")){
+            tempPrice = Double.parseDouble(getString(R.string.price_of_mung_jeeb));
+            Log.i(LOG_TAG,"temp price : " + tempPrice);
+            totalPrice = areaCal * tempPrice;
+        }else if(typeOfM.equals("มุ้งจีบรางเตี้ย")){
+            tempPrice = Double.parseDouble(getString(R.string.price_of_mung_jeeb_rang_tere));
+            Log.i(LOG_TAG,"temp price : " + tempPrice);
+            totalPrice = areaCal * tempPrice;
+        }else if(typeOfM.equals("มุ้งจีบ WALKER")){
+            tempPrice = Double.parseDouble(getString(R.string.price_of_mung_jeeb_walker));
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
         }
@@ -358,8 +336,19 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
         eachOrderModel.setTotolPrice(totalPrice);
         eachOrderModel.setPricePer1mm(pricePer1mm);
+        eachOrderModel.setSpecialWordReport(getSpecialWordReport(specialWord,specialReq));
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         sqlLite.updateEachOrderModel(eachOrderModel);
+    }
+
+    private String getSpecialWordReport(String specialWord,ArrayList<String> specialReq) {
+        if(specialWord.equals("")){
+            return specialReq.toString().replace("[", "").replace("]", "").replace(","," +");
+        }else if(specialReq.toString().equals("[]")){
+            return specialWord;
+        }else{
+            return specialWord + " + " + specialReq.toString().replace("[", "").replace("]", "").replace(","," +");
+        }
     }
 
 
@@ -376,6 +365,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
         eachOrderModel.setTotolPrice(totalPrice);
         eachOrderModel.setPricePer1mm(pricePer1mm);
+        eachOrderModel.setSpecialWordReport(getSpecialWordReport(specialWord,specialReq));
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         sqlLite.insertEachOrderModel(eachOrderModel);
     }
@@ -475,22 +465,31 @@ public class SelectListOrderActivity extends AppCompatActivity {
                 }else if(typeOfM.equals("มุ้งประตูเปิด")){
                     setSpecialDropdownInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_pratoo_perd_array)));
-                }else if(typeOfM.equals("มุ้งเลื่อน")){
-                    specialItems = getResources().getStringArray(R.array.special_mung_leuan_array);
-                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+                }else if(typeOfM.equals("มุ้งเลื่อน(S)")){
+//                    specialItems = getResources().getStringArray(R.array.special_mung_leuan_array);
+//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+                    setSpecialDropdownInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_leuan_array)));
                 }else if(typeOfM.equals("มุ้งเปิด")){
                     setSpecialDropdownInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_perd_array)));
                 }else if(typeOfM.equals("มุ้ง Fix")){
 //                    specialItems = new String[]{"รูปแบบพิเศษ","ลูกบิด", "แม่เหล็ก"};
-                    specialItems = getResources().getStringArray(R.array.special_mung_fix_array);
-                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+//                    specialItems = getResources().getStringArray(R.array.special_mung_fix_array);
+//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+                    setSpecialDropdownInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_fix_array)));
-                }else if(typeOfM.equals("มุ้งจีบพับเก็บ")){
-                    specialItems = getResources().getStringArray(R.array.special_mung_pub_array);
-                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
-                    groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_pub_array)));
+                }else if(typeOfM.equals("มุ้งจีบ")){
+//                    specialItems = getResources().getStringArray(R.array.special_mung_pub_array);
+//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCasepecialCase);
+                    setSpecialDropdownInvisible();
+                    groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb)));
+                }else if(typeOfM.equals("มุ้งจีบรางเตี้ย")){
+                    setSpecialDropdownInvisible();
+                    groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb_rang_tere)));
+                }else if(typeOfM.equals("มุ้งจีบ WALKER")){
+                    setSpecialDropdownInvisible();
+                    groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb_walker)));
                 }
                     setSelectedButtonSpecial(groupSpeacial,grobalSpecialReq);
             }

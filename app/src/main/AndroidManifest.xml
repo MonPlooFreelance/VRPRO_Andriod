@@ -27,7 +27,9 @@
             android:value="750e23a235481e6f9436666c70da4eea93a0ffc5"
             />
 
-        <activity android:name="app.vrpro.activity.HomeActivity">
+        <activity
+            android:name="app.vrpro.activity.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,13 +38,16 @@
         </activity>
         <activity
             android:name="app.vrpro.activity.SetProfileActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name="app.vrpro.activity.CreateOrderActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name="app.vrpro.activity.SelectListOrderActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
