@@ -68,7 +68,7 @@
     <!--<string name="price_of_ked_rang">1500</string>-->
 
     <string-array name="floor_array">
-        <item>ชั้น</item>
+        <!--<item>ชั้น</item>-->
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -103,9 +103,19 @@
     </string-array>
 
     <string-array name="dw_array">
-        <item>ประเภท</item>
+        <!--<item>ประเภท</item>-->
         <item>ประตู</item>
         <item>หน้าต่าง</item>
+    </string-array>
+
+
+    <string-array name="type_of_m_array_for_door">
+        <item>ประเภทมุ้ง</item>
+        <item>มุ้งกรอบเหล็กเปิด</item>
+        <item>มุ้งกรอบเหล็กเลื่อน</item>
+        <item>มุ้งประตูเปิด</item>
+        <item>มุ้งจีบรางเตี้ย</item>
+        <item>มุ้งจีบ WALKER</item>
     </string-array>
 
     <string-array name="type_of_m_array">
@@ -123,7 +133,7 @@
     </string-array>
 
     <string-array name="color_mung_array">
-        <item>สี</item>
+        <!--<item>สี</item>-->
         <item>สีขาว</item>
         <item>สีดำ</item>
         <item>สีน้ำตาล</item>

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -87,6 +88,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
 
         pressInsertOrder();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     private void initialData() {
@@ -129,7 +132,13 @@ public class SelectListOrderActivity extends AppCompatActivity {
                         }
                     }
                     Log.i(LOG_TAG,"specialReq >>> "+specialReq);
-                    totalPrice = getTotalPrice(specialReq,specialWord);
+
+                if(specialReq.contains(getString(R.string.special_req_sharp))){
+                    specialReq.clear();
+                    specialReq.add(getString(R.string.special_req_sharp));
+                }
+
+                totalPrice = getTotalPrice(specialReq,specialWord);
                     if(eachOrderModelFromDB.getID() != null){
                         Log.i(LOG_TAG,"update eachOrderModel to DB");
                         updateEachOrderModelToDB();
@@ -432,7 +441,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private void setTypeOfMSpinner(String selectTypeOfM) {
         Spinner typeOfMDropdown = (Spinner)findViewById(R.id.spinnerTypeOfM);
         String[] typeOfMItems = getResources().getStringArray(R.array.type_of_m_array);
-//        String[] typeOfMItems = new String[]{"ประเภทมุ้ง","มุ้งกรอบเหล็กเปิด", "มุ้งกรอบเหล็กเลื่อน", "มุ้งประตูเปิด","มุ้งเลื่อน","มุ้งเปิด","มุ้ง Fix","มุ้งจีบพับเก็บ"};
         ArrayAdapter<String> typeOfMAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, typeOfMItems);
         typeOfMDropdown.setAdapter(typeOfMAdapter);
         grobalSelectSpecialCase = CREATE_NEW_EACH_ORDER_MODEL;
@@ -569,7 +577,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
         });
     }
     private boolean isInputsEmpty() {
-        return posFloor == 0 || posPosition == 0 || DWPosition == 0 || posTypeOfM == 0 || posSpecialWord == 0 || isEmpty(txtWidth) || isEmpty(txtHeight);
+//        return posFloor == 0 || posPosition == 0 || DWPosition == 0 || posTypeOfM == 0 || posSpecialWord == 0 || isEmpty(txtWidth) || isEmpty(txtHeight);
+        return  posPosition == 0  || posTypeOfM == 0  || isEmpty(txtWidth) || isEmpty(txtHeight);
     }
 
     private boolean isEmpty(EditText etText) {
