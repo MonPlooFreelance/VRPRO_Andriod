@@ -29,7 +29,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import app.vrpro.Model.EachOrderModel;
 import app.vrpro.Model.OrderModel;
@@ -61,8 +63,14 @@ public class PDFTemplateUtils {
     private ProfileSaleModel profileSaleModel;
     private double subTotalPrice;
     private double lastTotalPrice;
+    private Map<Integer, List<EachOrderModel>> itemByFloorMap;
+    private int countWindow;
+    private int countDoor;
 
     public PDFTemplateUtils(Context context, OrderModel orderModel, List<EachOrderModel> eachOrderModelList, ProfileSaleModel profileSaleModel){
+        this.itemByFloorMap = new HashMap<>();
+        this.countWindow = 0;
+        this.countDoor = 0;
         this.context = context;
         this.orderModel = orderModel;
         this.eachOrderModelList = eachOrderModelList;
@@ -90,11 +98,12 @@ public class PDFTemplateUtils {
             paragraph.setAlignment(Element.ALIGN_CENTER);
             document.add(paragraph);
             document.add(new Paragraph(new Phrase("เรียน/Attention", bodyFontBold)));
-
             document.add(getCustomerDetail(orderModel));
             document.add(new Paragraph("\n"));
+
             document.add(getItemDetail(eachOrderModelList));
             document.add(getTotalPriceDetail());
+
             phrase = new Phrase("กำหนดยืนราคา (Price Validity) 30 วัน                   กำหนดส่งงาน (Term of Delivery)", bodyFontBold);
             document.add(new Paragraph(phrase));
             document.add(new Paragraph("\n"));
@@ -133,7 +142,7 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("....................................\n "+profileSaleModel.getSaleName()+"\n.........../.........../...........", bodyFontBold));
+        cell = new PdfPCell(new Phrase("....................................\n นาย ศุภกฤต  นิลพันธ์ \n.........../.........../...........", bodyFontBold));
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
@@ -215,96 +224,59 @@ public class PDFTemplateUtils {
 
     private Element getItemDetail(List<EachOrderModel> eachOrderModelList) throws DocumentException {
         PdfPTable itemTable = createHeaderItemTable();
+        createRuleOneItem(itemTable);
 
-        PdfPCell cell;
-        cell = new PdfPCell(new Phrase("1.", bodyFont));
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        cell.setBorder(Rectangle.LEFT);
-        cell.setUseVariableBorders(true);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("มุ้งลวด VP-PRO (ราคาโรงงาน)", bodyFont));
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        itemTable.addCell(cell);
-        itemTable.addCell("");
-        itemTable.addCell("");
-        itemTable.addCell("");
+        separateItemByFloor(eachOrderModelList);
 
-        String currentFloor = "";
-        for (EachOrderModel eachOrderModel : eachOrderModelList) {
-            String floor = eachOrderModel.getFloor();
-            if(!currentFloor.equals(floor)){
-                cell = new PdfPCell(new Phrase("ชั้น "+floor, bodyFont));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setBorder(Rectangle.LEFT);
-                itemTable.addCell(cell);
-                cell = new PdfPCell();
-                cell.setBackgroundColor(darkGrayColor);
-                itemTable.addCell(cell);
-                itemTable.addCell("");
-                itemTable.addCell("");
-                itemTable.addCell("");
-                currentFloor = floor;
-            }
-            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setBorder(Rectangle.LEFT);
-            itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase(createDetailString(eachOrderModel), bodyFont));
-            cell.setBorder(Rectangle.LEFT);
-            itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            itemTable.addCell(cell);
-            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
+        for (int i=1; i<= itemByFloorMap.size(); i++) {
+            insertItemByFloor(itemTable, i);
         }
 
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("Remark : ", bodyFontBold));
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        itemTable.addCell("");
-        itemTable.addCell("");
-        itemTable.addCell("");
 
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("-กรณีพื้นที่มุ้งไม่ถึง 0.50 ตร.ม. คิดเป็น 0.50 ตร.ม.", bodyFont));
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        itemTable.addCell("");
-        itemTable.addCell("");
-        itemTable.addCell("");
+//        String currentFloor = "";
+//        for (EachOrderModel eachOrderModel : eachOrderModelList) {
+//            String floor = eachOrderModel.getFloor();
+//            if(!currentFloor.equals(floor)){
+//                cell = new PdfPCell(new Phrase("ชั้น "+floor, bodyFont));
+//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cell.setBorder(Rectangle.LEFT);
+//                itemTable.addCell(cell);
+//                cell = new PdfPCell();
+//                cell.setBackgroundColor(darkGrayColor);
+//                itemTable.addCell(cell);
+//                itemTable.addCell("");
+//                itemTable.addCell("");
+//                itemTable.addCell("");
+//                currentFloor = floor;
+//            }
+//            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
+//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            cell.setBorder(Rectangle.LEFT);
+//            itemTable.addCell(cell);
+//            itemTable.addCell(createDetailString(eachOrderModel));
+//            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
+//            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            itemTable.addCell(cell);
+//            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
+//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            itemTable.addCell(cell);
+//            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
+//            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
+//            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            itemTable.addCell(cell);
+//        }
 
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("-กรณีพื้นที่มุ้งที่อยู่ในช่วงระหว่าง 0.51-0.99 ตร.ม. คิดเป็น 1.00 ตร.ม.", bodyFont));
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        itemTable.addCell("");
-        itemTable.addCell("");
-        itemTable.addCell("");
-
-        addRemarkPart(itemTable);
-
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        cell = new PdfPCell();
-        cell.setBorder(Rectangle.LEFT);
-        itemTable.addCell(cell);
-        itemTable.addCell("");
-        itemTable.addCell("");
-        itemTable.addCell("");
+        insertRemarkPart(itemTable);
+        PdfPCell cell;
+//        cell = new PdfPCell();
+//        cell.setBorder(Rectangle.LEFT);
+//        itemTable.addCell(cell);
+//        cell = new PdfPCell();
+//        cell.setBorder(Rectangle.LEFT);
+//        itemTable.addCell(cell);
+//        itemTable.addCell("");
+//        itemTable.addCell("");
+//        itemTable.addCell("");
 
         cell = new PdfPCell(new Phrase("2.", bodyFont));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -364,7 +336,135 @@ public class PDFTemplateUtils {
         return itemTable;
     }
 
-    private void addRemarkPart(PdfPTable itemTable) {
+    private void insertRemarkPart(PdfPTable itemTable) {
+        PdfPCell cell;
+        cell = new PdfPCell();
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        cell = new PdfPCell(new Phrase("Remark : ", bodyFontBold));
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        itemTable.addCell("");
+        itemTable.addCell("");
+        itemTable.addCell("");
+
+        cell = new PdfPCell();
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        cell = new PdfPCell(new Phrase("-กรณีพื้นที่มุ้งไม่ถึง 0.50 ตร.ม. คิดเป็น 0.50 ตร.ม.", bodyFont));
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        itemTable.addCell("");
+        itemTable.addCell("");
+        itemTable.addCell("");
+
+        cell = new PdfPCell();
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        cell = new PdfPCell(new Phrase("-กรณีพื้นที่มุ้งที่อยู่ในช่วงระหว่าง 0.51-0.99 ตร.ม. คิดเป็น 1.00 ตร.ม.", bodyFont));
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        itemTable.addCell("");
+        itemTable.addCell("");
+        itemTable.addCell("");
+        addCustomRemark(itemTable);
+    }
+
+    private void insertItemByFloor(PdfPTable itemTable, int i) throws DocumentException {
+        List<EachOrderModel> windowList = new ArrayList<>();
+        List<EachOrderModel> doorList = new ArrayList<>();
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase("ชั้น "+i, bodyFont));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+        cell = new PdfPCell();
+        cell.setBackgroundColor(darkGrayColor);
+        itemTable.addCell(cell);
+        itemTable.addCell("");
+        itemTable.addCell("");
+        itemTable.addCell("");
+        List<EachOrderModel> eachFloorItems = itemByFloorMap.get(i);
+
+        for (EachOrderModel eachOrderModel : eachFloorItems) {
+            if ("หน้าต่าง".equals(eachOrderModel.getDw())){
+                windowList.add(eachOrderModel);
+            } else if ("ประตู".equals(eachOrderModel.getDw())) {
+                doorList.add(eachOrderModel);
+            }
+        }
+
+        this.countWindow = 0;
+        for (EachOrderModel eachOrderModel : windowList) {
+            countWindow++;
+            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell(createDetailString(eachOrderModel));
+            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            itemTable.addCell(cell);
+            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
+            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+        }
+
+        this.countDoor = 0;
+        for (EachOrderModel eachOrderModel : doorList) {
+            countDoor++;
+            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setBorder(Rectangle.LEFT);
+            itemTable.addCell(cell);
+            itemTable.addCell(createDetailString(eachOrderModel));
+            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            itemTable.addCell(cell);
+            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
+            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            itemTable.addCell(cell);
+        }
+    }
+
+    private void createRuleOneItem(PdfPTable itemTable) {
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase("1.", bodyFont));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        cell.setBorder(Rectangle.LEFT);
+        cell.setUseVariableBorders(true);
+        itemTable.addCell(cell);
+        cell = new PdfPCell(new Phrase("มุ้งลวด VP-PRO (ราคาโรงงาน)", bodyFont));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        itemTable.addCell(cell);
+        itemTable.addCell("");
+        itemTable.addCell("");
+        itemTable.addCell("");
+    }
+
+    private void separateItemByFloor(List<EachOrderModel> eachOrderModelList){
+        for (EachOrderModel eachOrderModel : eachOrderModelList) {
+            if(itemByFloorMap.containsKey(Integer.parseInt(eachOrderModel.getFloor()))){
+                List<EachOrderModel> list = itemByFloorMap.get(Integer.parseInt(eachOrderModel.getFloor()));
+                list.add(eachOrderModel);
+                itemByFloorMap.put(Integer.parseInt(eachOrderModel.getFloor()), list);
+            } else {
+                List<EachOrderModel> list = new ArrayList<>();
+                list.add(eachOrderModel);
+                itemByFloorMap.put(Integer.parseInt(eachOrderModel.getFloor()), list);
+            }
+        }
+    }
+
+    private void addCustomRemark(PdfPTable itemTable) {
         PdfPCell cell;
         if(this.orderModel.getRemarks() != null && !("".equals(this.orderModel.getRemarks()))) {
             cell = new PdfPCell();
@@ -406,23 +506,56 @@ public class PDFTemplateUtils {
         return areaFormat.format(roundUp);
     }
 
-    private String createDetailString(EachOrderModel eachOrderModel) {
-        return eachOrderModel.getDw() +" (ก "+eachOrderModel.getWidth()+" x ส "+eachOrderModel.getHeight()+")        "
-                +eachOrderModel.getTypeOfM()+" "+eachOrderModel.getSpecialWord()+" / "+getSpacialReqString(eachOrderModel.getSpecialReq());
+    private PdfPTable createDetailString(EachOrderModel eachOrderModel) throws DocumentException {
+
+        PdfPTable innerTable = new PdfPTable(4);
+        innerTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+        innerTable.setWidths(new float[] {28, 45, 2, 25});
+        PdfPCell pdfPCell = new PdfPCell(new Phrase(parseToShortTypeAndAreaString(eachOrderModel), bodyFont));
+        pdfPCell.setBorder(Rectangle.NO_BORDER);
+        innerTable.addCell(pdfPCell);
+
+        pdfPCell = new PdfPCell(new Phrase(getSpacialReqString(eachOrderModel), bodyFont));
+        pdfPCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCell.setBorder(Rectangle.NO_BORDER);
+        innerTable.addCell(pdfPCell);
+
+        pdfPCell = new PdfPCell(new Phrase("/", bodyFont));
+        pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPCell.setBorder(Rectangle.NO_BORDER);
+        innerTable.addCell(pdfPCell);
+
+        pdfPCell = new PdfPCell(new Phrase(eachOrderModel.getTypeOfM(), bodyFont));
+        pdfPCell.setBorder(Rectangle.NO_BORDER);
+        innerTable.addCell(pdfPCell);
+        return innerTable;
     }
 
-    private String getSpacialReqString(ArrayList<String> specialReq) {
+    private String parseToShortTypeAndAreaString(EachOrderModel eachOrderModel){
+        String shortString = "";
+        if("หน้าต่าง".equals(eachOrderModel.getDw())){
+            shortString = "W"+this.countWindow+" (ก "+areaFormat.format(eachOrderModel.getWidth())+" x ส "+areaFormat.format(eachOrderModel.getHeight())+")";
+        } else if ("ประตู".equals(eachOrderModel.getDw())){
+            shortString = "D"+this.countDoor+" (ก "+areaFormat.format(eachOrderModel.getWidth())+" x ส "+areaFormat.format(eachOrderModel.getHeight())+")";
+        }
+        return shortString;
+    }
+
+    private String getSpacialReqString(EachOrderModel eachOrderModel) {
         String result = "";
-        for (String req: specialReq) {
+        result += eachOrderModel.getSpecialWord();
+        for (String req: eachOrderModel.getSpecialReq()) {
+            if(!result.equals("")){
+                result += "+";
+            }
             result += req;
-            result += " ";
         }
         return result;
     }
 
     private PdfPTable createHeaderItemTable() throws DocumentException {
         PdfPTable itemTable = new PdfPTable(5);
-        itemTable.setWidths(new float[] {20, 50, 10, 10, 10});
+        itemTable.setWidths(new float[] {12, 58, 10, 10, 10});
         itemTable.setTotalWidth(523);
         itemTable.setLockedWidth(true);
         itemTable.addCell(createCellHeaderItemTable("รายการ\nITEM"));

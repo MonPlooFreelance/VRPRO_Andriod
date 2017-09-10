@@ -199,10 +199,10 @@ public class CreateOrderActivity extends AppCompatActivity {
             OrderModel orderModel = sqlLite.getOrderModelByQuotationNo(shared_quotationNo);
             List<EachOrderModel> eachOrderModelList = sqlLite.getEachOrderModelListByQuotationNo(shared_quotationNo);
             ProfileSaleModel profileSaleModel = sqlLite.getProfileSaleModel();
-            PDFTemplateUtils fop = new PDFTemplateUtils(CreateOrderActivity.this, orderModel, eachOrderModelList, profileSaleModel);
+            PDFTemplateUtils pdfTemplateUtils = new PDFTemplateUtils(CreateOrderActivity.this, orderModel, eachOrderModelList, profileSaleModel);
             File file = new File(getExternalFilesDir(filepath), filename);
             Log.i(LOG_TAG, "write path : "+file.getAbsolutePath());
-            if (fop.write(file)) {
+            if (pdfTemplateUtils.write(file)) {
                 Toast.makeText(getApplicationContext(),
                         filename + " created", Toast.LENGTH_SHORT)
                         .show();
