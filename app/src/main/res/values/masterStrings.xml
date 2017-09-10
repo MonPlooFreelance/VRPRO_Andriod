@@ -1,60 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="special_req_klub_tarng">กลับทาง</string>
-    <string name="special_req_kor_sub">ขอสับ</string>
-    <string name="special_req_door_closer">Door Closer</string>
-    <string name="special_req_acrylic_0.65">อะคริลิคใส(0.65 ม.)</string>
-    <string name="special_req_acrylic_1.00">อะคริลิคใส(1.00 ม.)</string>
-    <string name="special_req_acrylic_full">อะคริลิคใส(เต็มบาน)</string>
-    <string name="special_req_door_for_pets">Door for Pets</string>
+    <!--word of accessories-->
+    <string name="special_req_pet_screen_mung_krob">Pet Screen</string>
     <string name="special_req_meu_jub_fung">มือจับฝัง</string>
-    <string name="special_req_perm_krob">เพิ่มกรอบ</string>
+    <string name="special_req_key">กุญแจ</string>
+    <string name="special_req_acrylic">อะคริลิคใส</string>
+    <string name="special_req_door_for_pets">Door for Pet(s)</string>
+    <string name="special_req_lock_mung">ตัวล็อคมุ้ง</string>
+    <string name="special_req_kor_sub">ขอสับ</string>
+    <string name="special_req_look_bid">ลูกบิด</string>
+    <string name="special_req_mae_lek">แม่เหล็ก</string>
+    <string name="special_req_sharp">#</string>
+    <string name="special_req_klub_tarng">กลับทาง</string>
     <string name="special_req_perm_rang">เพิ่มราง</string>
+    <string name="special_req_perm_krob">เพิ่มกรอบ</string>
+    <string name="special_req_perm_krob_pratoo">เพิ่มกรอบประตู</string>
+    <string name="special_req_pet_screen_normal">Pet Screen</string>
     <string name="special_req_ban_kred">บานเกร็ด</string>
-    <string name="special_req_pet_screen_0.65">Pets Screen(0.65 ม.)</string>
-    <string name="special_req_pet_screen_1.00">Pets Screen(1.00 ม.)</string>
-    <string name="special_req_pet_screen_full">Pets Screen(เต็มบาน)</string>
-    <string name="special_req_rang_tere">รางเตี้ย</string>
-    <string name="special_req_keb_rang">เก็บราง</string>
+    <string name="special_req_darn_nork">ด้านนอก</string>
+    <string name="special_req_keep_left">เก็บซ้าย</string>
+    <string name="special_req_keep_right">เก็บขวา</string>
+    <string name="special_req_safe">safe</string>
 
+    <!--<string name="special_req_door_closer">Door Closer</string>-->
+    <!--<string name="special_req_acrylic_0.65">อะคริลิคใส(0.65 ม.)</string>-->
+    <!--<string name="special_req_acrylic_1.00">อะคริลิคใส(1.00 ม.)</string>-->
+    <!--<string name="special_req_acrylic_full">อะคริลิคใส(เต็มบาน)</string>-->
+    <!--<string name="special_req_pet_screen_0.65">Pets Screen(0.65 ม.)</string>-->
+    <!--<string name="special_req_pet_screen_1.00">Pets Screen(1.00 ม.)</string>-->
+    <!--<string name="special_req_pet_screen_full">Pets Screen(เต็มบาน)</string>-->
+    <!--<string name="special_req_rang_tere">รางเตี้ย</string>-->
+    <!--<string name="special_req_keb_rang">เก็บราง</string>-->
+
+    <!--price of typeOfMung-->
     <string name="price_of_mung_krob_lek_perd">3800</string>
-    <string name="price_of_kor_sub">100</string>
-    <string name="price_of_door_closer">1000</string>
-    <string name="price_of_acrylic_0.65">1000</string>
-    <string name="price_of_acrylic_1.00">1500</string>
-    <string name="price_of_acrylic_full">3000</string>
-    <string name="price_of_door_for_pets">1500</string>
-
     <string name="price_of_mung_krob_lek_leuan">4500</string>
-    <string name="price_of_meu_jub_fung">500</string>
-    <string name="price_of_pet_screen_0.65">200</string>
-    <string name="price_of_pet_screen_1.00">400</string>
-    <string name="price_of_pet_screen_full">800</string>
-
-
     <string name="price_of_mung_pratoo_perd">2200</string>
-    <string name="price_of_perm_krob">300</string>
-
     <string name="price_of_mung_leuan">1000</string>
-    <string name="price_of_perm_rang">300</string>
-
     <string name="price_of_mung_perd">700</string>
+    <string name="price_of_mung_fix">700</string>
+    <string name="price_of_mung_jeeb">1500</string>
+    <string name="price_of_mung_jeeb_rang_tere">2200</string>
+    <string name="price_of_mung_jeeb_walker">3000</string>
+
+    <!--price of accessories-->
+    <string name="price_of_pet_screen_mung_krob">600</string>
+    <string name="price_of_meu_jub_fung">500</string>
+    <string name="price_of_key">1000</string>
+    <string name="price_of_acrylic">1500</string>
+    <string name="price_of_door_for_pets">1700</string>
+    <string name="price_of_kor_sub">100</string>
+    <string name="price_of_lock_mung">100</string>
+    <string name="price_of_perm_rang">300</string>
+    <string name="price_of_perm_krob">300</string>
+    <string name="price_of_perm_krob_pratoo">300</string>
+    <string name="price_of_pet_screen_normal">300</string>
     <string name="price_of_ban_kred">300</string>
 
-    <string name="price_of_mung_fix">700</string>
-
-    <string name="price_of_mung_pub">1500</string>
-    <string name="price_of_rang_tere">700</string>
-    <string name="price_of_ked_rang">1500</string>
+    <!--<string name="price_of_door_closer">1000</string>-->
+    <!--<string name="price_of_acrylic_0.65">1000</string>-->
+    <!--<string name="price_of_acrylic_1.00">1500</string>-->
+    <!--<string name="price_of_pet_screen_0.65">200</string>-->
+    <!--<string name="price_of_pet_screen_1.00">400</string>-->
+    <!--<string name="price_of_pet_screen_full">800</string>-->
+    <!--<string name="price_of_rang_tere">700</string>-->
+    <!--<string name="price_of_ked_rang">1500</string>-->
 
     <string-array name="floor_array">
-        <item>ชั้น</item>
+        <!--<item>ชั้น</item>-->
         <item>1</item>
         <item>2</item>
         <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item>ไม่ระบุ</item>
     </string-array>
 
     <string-array name="position_array">
@@ -81,12 +99,23 @@
         <item>น้ำนอนกลาง</item>
         <item>โถงกลาง</item>
         <item>น้ำบน</item>
+        <item>ห้องพระ</item>
     </string-array>
 
     <string-array name="dw_array">
-        <item>ประเภท</item>
+        <!--<item>ประเภท</item>-->
         <item>ประตู</item>
         <item>หน้าต่าง</item>
+    </string-array>
+
+
+    <string-array name="type_of_m_array_for_door">
+        <item>ประเภทมุ้ง</item>
+        <item>มุ้งกรอบเหล็กเปิด</item>
+        <item>มุ้งกรอบเหล็กเลื่อน</item>
+        <item>มุ้งประตูเปิด</item>
+        <item>มุ้งจีบรางเตี้ย</item>
+        <item>มุ้งจีบ WALKER</item>
     </string-array>
 
     <string-array name="type_of_m_array">
@@ -94,31 +123,34 @@
         <item>มุ้งกรอบเหล็กเปิด</item>
         <item>มุ้งกรอบเหล็กเลื่อน</item>
         <item>มุ้งประตูเปิด</item>
-        <item>มุ้งเลื่อน</item>
+        <item>มุ้งเลื่อน(S)</item>
         <item>มุ้งเปิด</item>
         <item>มุ้ง Fix</item>
-        <item>มุ้งจีบพับเก็บ</item>
+        <item>มุ้งจีบ</item>
+        <item>มุ้งจีบรางเตี้ย</item>
+        <item>มุ้งจีบ WALKER</item>
+        <!--<item>มุ้งจีบพับเก็บ</item>-->
     </string-array>
 
     <string-array name="color_mung_array">
-        <item>สี</item>
+        <!--<item>สี</item>-->
         <item>สีขาว</item>
         <item>สีดำ</item>
         <item>สีน้ำตาล</item>
     </string-array>
 
-    <string-array name="special_mung_leuan_array">
-        <item>รูปแบบพิเศษ</item>
-        <item>A</item>
-        <item>S</item>
-        <item>SA</item>
-    </string-array>
+    <!--<string-array name="special_mung_leuan_array">-->
+        <!--<item>รูปแบบพิเศษ</item>-->
+        <!--<item>A</item>-->
+        <!--<item>S</item>-->
+        <!--<item>SA</item>-->
+    <!--</string-array>-->
 
-    <string-array name="special_mung_fix_array">
-        <item>รูปแบบพิเศษ</item>
-        <item>ลูกบิด</item>
-        <item>แม่เหล็ก</item>
-    </string-array>
+    <!--<string-array name="special_mung_fix_array">-->
+        <!--<item>รูปแบบพิเศษ</item>-->
+        <!--<item>ลูกบิด</item>-->
+        <!--<item>แม่เหล็ก</item>-->
+    <!--</string-array>-->
 
     <string-array name="special_mung_pub_array">
         <item>รูปแบบพิเศษ</item>
@@ -128,77 +160,103 @@
     </string-array>
 
     <string-array name="special_req_of_mung_krob_lek_perd_array">
-        <item>@string/special_req_klub_tarng</item>
-        <item>@string/special_req_kor_sub</item>
-        <item>@string/special_req_door_closer</item>
-        <item>@string/special_req_acrylic_0.65</item>
-        <item>@string/special_req_acrylic_1.00</item>
-        <item>@string/special_req_acrylic_full</item>
+        <item>@string/special_req_pet_screen_mung_krob</item>
+        <item>@string/special_req_key</item>
+        <item>@string/special_req_acrylic</item>
         <item>@string/special_req_door_for_pets</item>
-        <item>@string/special_req_pet_screen_0.65</item>
-        <item>@string/special_req_pet_screen_1.00</item>
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_kor_sub</item>
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_darn_nork</item>
+
     </string-array>
 
     <string-array name="special_req_of_mung_krob_lek_leuan_array">
-        <item>@string/special_req_klub_tarng</item>
+
+        <item>@string/special_req_pet_screen_mung_krob</item>
         <item>@string/special_req_meu_jub_fung</item>
-        <item>@string/special_req_kor_sub</item>
-        <item>@string/special_req_acrylic_0.65</item>
-        <item>@string/special_req_acrylic_1.00</item>
-        <item>@string/special_req_acrylic_full</item>
+        <item>@string/special_req_key</item>
+        <item>@string/special_req_acrylic</item>
         <item>@string/special_req_door_for_pets</item>
-        <item>@string/special_req_pet_screen_0.65</item>
-        <item>@string/special_req_pet_screen_1.00</item>
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_kor_sub</item>
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_safe</item>
+
     </string-array>
 
     <string-array name="special_req_of_mung_pratoo_perd_array">
-        <item>@string/special_req_klub_tarng</item>
-        <item>@string/special_req_perm_krob</item>
+        <item>@string/special_req_pet_screen_normal</item>
         <item>@string/special_req_kor_sub</item>
-        <!--<item>@string/special_req_door_for_pets</item>-->
-        <!--<item>@string/special_req_pet_screen_0.65</item>-->
-        <!--<item>@string/special_req_pet_screenc_1.00</item>-->
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_perm_krob_pratoo</item>
+        <item>@string/special_req_look_bid</item>
+        <item>@string/special_req_mae_lek</item>
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_darn_nork</item>
+
     </string-array>
 
     <string-array name="special_req_of_mung_leuan_array">
+        <item>@string/special_req_pet_screen_normal</item>
+        <item>@string/special_req_lock_mung</item>
+        <item>@string/special_req_kor_sub</item>
+        <item>@string/special_req_sharp</item>
         <item>@string/special_req_klub_tarng</item>
         <item>@string/special_req_perm_rang</item>
         <item>@string/special_req_perm_krob</item>
-        <item>@string/special_req_kor_sub</item>
-        <!--<item>@string/special_req_door_for_pets</item>-->
-        <!--<item>@string/special_req_pet_screen_0.65</item>-->
-        <!--<item>@string/special_req_pet_screenc_1.00</item>-->
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_safe</item>
+
     </string-array>
 
     <string-array name="special_req_of_mung_perd_array">
-        <item>@string/special_req_klub_tarng</item>
-        <item>@string/special_req_perm_krob</item>
-        <item>@string/special_req_ban_kred</item>
+        <item>@string/special_req_pet_screen_normal</item>
         <item>@string/special_req_kor_sub</item>
-        <!--<item>@string/special_req_door_for_pets</item>-->
-        <!--<item>@string/special_req_pet_screen_0.65</item>-->
-        <!--<item>@string/special_req_pet_screenc_1.00</item>-->
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_look_bid</item>
+        <item>@string/special_req_mae_lek</item>
+        <item>@string/special_req_sharp</item>
+        <item>@string/special_req_perm_krob</item>
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_ban_kred</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_safe</item>
+
     </string-array>
 
     <string-array name="special_req_of_mung_fix_array">
-        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_pet_screen_normal</item>
+        <item>@string/special_req_look_bid</item>
+        <item>@string/special_req_mae_lek</item>
+        <item>@string/special_req_sharp</item>
         <item>@string/special_req_perm_krob</item>
-        <item>@string/special_req_ban_kred</item>
-        <!--<item>@string/special_req_door_for_pets</item>-->
-        <!--<item>@string/special_req_pet_screen_0.65</item>-->
-        <!--<item>@string/special_req_pet_screenc_1.00</item>-->
-        <item>@string/special_req_pet_screen_full</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_safe</item>
     </string-array>
 
-    <string-array name="special_req_of_mung_pub_array">
+    <string-array name="special_req_of_mung_jeeb">
         <item>@string/special_req_klub_tarng</item>
-        <!--<item>@string/special_req_rang_tere</item>-->
-        <!--<item>@string/special_req_keb_rang</item>-->
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_keep_left</item>
+        <item>@string/special_req_keep_right</item>
+        <item>@string/special_req_safe</item>
+
+    </string-array>
+
+    <string-array name="special_req_of_mung_jeeb_rang_tere">
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_keep_left</item>
+        <item>@string/special_req_keep_right</item>
+        <item>@string/special_req_safe</item>
+
+    </string-array>
+
+    <string-array name="special_req_of_mung_jeeb_walker">
+        <item>@string/special_req_klub_tarng</item>
+        <item>@string/special_req_darn_nork</item>
+        <item>@string/special_req_keep_left</item>
+        <item>@string/special_req_keep_right</item>
+        <item>@string/special_req_safe</item>
+
     </string-array>
 
 </resources>

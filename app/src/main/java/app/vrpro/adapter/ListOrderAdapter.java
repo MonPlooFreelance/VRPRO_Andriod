@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import app.vrpro.Model.OrderModel;
 import app.vrpro.R;
+import app.vrpro.util.DecimalUtil;
 
 /**
  * Created by Plooer on 6/24/2017 AD.
@@ -60,7 +62,9 @@ public class ListOrderAdapter extends BaseAdapter {
         holder.txtQuotationNo.setText(orderModel.getQuotationNo());
         holder.txtProjectName.setText(orderModel.getProjectName());
         holder.txtCustomerName.setText(orderModel.getCustomerName());
-        holder.txtTotalPrice.setText(String.valueOf(orderModel.getTotalPrice()));
+//        DecimalFormat formatter = new DecimalFormat("#,###.00");
+
+        holder.txtTotalPrice.setText(String.valueOf(DecimalUtil.insertCommaDouble(orderModel.getTotalPrice())));
 
         return convertView;
     }

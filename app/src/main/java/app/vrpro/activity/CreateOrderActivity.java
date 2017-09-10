@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +45,7 @@ import app.vrpro.Model.OrderModel;
 import app.vrpro.Model.ProfileSaleModel;
 import app.vrpro.R;
 import app.vrpro.adapter.ListEachOrderAdapter;
+import app.vrpro.util.DecimalUtil;
 import app.vrpro.util.PDFTemplateUtils;
 import app.vrpro.util.SQLiteUtil;
 
@@ -54,7 +56,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     private Toolbar mActionBarToolbar;
     private ListView listEachOrderListView;
     private SQLiteUtil sqlLite;
-    private Double totalPrice;
+    private Double totalPrice = 0.00;
 
     private TextView txtQuotationNo;
     private TextView txtQuotationDate;
@@ -62,7 +64,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     private EditText txtCustomerName;
     private EditText txtCustomerAdress;
     private EditText txtCustomerPhone;
-    private EditText txtCustomerEmail;
+    private EditText txtCustomerTypeOfWongkob;
     private EditText txtRemarks;
     private EditText txtDiscount;
     private TextView txtTotalPrice;
@@ -97,7 +99,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         txtCustomerName = (EditText) findViewById(R.id.txtCustomerName);
         txtCustomerAdress = (EditText) findViewById(R.id.txtCustomerAddress);
         txtCustomerPhone = (EditText) findViewById(R.id.txtCustomerPhone);
-        txtCustomerEmail = (EditText) findViewById(R.id.txtCustomerEmail);
+        txtCustomerTypeOfWongkob = (EditText) findViewById(R.id.txtCustomerTypeOfWongKob);
         txtRemarks = (EditText) findViewById(R.id.txtRemarks);
         txtDiscount = (EditText) findViewById(R.id.txtDiscount);
         txtTotalPrice = (TextView) findViewById(R.id.txtTotalPrice);
@@ -127,9 +129,9 @@ public class CreateOrderActivity extends AppCompatActivity {
                     Log.i(LOG_TAG,"textDiscount : " + txtDiscount.getText().toString());
                     Log.i(LOG_TAG,"tempPrice : " + tempTotalPrice);
                     if(tempTotalPrice>=0){
-                        txtTotalPrice.setText(String.valueOf(tempTotalPrice));
+                        txtTotalPrice.setText(DecimalUtil.insertCommaDouble(tempTotalPrice));
                     }else{
-                        txtTotalPrice.setText("0.0");
+                        txtTotalPrice.setText("0.00");
                     }
 
                 }
@@ -154,7 +156,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
                     if(orderModelFromDB.getQuotationNo() != null){
                         Log.i(LOG_TAG,"Update Order");
-                        totalPrice = Double.parseDouble(txtTotalPrice.getText().toString());
+                        totalPrice = Double.parseDouble(txtTotalPrice.getText().toString().replaceAll(",", ""));
                         updateOrderModelToDB(totalPrice,orderModelFromDB.getRealTotalPrice());
                         gotoHomeActivity();
 
@@ -280,7 +282,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         Log.i(LOG_TAG,"customerName : " + txtCustomerName.getText().toString());
         Log.i(LOG_TAG,"customerAdress : " + txtCustomerAdress.getText().toString());
         Log.i(LOG_TAG,"customerPhone : " + txtCustomerPhone.getText().toString());
-        Log.i(LOG_TAG,"customerEmail : " + txtCustomerEmail.getText().toString());
+        Log.i(LOG_TAG,"customerTypeOfWongKob : " + txtCustomerTypeOfWongkob.getText().toString());
         Log.i(LOG_TAG,"remarks : " + txtRemarks.getText().toString());
         Log.i(LOG_TAG,"discount : " + txtDiscount.getText().toString());
         Log.i(LOG_TAG,"totalPrice : " + totalPrice);
@@ -294,7 +296,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         orderModel.setCustomerName(txtCustomerName.getText().toString());
         orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
         orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
-        orderModel.setCustomerEmail(txtCustomerEmail.getText().toString());
+        orderModel.setCustomerTypeOfWongKob(txtCustomerTypeOfWongkob.getText().toString());
         orderModel.setRemarks(txtRemarks.getText().toString());
         orderModel.setDiscount(txtDiscount.getText().toString().trim().length() == 0 ? 0 : Double.parseDouble(txtDiscount.getText().toString()));
         orderModel.setTotalPrice(totalPrice);
@@ -320,14 +322,14 @@ public class CreateOrderActivity extends AppCompatActivity {
                 Log.i(LOG_TAG,"First Order Of Sale");
                 runningQuataionNo = shared_quotationRunningNoDefine;
                 txtQuotationNo.setText(shared_quotationNoDefine+shared_quotationRunningNoDefine);
-                txtTotalPrice.setText("0.0");
+                txtTotalPrice.setText("0.00");
             }else {
                 Log.i(LOG_TAG, "Not First Order Of Sale");
                 runningQuataionNo = shared_quotationRunningNoDefine + 1;
                 String showQautationNo = shared_quotationNoDefine + String.valueOf(runningQuataionNo);
                 Log.i(LOG_TAG, "showQautationNo : " + showQautationNo);
                 txtQuotationNo.setText(showQautationNo);
-                txtTotalPrice.setText("0.0");
+                txtTotalPrice.setText("0.00");
             }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
@@ -345,10 +347,10 @@ public class CreateOrderActivity extends AppCompatActivity {
             txtCustomerName.setText(orderModelFromDB.getCustomerName());
             txtCustomerAdress.setText(orderModelFromDB.getCustomerAdress());
             txtCustomerPhone.setText(orderModelFromDB.getCustomerPhone());
-            txtCustomerEmail.setText(orderModelFromDB.getCustomerEmail());
+            txtCustomerTypeOfWongkob.setText(orderModelFromDB.getCustomerTypeOfWongKob());
             txtRemarks.setText(orderModelFromDB.getRemarks());
-            txtDiscount.setText(orderModelFromDB.getDiscount() == 0.0 ? "" : String.valueOf(orderModelFromDB.getDiscount()));
-            txtTotalPrice.setText(String.valueOf(orderModelFromDB.getTotalPrice()));
+            txtDiscount.setText(orderModelFromDB.getDiscount() == 0.0 ? "" : DecimalUtil.insertCommaDouble(orderModelFromDB.getDiscount()));
+            txtTotalPrice.setText(DecimalUtil.insertCommaDouble(orderModelFromDB.getTotalPrice()));
             getDataToListView(shared_quotationNo);
         }
     }
@@ -380,10 +382,10 @@ public class CreateOrderActivity extends AppCompatActivity {
         Log.i(LOG_TAG,"customerName : " + txtCustomerName.getText().toString());
         Log.i(LOG_TAG,"customerAdress : " + txtCustomerAdress.getText().toString());
         Log.i(LOG_TAG,"customerPhone : " + txtCustomerPhone.getText().toString());
-        Log.i(LOG_TAG,"customerEmail : " + txtCustomerEmail.getText().toString());
+        Log.i(LOG_TAG,"customerTypeOfWongKob : " + txtCustomerTypeOfWongkob.getText().toString());
         Log.i(LOG_TAG,"remarks : " + txtRemarks.getText().toString());
         Log.i(LOG_TAG,"discount : " + txtDiscount.getText().toString());
-        Log.i(LOG_TAG,"totalPrice : " + totalPrice);
+        Log.i(LOG_TAG,"totalPrice : " + txtDiscount.getText().toString());
 
         orderModel = new OrderModel();
         orderModel.setID(orderModelFromDB.getID());
@@ -393,7 +395,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         orderModel.setCustomerName(txtCustomerName.getText().toString());
         orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
         orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
-        orderModel.setCustomerEmail(txtCustomerEmail.getText().toString());
+        orderModel.setCustomerTypeOfWongKob(txtCustomerTypeOfWongkob.getText().toString());
         orderModel.setRemarks(txtRemarks.getText().toString());
         orderModel.setDiscount(txtDiscount.getText().toString().trim().length() == 0 ? 0 : Double.parseDouble(txtDiscount.getText().toString()));
         orderModel.setTotalPrice(Double.parseDouble(txtTotalPrice.getText().toString()));
@@ -531,7 +533,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     }
 
     private boolean isInputsEmpty() {
-        return isEmpty(txtProjectName) || isEmpty(txtCustomerName) || isEmpty(txtCustomerAdress) || isEmpty(txtCustomerPhone) || isEmpty(txtCustomerEmail);
+        return isEmpty(txtProjectName) || isEmpty(txtCustomerName) || isEmpty(txtCustomerAdress) || isEmpty(txtCustomerPhone) || isEmpty(txtCustomerTypeOfWongkob);
     }
 
     private boolean isEmpty(EditText etText) {

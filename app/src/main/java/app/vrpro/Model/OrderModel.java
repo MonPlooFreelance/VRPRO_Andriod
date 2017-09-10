@@ -13,7 +13,7 @@ public class OrderModel {
     private String customerName;
     private String customerAdress;
     private String customerPhone;
-    private String customerEmail;
+    private String customerTypeOfWongKob;
     private Double discount;
     private Double totalPrice;
     private String remarks;
@@ -75,12 +75,12 @@ public class OrderModel {
         this.customerPhone = customerPhone;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getCustomerTypeOfWongKob() {
+        return customerTypeOfWongKob;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setCustomerTypeOfWongKob(String customerTypeOfWongKob) {
+        this.customerTypeOfWongKob = customerTypeOfWongKob;
     }
 
     public Double getDiscount() {

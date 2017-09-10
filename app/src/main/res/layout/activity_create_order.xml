@@ -145,11 +145,11 @@
             android:layout_alignStart="@+id/txtCustomerAddress" />
 
         <EditText
-            android:id="@+id/txtCustomerEmail"
+            android:id="@+id/txtCustomerTypeOfWongKob"
             android:layout_width="440dp"
             android:layout_height="50dp"
             android:background="@drawable/selector_boarder_2"
-            android:hint="อีเมล์"
+            android:hint="ประเภทของวงกบ"
             android:inputType="text"
             android:padding="10dp"
             android:layout_marginLeft="40dp"
