@@ -11,7 +11,7 @@ public class OrderModel {
     private String quotationDate;
     private String projectName;
     private String customerName;
-    private String customerAdress;
+    private String customerAddress;
     private String customerPhone;
     private String customerTypeOfWongKob;
     private Double discount;
@@ -59,12 +59,12 @@ public class OrderModel {
         this.customerName = customerName;
     }
 
-    public String getCustomerAdress() {
-        return customerAdress;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setCustomerAdress(String customerAdress) {
-        this.customerAdress = customerAdress;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     public String getCustomerPhone() {

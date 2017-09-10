@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import app.vrpro.Model.EachOrderModel;
@@ -66,7 +65,7 @@ public class ListEachOrderAdapter extends BaseAdapter{
         holder.txtTypeOfM.setText(eachOrderModel.getTypeOfM());
         holder.txtSpecialWord.setText(eachOrderModel.getSpecialWordReport());
         Log.i(LOG_TAG,"eachOrderModel.getSpecialWordReport() : "  + eachOrderModel.getSpecialWordReport());
-        holder.txtTotalPrices.setText(String.valueOf(DecimalUtil.insertCommaDouble(eachOrderModel.getTotolPrice())));
+        holder.txtTotalPrices.setText(String.valueOf(DecimalUtil.insertCommaDouble(eachOrderModel.getTotalPrice())));
 
         return convertView;
     }

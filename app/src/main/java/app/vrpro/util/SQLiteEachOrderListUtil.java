@@ -93,7 +93,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_SPECIAL_REQ, eachOrderModel.getSpecialReq().toString());
         values.put(EACH_ORDER_WIDTH, eachOrderModel.getWidth());
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
-        values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotolPrice());
+        values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotalPrice());
 
 
         sqLiteDatabase.insert(EACH_ORDER_TABLE, null, values);
@@ -130,7 +130,7 @@ public class SQLiteEachOrderListUtil extends SQLiteOpenHelper {
             eachOrderModel.setSpecialReq(new ArrayList<String>(Arrays.asList(cursor.getString(7).split(","))));
             eachOrderModel.setWidth(cursor.getDouble(8));
             eachOrderModel.setHeight(cursor.getDouble(9));
-            eachOrderModel.setTotolPrice(cursor.getDouble(10));
+            eachOrderModel.setTotalPrice(cursor.getDouble(10));
             eachOrderModelList.add(eachOrderModel);
             cursor.moveToNext();
         }

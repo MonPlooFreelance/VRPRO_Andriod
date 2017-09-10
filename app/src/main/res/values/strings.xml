@@ -19,4 +19,9 @@
     <string name="summaryprice">สรุปราคา</string>
     <string name="createOrder">สร้างใบเสนอราคา</string>
     <string name="preference_key">vrpro.vrpro</string>
+    <string name="first_floor">ชั้น 1</string>
+    <string name="second_floor">ชั้น 2</string>
+    <string name="third_floor">ชั้น 3</string>
+    <string name="door">ประตู</string>
+    <string name="window">หน้าต่าง</string>
 </resources>

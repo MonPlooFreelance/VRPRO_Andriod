@@ -43,6 +43,8 @@ import app.vrpro.Model.ProfileSaleModel;
 
 public class PDFTemplateUtils {
 
+    private static List<String> fixAreaCostTypeOfMList = createFixAreaCostTypeOfMList();
+
     private static final String LOG_TAG = "PDFTemplateUtils";
     private String fontFamily = "assets/THSarabun.ttf";
     private Font bodyTile = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD);
@@ -232,51 +234,8 @@ public class PDFTemplateUtils {
             insertItemByFloor(itemTable, i);
         }
 
-
-//        String currentFloor = "";
-//        for (EachOrderModel eachOrderModel : eachOrderModelList) {
-//            String floor = eachOrderModel.getFloor();
-//            if(!currentFloor.equals(floor)){
-//                cell = new PdfPCell(new Phrase("ชั้น "+floor, bodyFont));
-//                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//                cell.setBorder(Rectangle.LEFT);
-//                itemTable.addCell(cell);
-//                cell = new PdfPCell();
-//                cell.setBackgroundColor(darkGrayColor);
-//                itemTable.addCell(cell);
-//                itemTable.addCell("");
-//                itemTable.addCell("");
-//                itemTable.addCell("");
-//                currentFloor = floor;
-//            }
-//            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
-//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            cell.setBorder(Rectangle.LEFT);
-//            itemTable.addCell(cell);
-//            itemTable.addCell(createDetailString(eachOrderModel));
-//            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
-//            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//            itemTable.addCell(cell);
-//            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
-//            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//            itemTable.addCell(cell);
-//            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
-//            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
-//            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//            itemTable.addCell(cell);
-//        }
-
         insertRemarkPart(itemTable);
         PdfPCell cell;
-//        cell = new PdfPCell();
-//        cell.setBorder(Rectangle.LEFT);
-//        itemTable.addCell(cell);
-//        cell = new PdfPCell();
-//        cell.setBorder(Rectangle.LEFT);
-//        itemTable.addCell(cell);
-//        itemTable.addCell("");
-//        itemTable.addCell("");
-//        itemTable.addCell("");
 
         cell = new PdfPCell(new Phrase("2.", bodyFont));
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -397,42 +356,58 @@ public class PDFTemplateUtils {
         this.countWindow = 0;
         for (EachOrderModel eachOrderModel : windowList) {
             countWindow++;
-            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setBorder(Rectangle.LEFT);
-            itemTable.addCell(cell);
-            itemTable.addCell(createDetailString(eachOrderModel));
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            itemTable.addCell(cell);
-            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
+            insertEachItem(itemTable, eachOrderModel);
         }
 
         this.countDoor = 0;
         for (EachOrderModel eachOrderModel : doorList) {
             countDoor++;
-            cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            cell.setBorder(Rectangle.LEFT);
-            itemTable.addCell(cell);
-            itemTable.addCell(createDetailString(eachOrderModel));
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            itemTable.addCell(cell);
-            Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotolPrice());
-            cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotolPrice()), bodyFontBold));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            itemTable.addCell(cell);
+            insertEachItem(itemTable, eachOrderModel);
         }
+    }
+
+    private void insertEachItem(PdfPTable itemTable, EachOrderModel eachOrderModel) throws DocumentException {
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase(eachOrderModel.getPosition(), bodyFont));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+
+        cell = new PdfPCell(createDetailString(eachOrderModel));
+        cell.setBorder(Rectangle.LEFT);
+        itemTable.addCell(cell);
+
+        boolean fixType = isFixAreaCostTypeOfM(eachOrderModel);
+        cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getPricePer1mm()), bodyFontBold));
+        if (fixType) {
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        } else {
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        }
+        itemTable.addCell(cell);
+
+        if (fixType) {
+            cell = new PdfPCell(new Phrase("1.00", bodyFontBold));
+        } else {
+            cell = new PdfPCell(new Phrase(calculateArea(eachOrderModel.getWidth(), eachOrderModel.getHeight()), bodyFontBold));
+        }
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        itemTable.addCell(cell);
+
+
+        Log.i(LOG_TAG, "each order model : "+eachOrderModel.getTotalPrice());
+        cell = new PdfPCell(new Phrase(priceFormat.format(eachOrderModel.getTotalPrice()), bodyFontBold));
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        itemTable.addCell(cell);
+    }
+
+    private boolean isFixAreaCostTypeOfM(EachOrderModel eachOrderModel) {
+        for (String typeName: fixAreaCostTypeOfMList) {
+            if(typeName.equals(eachOrderModel.getTypeOfM())){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void createRuleOneItem(PdfPTable itemTable) {
@@ -500,8 +475,8 @@ public class PDFTemplateUtils {
         }
     }
 
-    private String calculateArea(double width, double height) {
-        double multipliedResult = width * height;
+    private String calculateArea(double centimetreWidth, double centimetreHeight) {
+        double multipliedResult = centimetreWidth/100.00d * centimetreHeight/100.00d;
         double roundUp = Math.round(multipliedResult*100)/100d;
         return areaFormat.format(roundUp);
     }
@@ -515,7 +490,8 @@ public class PDFTemplateUtils {
         pdfPCell.setBorder(Rectangle.NO_BORDER);
         innerTable.addCell(pdfPCell);
 
-        pdfPCell = new PdfPCell(new Phrase(getSpacialReqString(eachOrderModel), bodyFont));
+        String specialString = getSpecialString(eachOrderModel.getSpecialWordReport());
+        pdfPCell = new PdfPCell(new Phrase(specialString, bodyFont));
         pdfPCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         pdfPCell.setBorder(Rectangle.NO_BORDER);
         innerTable.addCell(pdfPCell);
@@ -531,26 +507,28 @@ public class PDFTemplateUtils {
         return innerTable;
     }
 
+    private String getSpecialString(String specialWordReport) {
+        String resultString;
+        if(specialWordReport == null || "".equals(specialWordReport)){
+            resultString = "#";
+        } else {
+            resultString = specialWordReport;
+        }
+        return resultString;
+    }
+
     private String parseToShortTypeAndAreaString(EachOrderModel eachOrderModel){
         String shortString = "";
         if("หน้าต่าง".equals(eachOrderModel.getDw())){
-            shortString = "W"+this.countWindow+" (ก "+areaFormat.format(eachOrderModel.getWidth())+" x ส "+areaFormat.format(eachOrderModel.getHeight())+")";
+            shortString = "W"+this.countWindow+" (ก "+parseCentimetreToMetre(eachOrderModel.getWidth())+" x ส "+parseCentimetreToMetre(eachOrderModel.getHeight())+")";
         } else if ("ประตู".equals(eachOrderModel.getDw())){
-            shortString = "D"+this.countDoor+" (ก "+areaFormat.format(eachOrderModel.getWidth())+" x ส "+areaFormat.format(eachOrderModel.getHeight())+")";
+            shortString = "D"+this.countDoor+" (ก "+parseCentimetreToMetre(eachOrderModel.getWidth())+" x ส "+parseCentimetreToMetre(eachOrderModel.getHeight())+")";
         }
         return shortString;
     }
 
-    private String getSpacialReqString(EachOrderModel eachOrderModel) {
-        String result = "";
-        result += eachOrderModel.getSpecialWord();
-        for (String req: eachOrderModel.getSpecialReq()) {
-            if(!result.equals("")){
-                result += "+";
-            }
-            result += req;
-        }
-        return result;
+    private String parseCentimetreToMetre(Double centimetre){
+        return areaFormat.format(centimetre/100.00D);
     }
 
     private PdfPTable createHeaderItemTable() throws DocumentException {
@@ -578,7 +556,7 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         divTable.addCell(cell);
 
-        cell = new PdfPCell(new Phrase(": "+orderModel.getCustomerAdress(), bodyFont));
+        cell = new PdfPCell(new Phrase(": "+orderModel.getCustomerAddress(), bodyFont));
         cell.setColspan(2);
         cell.setBorder(0);
         divTable.addCell(cell);
@@ -597,7 +575,7 @@ public class PDFTemplateUtils {
         cell.setRowspan(2);
         divTable.addCell(cell);
 
-        divTable.addCell(new Phrase(": วงกบสีขาว / ยังไม่สามารถระบุเรื่องรางมุ้ง", bodyFont));
+        divTable.addCell(new Phrase(": "+orderModel.getCustomerTypeOfWongKob(), bodyFont));
         return divTable;
     }
 
@@ -712,4 +690,11 @@ public class PDFTemplateUtils {
         }
     }
 
+    private static List<String> createFixAreaCostTypeOfMList() {
+        List<String> resultList = new ArrayList<>();
+        resultList.add("มุ้งกรอบเหล็กเปิด");
+        resultList.add("มุ้งกรอบเหล็กเลื่อน");
+        resultList.add("มุ้งประตูเปิด");
+        return resultList;
+    }
 }

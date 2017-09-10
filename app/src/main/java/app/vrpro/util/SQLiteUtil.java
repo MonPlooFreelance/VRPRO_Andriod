@@ -218,7 +218,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(ORDER_QUOTATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
-        values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
+        values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAddress());
         values.put(ORDER_CUSTOMER_PHONE, orderModel.getCustomerPhone());
         values.put(ORDER_CUSTOMER_TYPE_OF_WONGKOB, orderModel.getCustomerTypeOfWongKob());
         values.put(ORDER_REMARKS, orderModel.getRemarks());
@@ -253,7 +253,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             orderModel.setQuotationDate(cursor.getString(2));
             orderModel.setProjectName(cursor.getString(3));
             orderModel.setCustomerName(cursor.getString(4));
-            orderModel.setCustomerAdress(cursor.getString(5));
+            orderModel.setCustomerAddress(cursor.getString(5));
             orderModel.setCustomerPhone(cursor.getString(6));
             orderModel.setCustomerTypeOfWongKob(cursor.getString(7));
             orderModel.setRemarks(cursor.getString(8));
@@ -291,7 +291,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             orderModel.setQuotationDate(cursor.getString(2));
             orderModel.setProjectName(cursor.getString(3));
             orderModel.setCustomerName(cursor.getString(4));
-            orderModel.setCustomerAdress(cursor.getString(5));
+            orderModel.setCustomerAddress(cursor.getString(5));
             orderModel.setCustomerPhone(cursor.getString(6));
             orderModel.setCustomerTypeOfWongKob(cursor.getString(7));
             orderModel.setRemarks(cursor.getString(8));
@@ -313,7 +313,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(ORDER_QUOTATION_DATE, orderModel.getQuotationDate());
         values.put(ORDER_PROJECT_NAME, orderModel.getProjectName());
         values.put(ORDER_CUSTOMER_NAME, orderModel.getCustomerName());
-        values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAdress());
+        values.put(ORDER_CUSTOMER_ADDRESS, orderModel.getCustomerAddress());
         values.put(ORDER_CUSTOMER_PHONE, orderModel.getCustomerPhone());
         values.put(ORDER_CUSTOMER_TYPE_OF_WONGKOB, orderModel.getCustomerTypeOfWongKob());
         values.put(ORDER_REMARKS, orderModel.getRemarks());
@@ -361,7 +361,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_SPECIAL_REQ, eachOrderModel.getSpecialReq().toString());
         values.put(EACH_ORDER_WIDTH, eachOrderModel.getWidth());
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
-        values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotolPrice());
+        values.put(EACH_ORDER_TOTAL_PRICE,eachOrderModel.getTotalPrice());
         values.put(EACH_ORDER_PRICE_PER_1MM,eachOrderModel.getPricePer1mm());
         values.put(EACH_ORDER_SPECIAL_WORD_REPORT,eachOrderModel.getSpecialWordReport());
 
@@ -399,7 +399,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setSpecialReq(new ArrayList<String>(Arrays.asList(cursor.getString(7).substring(1,cursor.getString(7).length()-1).split(","))));
             eachOrderModel.setWidth(cursor.getDouble(8));
             eachOrderModel.setHeight(cursor.getDouble(9));
-            eachOrderModel.setTotolPrice(cursor.getDouble(10));
+            eachOrderModel.setTotalPrice(cursor.getDouble(10));
             eachOrderModel.setPricePer1mm(cursor.getDouble(11));
             eachOrderModel.setSpecialWordReport(cursor.getString(12));
             eachOrderModelList.add(eachOrderModel);
@@ -439,7 +439,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
             eachOrderModel.setSpecialReq(new ArrayList<String>(Arrays.asList(cursor.getString(7).substring(1,cursor.getString(7).length()-1).split(","))));
             eachOrderModel.setWidth(cursor.getDouble(8));
             eachOrderModel.setHeight(cursor.getDouble(9));
-            eachOrderModel.setTotolPrice(cursor.getDouble(10));
+            eachOrderModel.setTotalPrice(cursor.getDouble(10));
             eachOrderModel.setPricePer1mm(cursor.getDouble(11));
             eachOrderModel.setSpecialWordReport(cursor.getString(12));
             cursor.moveToNext();
@@ -477,7 +477,7 @@ public class SQLiteUtil extends SQLiteOpenHelper {
         values.put(EACH_ORDER_SPECIAL_REQ, eachOrderModel.getSpecialReq().toString());
         values.put(EACH_ORDER_WIDTH, eachOrderModel.getWidth());
         values.put(EACH_ORDER_HEIGHT, eachOrderModel.getHeight());
-        values.put(EACH_ORDER_TOTAL_PRICE, eachOrderModel.getTotolPrice());
+        values.put(EACH_ORDER_TOTAL_PRICE, eachOrderModel.getTotalPrice());
         values.put(EACH_ORDER_PRICE_PER_1MM, eachOrderModel.getPricePer1mm());
         values.put(EACH_ORDER_SPECIAL_WORD_REPORT, eachOrderModel.getSpecialWordReport());
 

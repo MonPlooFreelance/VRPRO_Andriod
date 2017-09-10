@@ -97,15 +97,15 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
         if (shared_eachOrderModel_id.equals(CREATE_NEW_EACH_ORDER_MODEL)) {
             Log.i(LOG_TAG, CREATE_NEW_EACH_ORDER_MODEL);
-            setFloorSpinner(CREATE_NEW_EACH_ORDER_MODEL);
+//            setFloorSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setPositionSpinner(CREATE_NEW_EACH_ORDER_MODEL);
-            setDWSpinner(CREATE_NEW_EACH_ORDER_MODEL);
+//            setDWSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setTypeOfMSpinner(CREATE_NEW_EACH_ORDER_MODEL);
         } else {
             Log.i(LOG_TAG, "Not Create new each order");
-            setFloorSpinner(eachOrderModelFromDB.getFloor());
+//            setFloorSpinner(eachOrderModelFromDB.getFloor());
             setPositionSpinner(eachOrderModelFromDB.getPosition());
-            setDWSpinner(eachOrderModelFromDB.getDw());
+//            setDWSpinner(eachOrderModelFromDB.getDw());
             setTypeOfMSpinner(eachOrderModelFromDB.getTypeOfM());
             txtWidth.setText(String.valueOf(eachOrderModelFromDB.getWidth()));
             txtHeight.setText(String.valueOf(eachOrderModelFromDB.getHeight()));
@@ -173,7 +173,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         if(activityDB.equals("insert")){
             tempRealTotalPrice = orderModelFromDB.getRealTotalPrice();
         }else{
-            tempRealTotalPrice = orderModelFromDB.getRealTotalPrice() - eachOrderModelFromDB.getTotolPrice();
+            tempRealTotalPrice = orderModelFromDB.getRealTotalPrice() - eachOrderModelFromDB.getTotalPrice();
         }
         if(orderModelFromDB.getDiscount() == null){
             tempTotalPrice = tempRealTotalPrice+totalPrice;
@@ -343,7 +343,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setSpecialReq(specialReq);
         eachOrderModel.setWidth(Double.parseDouble(txtWidth.getText().toString()));
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
-        eachOrderModel.setTotolPrice(totalPrice);
+        eachOrderModel.setTotalPrice(totalPrice);
         eachOrderModel.setPricePer1mm(pricePer1mm);
         eachOrderModel.setSpecialWordReport(getSpecialWordReport(specialWord,specialReq));
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
@@ -372,7 +372,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModel.setSpecialReq(specialReq);
         eachOrderModel.setWidth(Double.parseDouble(txtWidth.getText().toString()));
         eachOrderModel.setHeight(Double.parseDouble(txtHeight.getText().toString()));
-        eachOrderModel.setTotolPrice(totalPrice);
+        eachOrderModel.setTotalPrice(totalPrice);
         eachOrderModel.setPricePer1mm(pricePer1mm);
         eachOrderModel.setSpecialWordReport(getSpecialWordReport(specialWord,specialReq));
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
@@ -557,7 +557,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
     }
 
     private void setFloorSpinner(String selectFloor) {
-        Spinner floorDropdown = (Spinner)findViewById(R.id.spinnerFloor);
+        Spinner floorDropdown = (Spinner)findViewById(R.id.radFloor);
 //        String[] floorItems = new String[]{"ชั้น","1","2", "3","4","5"};
         String[] floorItems = getResources().getStringArray(R.array.floor_array);
         ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, floorItems);

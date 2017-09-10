@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -239,6 +238,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setDataAndType(path, "application/pdf");
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                     startActivity(intent);
                 }
             } catch (ActivityNotFoundException e) {
@@ -294,7 +294,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         orderModel.setQuotationDate(txtQuotationDate.getText().toString());
         orderModel.setProjectName(txtProjectName.getText().toString());
         orderModel.setCustomerName(txtCustomerName.getText().toString());
-        orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
+        orderModel.setCustomerAddress(txtCustomerAdress.getText().toString());
         orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
         orderModel.setCustomerTypeOfWongKob(txtCustomerTypeOfWongkob.getText().toString());
         orderModel.setRemarks(txtRemarks.getText().toString());
@@ -345,7 +345,7 @@ public class CreateOrderActivity extends AppCompatActivity {
             txtQuotationDate.setText(orderModelFromDB.getQuotationDate());
             txtProjectName.setText(orderModelFromDB.getProjectName());
             txtCustomerName.setText(orderModelFromDB.getCustomerName());
-            txtCustomerAdress.setText(orderModelFromDB.getCustomerAdress());
+            txtCustomerAdress.setText(orderModelFromDB.getCustomerAddress());
             txtCustomerPhone.setText(orderModelFromDB.getCustomerPhone());
             txtCustomerTypeOfWongkob.setText(orderModelFromDB.getCustomerTypeOfWongKob());
             txtRemarks.setText(orderModelFromDB.getRemarks());
@@ -393,7 +393,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         orderModel.setQuotationDate(txtQuotationDate.getText().toString());
         orderModel.setProjectName(txtProjectName.getText().toString());
         orderModel.setCustomerName(txtCustomerName.getText().toString());
-        orderModel.setCustomerAdress(txtCustomerAdress.getText().toString());
+        orderModel.setCustomerAddress(txtCustomerAdress.getText().toString());
         orderModel.setCustomerPhone(txtCustomerPhone.getText().toString());
         orderModel.setCustomerTypeOfWongKob(txtCustomerTypeOfWongkob.getText().toString());
         orderModel.setRemarks(txtRemarks.getText().toString());
@@ -520,8 +520,8 @@ public class CreateOrderActivity extends AppCompatActivity {
         sqlLite = new SQLiteUtil(this);
         sqlLite.deleteEachOrderModel(eachOrderModelList.get(position).getID().toString());
 
-        totalPrice = orderModelFromDB.getTotalPrice() - eachOrderModelList.get(position).getTotolPrice();
-        Double realTotalPrice = orderModelFromDB.getRealTotalPrice() - eachOrderModelList.get(position).getTotolPrice();
+        totalPrice = orderModelFromDB.getTotalPrice() - eachOrderModelList.get(position).getTotalPrice();
+        Double realTotalPrice = orderModelFromDB.getRealTotalPrice() - eachOrderModelList.get(position).getTotalPrice();
         if(totalPrice<0){
             Log.i(LOG_TAG,"totalPrice<0");
             totalPrice = 0.0;

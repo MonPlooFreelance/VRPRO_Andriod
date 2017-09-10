@@ -15,7 +15,7 @@ public class EachOrderModel {
     private String typeOfM;
     private String specialWord;
     private ArrayList<String> specialReq;
-    private Double totolPrice;
+    private Double totalPrice;
     private Double width;
     private Double height;
     private Double pricePer1mm;
@@ -102,12 +102,12 @@ public class EachOrderModel {
         this.specialReq = specialReq;
     }
 
-    public Double getTotolPrice() {
-        return totolPrice;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotolPrice(Double totolPrice) {
-        this.totolPrice = totolPrice;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Double getPricePer1mm() {
