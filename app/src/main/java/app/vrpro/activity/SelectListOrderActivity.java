@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -60,6 +61,10 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private ArrayList<String> grobalSpecialReq;
     private Double pricePer1mm;
     private String specialWordReport;
+    private RadioGroup radioGroupFloor;
+    private  RadioButton radioButtonFloor;
+    private RadioGroup radioGroupDW;
+    private  RadioButton radioButtonDW;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,22 +99,47 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
     private void initialData() {
 
-
         if (shared_eachOrderModel_id.equals(CREATE_NEW_EACH_ORDER_MODEL)) {
             Log.i(LOG_TAG, CREATE_NEW_EACH_ORDER_MODEL);
+
 //            setFloorSpinner(CREATE_NEW_EACH_ORDER_MODEL);
+            setFloorRadioGroup(CREATE_NEW_EACH_ORDER_MODEL);
             setPositionSpinner(CREATE_NEW_EACH_ORDER_MODEL);
+            setDWRadioGroup(CREATE_NEW_EACH_ORDER_MODEL);
 //            setDWSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setTypeOfMSpinner(CREATE_NEW_EACH_ORDER_MODEL);
         } else {
             Log.i(LOG_TAG, "Not Create new each order");
+
 //            setFloorSpinner(eachOrderModelFromDB.getFloor());
+            setFloorRadioGroup(eachOrderModelFromDB.getFloor());
             setPositionSpinner(eachOrderModelFromDB.getPosition());
-//            setDWSpinner(eachOrderModelFromDB.getDw());
+            setDWRadioGroup(eachOrderModelFromDB.getDw());
+          //setDWSpinner(eachOrderModelFromDB.getDw());
             setTypeOfMSpinner(eachOrderModelFromDB.getTypeOfM());
             txtWidth.setText(String.valueOf(eachOrderModelFromDB.getWidth()));
             txtHeight.setText(String.valueOf(eachOrderModelFromDB.getHeight()));
         }
+    }
+
+    private void setFloorRadioGroup(String floor){
+        if(floor.equals("ชั้น 1") || floor.equals("CREATE NEW EACH ORDER")){
+            radioButtonFloor = (RadioButton) findViewById(R.id.radio_1st_floor);
+        }else if(floor.equals("ชั้น 2")){
+            radioButtonFloor = (RadioButton) findViewById(R.id.radio_2nd_floor);
+        }else if(floor.equals("ชั้น 3")){
+            radioButtonFloor = (RadioButton) findViewById(R.id.radio_3rd_floor);
+        }
+        radioButtonFloor.setChecked(true);
+    }
+
+    private void setDWRadioGroup(String dw){
+        if(dw.equals("ประตู") || dw.equals("CREATE NEW EACH ORDER")){
+            radioButtonDW = (RadioButton) findViewById(R.id.radio_door);
+        }else if(dw.equals("หน้าต่าง")){
+            radioButtonDW = (RadioButton) findViewById(R.id.radio_window);
+        }
+        radioButtonDW.setChecked(true);
     }
 
     private void pressInsertOrder() {
@@ -118,6 +148,12 @@ public class SelectListOrderActivity extends AppCompatActivity {
         summaryPriceBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                floor = getSelectRadioGroupFloor();
+                Log.i(LOG_TAG,"-------- " + floor);
+
+                DW = getSelectRadioGroupDW();
+                Log.i(LOG_TAG,"-------- " + DW);
                 CheckBox checkbox = new CheckBox(SelectListOrderActivity.this);
                 if(isInputsEmpty()){
                     Toast.makeText(SelectListOrderActivity.this, "Please select all condition", Toast.LENGTH_SHORT).show();
@@ -160,6 +196,23 @@ public class SelectListOrderActivity extends AppCompatActivity {
         });
     }
 
+    private String getSelectRadioGroupFloor(){
+        radioGroupFloor = (RadioGroup) findViewById(R.id.radFloor);
+        // get selected radio button from radioGroup
+        int selectedId = radioGroupFloor.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        radioButtonFloor = (RadioButton) findViewById(selectedId);
+        return radioButtonFloor.getText().toString();
+    }
+
+    private String getSelectRadioGroupDW(){
+        radioGroupDW = (RadioGroup) findViewById(R.id.radDW);
+        // get selected radio button from radioGroup
+        int selectedId = radioGroupDW.getCheckedRadioButtonId();
+        // find the radiobutton by returned id
+        radioButtonDW = (RadioButton) findViewById(selectedId);
+        return radioButtonDW.getText().toString();
+    }
 
     private void updateOrderModelToDB(Double totalPrice,String activityDB) {
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
@@ -511,26 +564,26 @@ public class SelectListOrderActivity extends AppCompatActivity {
         specialDropdown.setVisibility(View.INVISIBLE);
     }
 
-    private void setDWSpinner(String selectDW) {
-        Spinner DWDropdown = (Spinner)findViewById(R.id.spinnerDW);
-        String[] DWItems = getResources().getStringArray(R.array.dw_array);
-//        String[] DWItems = new String[]{"ประเภท","ประตู","หน้าต่าง"};
-        ArrayAdapter<String> DWAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DWItems);
-        DWDropdown.setAdapter(DWAdapter);
-        if(!selectDW.equals(CREATE_NEW_EACH_ORDER_MODEL)){
-            int indexPos = Arrays.asList(DWItems).indexOf(selectDW);
-            DWDropdown.setSelection(indexPos);
-        }
-        DWDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                DW = String.valueOf(parent.getItemAtPosition(pos));
-                DWPosition = parent.getSelectedItemPosition();
-                Log.i(LOG_TAG,"Position >>>>> position : " + DWPosition + " item : " + DW);
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
+//    private void setDWSpinner(String selectDW) {
+//        Spinner DWDropdown = (Spinner)findViewById(R.id.spinnerDW);
+//        String[] DWItems = getResources().getStringArray(R.array.dw_array);
+////        String[] DWItems = new String[]{"ประเภท","ประตู","หน้าต่าง"};
+//        ArrayAdapter<String> DWAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DWItems);
+//        DWDropdown.setAdapter(DWAdapter);
+//        if(!selectDW.equals(CREATE_NEW_EACH_ORDER_MODEL)){
+//            int indexPos = Arrays.asList(DWItems).indexOf(selectDW);
+//            DWDropdown.setSelection(indexPos);
+//        }
+//        DWDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//                DW = String.valueOf(parent.getItemAtPosition(pos));
+//                DWPosition = parent.getSelectedItemPosition();
+//                Log.i(LOG_TAG,"Position >>>>> position : " + DWPosition + " item : " + DW);
+//            }
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//    }
 
     private void setPositionSpinner(String SelectPosition) {
         Spinner positionDropdown = (Spinner)findViewById(R.id.spinnerPosition);
@@ -556,26 +609,27 @@ public class SelectListOrderActivity extends AppCompatActivity {
         });
     }
 
-    private void setFloorSpinner(String selectFloor) {
-        Spinner floorDropdown = (Spinner)findViewById(R.id.radFloor);
-//        String[] floorItems = new String[]{"ชั้น","1","2", "3","4","5"};
-        String[] floorItems = getResources().getStringArray(R.array.floor_array);
-        ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, floorItems);
-        floorDropdown.setAdapter(floorAdapter);
-        if(!selectFloor.equals(CREATE_NEW_EACH_ORDER_MODEL)){
-            int indexPos = Arrays.asList(floorItems).indexOf(selectFloor);
-            floorDropdown.setSelection(indexPos);
-        }
-        floorDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                floor = String.valueOf(parent.getItemAtPosition(pos));
-                posFloor = parent.getSelectedItemPosition();
-                Log.i(LOG_TAG,"Floor >>>>> position : " + posFloor + " item : " + floor);
-            }
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
+//    private void setFloorSpinner(String selectFloor) {
+//        Spinner floorDropdown = (Spinner)findViewById(R.id.radFloor);
+////        String[] floorItems = new String[]{"ชั้น","1","2", "3","4","5"};
+//        String[] floorItems = getResources().getStringArray(R.array.floor_array);
+//        ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, floorItems);
+//        floorDropdown.setAdapter(floorAdapter);
+//        if(!selectFloor.equals(CREATE_NEW_EACH_ORDER_MODEL)){
+//            int indexPos = Arrays.asList(floorItems).indexOf(selectFloor);
+//            floorDropdown.setSelection(indexPos);
+//        }
+//        floorDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//                floor = String.valueOf(parent.getItemAtPosition(pos));
+//                posFloor = parent.getSelectedItemPosition();
+//                Log.i(LOG_TAG,"Floor >>>>> position : " + posFloor + " item : " + floor);
+//            }
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//    }
+
     private boolean isInputsEmpty() {
 //        return posFloor == 0 || posPosition == 0 || DWPosition == 0 || posTypeOfM == 0 || posSpecialWord == 0 || isEmpty(txtWidth) || isEmpty(txtHeight);
         return  posPosition == 0  || posTypeOfM == 0  || isEmpty(txtWidth) || isEmpty(txtHeight);

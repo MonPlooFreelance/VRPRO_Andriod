@@ -97,7 +97,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginStart="60dp"
         android:textSize="20dp"
-        android:id="@+id/spinnerDW">
+        android:id="@+id/radDW">
         <RadioButton
             android:id="@+id/radio_door"
             android:layout_width="150dp"
@@ -105,7 +105,7 @@
             android:background="@drawable/custom_radio_button"
             android:button="@android:color/transparent"
             android:fontFamily="sans-serif-condensed"
-            android:text="@string/first_floor"
+            android:text="ประตู"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -116,7 +116,7 @@
             android:background="@drawable/custom_radio_button"
             android:button="@android:color/transparent"
             android:fontFamily="sans-serif-condensed"
-            android:text="@string/second_floor"
+            android:text="หน้าต่าง"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/spinnerDW"
+        android:layout_below="@+id/radDW"
         android:layout_alignLeft="@+id/radFloor"
         android:layout_alignStart="@+id/radFloor"
         android:layout_marginTop="60dp"
