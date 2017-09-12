@@ -163,13 +163,18 @@ public class SelectListOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 floor = getSelectRadioGroupFloor();
-                Log.i(LOG_TAG,"-------- " + floor);
+                Log.i(LOG_TAG,"----floor---- " + floor);
 
                 DW = getSelectRadioGroupDW();
-                Log.i(LOG_TAG,"-------- " + DW);
+                Log.i(LOG_TAG,"----DW---- " + DW);
 
-                specialWord = getSelectRadioGroupColor();
-                Log.i(LOG_TAG,"-------- " + specialWord);
+                if(typeOfM.equals("มุ้งกรอบเหล็กเปิด") || typeOfM.equals("มุ้งกรอบเหล็กเลื่อน")){
+                    specialWord = getSelectRadioGroupColor();
+
+                }else{
+                    specialWord = "";
+                }
+                Log.i(LOG_TAG,"----specialWord---- " + specialWord);
 
                 CheckBox checkbox = new CheckBox(SelectListOrderActivity.this);
                 if(isInputsEmpty()){
