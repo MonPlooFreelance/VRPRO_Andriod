@@ -147,12 +147,26 @@
         android:layout_marginTop="60dp"
         android:textSize="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinnerSpecialCase"
+    <!--<Spinner-->
+        <!--android:id="@+id/spinnerSpecialCase"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@android:drawable/btn_dropdown"-->
+        <!--android:spinnerMode="dropdown"-->
+        <!--android:layout_alignTop="@+id/spinnerTypeOfM"-->
+        <!--android:layout_alignLeft="@+id/spinnerPosition"-->
+        <!--android:layout_alignStart="@+id/spinnerPosition"-->
+        <!--android:layout_below="@+id/position"-->
+        <!--android:layout_marginRight="60dp"-->
+        <!--android:layout_marginEnd="60dp"-->
+        <!--tools:ignore="UnknownIdInLayout"-->
+        <!--android:visibility="invisible"-->
+        <!--android:textSize="20dp"/>-->
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
+        android:orientation="horizontal"
         android:layout_alignTop="@+id/spinnerTypeOfM"
         android:layout_alignLeft="@+id/spinnerPosition"
         android:layout_alignStart="@+id/spinnerPosition"
@@ -161,88 +175,122 @@
         android:layout_marginEnd="60dp"
         tools:ignore="UnknownIdInLayout"
         android:visibility="invisible"
-        android:textSize="20dp"/>
-
-    <TextView
-        android:id="@+id/specialOrderTxtView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="คำขอพิเศษ"
         android:textSize="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_below="@+id/spinnerTypeOfM"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <LinearLayout
-        android:id="@+id/specialOrderLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="60dp"
-        android:padding="5dp"
-        android:layout_below="@+id/specialOrderTxtView"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-
-
-    <EditText
-        android:id="@+id/txtWidthEachOrder"
-        android:layout_width="200dp"
-        android:layout_height="75dp"
-        android:layout_weight="1"
-        android:background="@drawable/selector_boarder_2"
-        android:hint="ความกว้าง(cm)"
+        android:id="@+id/radColor">
+    <RadioButton
+        android:id="@+id/radio_white_color"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_radio_button"
+        android:button="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:text="สีขาว"
         android:textAlignment="center"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/specialOrderLinear"
-        android:layout_alignLeft="@+id/specialOrderLinear"
-        android:layout_alignStart="@+id/specialOrderLinear"
-        android:layout_marginLeft="70dp"
-        android:layout_marginStart="70dp"
-        />
+        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/txtHeightEachOrder"
-        android:layout_width="200dp"
-        android:layout_height="75dp"
-        android:layout_weight="1"
-        android:background="@drawable/selector_boarder_2"
-        android:hint="ความสูง(cm)"
+    <RadioButton
+        android:id="@+id/radio_black_color"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_radio_button"
+        android:button="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:text="สีดำ"
         android:textAlignment="center"
-        android:inputType="numberDecimal"
-        android:padding="10dp"
-        android:layout_below="@+id/specialOrderLinear"
-        android:layout_marginTop="40dp"
-        android:layout_alignRight="@+id/specialOrderLinear"
-        android:layout_alignEnd="@+id/specialOrderLinear"
-        android:layout_marginRight="70dp"
-        android:layout_marginEnd="70dp"
-        />
+        android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="X"
-        android:layout_alignBaseline="@+id/txtWidthEachOrder"
-        android:layout_alignBottom="@+id/txtWidthEachOrder"
-        android:layout_centerHorizontal="true" />
+    <RadioButton
+        android:id="@+id/radio_brown_color"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_radio_button"
+        android:button="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:text="สีน้ำตาล"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+</RadioGroup>
 
-    <Button
-        android:id="@+id/addEachOrder"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="เพิ่ม"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
+<TextView
+    android:id="@+id/specialOrderTxtView"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="60dp"
+    android:text="คำขอพิเศษ"
+    android:textSize="20dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginStart="50dp"
+    android:layout_below="@+id/spinnerTypeOfM"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
+
+<LinearLayout
+    android:id="@+id/specialOrderLinear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="60dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="60dp"
+    android:padding="5dp"
+    android:layout_below="@+id/specialOrderTxtView"
+    android:orientation="horizontal">
+
+</LinearLayout>
+
+
+
+<EditText
+    android:id="@+id/txtWidthEachOrder"
+    android:layout_width="200dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:background="@drawable/selector_boarder_2"
+    android:hint="ความกว้าง(cm)"
+    android:textAlignment="center"
+    android:inputType="numberDecimal"
+    android:padding="10dp"
+    android:layout_marginTop="40dp"
+    android:layout_below="@+id/specialOrderLinear"
+    android:layout_alignLeft="@+id/specialOrderLinear"
+    android:layout_alignStart="@+id/specialOrderLinear"
+    android:layout_marginLeft="70dp"
+    android:layout_marginStart="70dp"
+    />
+
+<EditText
+    android:id="@+id/txtHeightEachOrder"
+    android:layout_width="200dp"
+    android:layout_height="75dp"
+    android:layout_weight="1"
+    android:background="@drawable/selector_boarder_2"
+    android:hint="ความสูง(cm)"
+    android:textAlignment="center"
+    android:inputType="numberDecimal"
+    android:padding="10dp"
+    android:layout_below="@+id/specialOrderLinear"
+    android:layout_marginTop="40dp"
+    android:layout_alignRight="@+id/specialOrderLinear"
+    android:layout_alignEnd="@+id/specialOrderLinear"
+    android:layout_marginRight="70dp"
+    android:layout_marginEnd="70dp"
+    />
+
+<TextView
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:text="X"
+    android:layout_alignBaseline="@+id/txtWidthEachOrder"
+    android:layout_alignBottom="@+id/txtWidthEachOrder"
+    android:layout_centerHorizontal="true" />
+
+<Button
+    android:id="@+id/addEachOrder"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:text="เพิ่ม"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    />
 
 </RelativeLayout>
