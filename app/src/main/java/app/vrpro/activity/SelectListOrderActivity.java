@@ -103,21 +103,16 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
         if (shared_eachOrderModel_id.equals(CREATE_NEW_EACH_ORDER_MODEL)) {
             Log.i(LOG_TAG, CREATE_NEW_EACH_ORDER_MODEL);
-//            setFloorSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setFloorRadioGroup(CREATE_NEW_EACH_ORDER_MODEL);
             setPositionSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setDWRadioGroup(CREATE_NEW_EACH_ORDER_MODEL);
-//            setDWSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setTypeOfMSpinner(CREATE_NEW_EACH_ORDER_MODEL);
             setColorRadioGroup(CREATE_NEW_EACH_ORDER_MODEL);
         } else {
             Log.i(LOG_TAG, "Not Create new each order");
-
-//            setFloorSpinner(eachOrderModelFromDB.getFloor());
             setFloorRadioGroup(eachOrderModelFromDB.getFloor());
             setPositionSpinner(eachOrderModelFromDB.getPosition());
             setDWRadioGroup(eachOrderModelFromDB.getDw());
-          //setDWSpinner(eachOrderModelFromDB.getDw());
             setTypeOfMSpinner(eachOrderModelFromDB.getTypeOfM());
             setColorRadioGroup(eachOrderModelFromDB.getSpecialWord());
             txtWidth.setText(String.valueOf(eachOrderModelFromDB.getWidth()));
@@ -499,29 +494,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
         }
     }
 
-//    private void setSpecialSpinnerCase(String[] specialItems,String selectSpecialCase) {
-//        Spinner specialDropdown = (Spinner)findViewById(R.id.spinnerSpecialCase);
-//        specialDropdown.setVisibility(View.VISIBLE);
-//        ArrayAdapter<String> specialAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, specialItems);
-//        specialDropdown.setAdapter(specialAdapter);
-//        Log.i(LOG_TAG,">>>>>>> selectSpecialCase >>>> " + selectSpecialCase);
-//        if(!selectSpecialCase.equals(CREATE_NEW_EACH_ORDER_MODEL)){
-//            int indexPos = Arrays.asList(specialItems).indexOf(selectSpecialCase);
-//            Log.i(LOG_TAG,"indexPos >>>> " + indexPos);
-//            specialDropdown.setSelection(indexPos);
-//        }
-//
-//        specialDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//                specialWord = String.valueOf(parent.getItemAtPosition(pos));
-//                posSpecialWord = parent.getSelectedItemPosition();
-//                Log.i(LOG_TAG,"Special Dropdown >>>>> position : " + posSpecialWord + " item : " + specialWord);
-//            }
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//    }
-
     private void setTypeOfMSpinner(String selectTypeOfM) {
         Spinner typeOfMDropdown = (Spinner)findViewById(R.id.spinnerTypeOfM);
         String[] typeOfMItems = getResources().getStringArray(R.array.type_of_m_array);
@@ -544,54 +516,35 @@ public class SelectListOrderActivity extends AppCompatActivity {
                 posTypeOfM = parent.getSelectedItemPosition();
                 posSpecialWord = 99; //fix bug validate
                 specialWord = "";
-                RadioGroup radioGroupColor = (RadioGroup) findViewById(R.id.radColor);
+
 
                 Log.i(LOG_TAG,"TypeOfM >>>>> position : " + posTypeOfM + " item : " + typeOfM);
                 if(typeOfM.equals("มุ้งกรอบเหล็กเปิด")){
-                    radioGroupColor.setVisibility(View.VISIBLE);
-                    specialItems = getResources().getStringArray(R.array.color_mung_array);
-
-//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+                    setRadioGroupColorVisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_krob_lek_perd_array)));
                 }else if(typeOfM.equals("มุ้งกรอบเหล็กเลื่อน")){
-                    radioGroupColor.setVisibility(View.VISIBLE);
-                    specialItems = getResources().getStringArray(R.array.color_mung_array);
-//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
+                    setRadioGroupColorVisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_krob_lek_leuan_array)));
                 }else if(typeOfM.equals("มุ้งประตูเปิด")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_pratoo_perd_array)));
                 }else if(typeOfM.equals("มุ้งเลื่อน(S)")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    specialItems = getResources().getStringArray(R.array.special_mung_leuan_array);
-//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_leuan_array)));
                 }else if(typeOfM.equals("มุ้งเปิด")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_perd_array)));
                 }else if(typeOfM.equals("มุ้ง Fix")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    specialItems = new String[]{"รูปแบบพิเศษ","ลูกบิด", "แม่เหล็ก"};
-//                    specialItems = getResources().getStringArray(R.array.special_mung_fix_array);
-//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCase);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_fix_array)));
                 }else if(typeOfM.equals("มุ้งจีบ")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    specialItems = getResources().getStringArray(R.array.special_mung_pub_array);
-//                    setSpecialSpinnerCase(specialItems,grobalSelectSpecialCasepecialCase);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb)));
                 }else if(typeOfM.equals("มุ้งจีบรางเตี้ย")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb_rang_tere)));
                 }else if(typeOfM.equals("มุ้งจีบ WALKER")){
-                    radioGroupColor.setVisibility(View.INVISIBLE);
-//                    setSpecialDropdownInvisible();
+                    setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_jeeb_walker)));
                 }
                     setSelectedButtonSpecial(groupSpeacial,grobalSpecialReq);
@@ -601,10 +554,15 @@ public class SelectListOrderActivity extends AppCompatActivity {
         });
     }
 
-//    private void setSpecialDropdownInvisible() {
-//        Spinner specialDropdown = (Spinner)findViewById(R.id.spinnerSpecialCase);
-//        specialDropdown.setVisibility(View.INVISIBLE);
-//    }
+    private void setRadioGroupColorVisible() {
+        radioGroupColor = (RadioGroup) findViewById(R.id.radColor);
+        radioGroupColor.setVisibility(View.VISIBLE);
+    }
+
+    private void setRadioGroupColorInvisible() {
+        radioGroupColor = (RadioGroup) findViewById(R.id.radColor);
+        radioGroupColor.setVisibility(View.INVISIBLE);
+    }
 
 //    private void setDWSpinner(String selectDW) {
 //        Spinner DWDropdown = (Spinner)findViewById(R.id.spinnerDW);
