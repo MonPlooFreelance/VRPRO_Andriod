@@ -121,11 +121,11 @@ public class SelectListOrderActivity extends AppCompatActivity {
     }
 
     private void setFloorRadioGroup(String floor){
-        if(floor.equals("ชั้น 1") || floor.equals("CREATE NEW EACH ORDER")){
+        if(floor.equals("1") || floor.equals("CREATE NEW EACH ORDER")){
             radioButtonFloor = (RadioButton) findViewById(R.id.radio_1st_floor);
-        }else if(floor.equals("ชั้น 2")){
+        }else if(floor.equals("2")){
             radioButtonFloor = (RadioButton) findViewById(R.id.radio_2nd_floor);
-        }else if(floor.equals("ชั้น 3")){
+        }else if(floor.equals("3")){
             radioButtonFloor = (RadioButton) findViewById(R.id.radio_3rd_floor);
         }
         radioButtonFloor.setChecked(true);
@@ -219,7 +219,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
         int selectedId = radioGroupFloor.getCheckedRadioButtonId();
         // find the radiobutton by returned id
         radioButtonFloor = (RadioButton) findViewById(selectedId);
-        return radioButtonFloor.getText().toString();
+        String returnStr = radioButtonFloor.getText().toString();
+        return returnStr.substring(returnStr.length()-1,returnStr.length());
     }
 
     private String getSelectRadioGroupDW(){
