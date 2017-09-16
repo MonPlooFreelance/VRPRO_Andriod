@@ -215,18 +215,18 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true" />
 
-<LinearLayout
-    android:id="@+id/specialOrderLinear"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="60dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="60dp"
-    android:padding="5dp"
-    android:layout_below="@+id/specialOrderTxtView"
-    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/specialOrderLinear"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@+id/specialOrderTxtView"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-</LinearLayout>
+    </LinearLayout>
 
 
 
@@ -274,14 +274,13 @@
     android:layout_alignBottom="@+id/txtWidthEachOrder"
     android:layout_centerHorizontal="true" />
 
-<Button
-    android:id="@+id/addEachOrder"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:text="เพิ่ม"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    />
+    <Button
+        android:id="@+id/addEachOrder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="เพิ่ม" />
 
 </RelativeLayout>

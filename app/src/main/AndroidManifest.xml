@@ -47,7 +47,7 @@
         <activity
             android:name="app.vrpro.activity.SelectListOrderActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -42,11 +42,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private String typeOfM;
     private String specialWord;
     private ArrayList<String>  specialReq;
-    private Integer posFloor;
     private Integer posPosition;
-    private Integer DWPosition;
     private Integer posTypeOfM;
-    private Integer posSpecialWord;
     private Integer sizeOfspecialReq;
     private Double totalPrice = 0.0;
     private String shared_quotationNo;
@@ -57,18 +54,15 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private OrderModel orderModelFromDB;
     private EachOrderModel eachOrderModelFromDB;
     private String shared_eachOrderModel_id;
-    private String grobalSelectSpecialCase;
     private ArrayList<String> grobalSpecialReq;
     private Double pricePer1mm;
-    private String specialWordReport;
     private RadioGroup radioGroupFloor;
     private  RadioButton radioButtonFloor;
     private RadioGroup radioGroupDW;
     private  RadioButton radioButtonDW;
     private RadioGroup radioGroupColor;
-    private  RadioButton radioButtonColor;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_list_order);
@@ -92,11 +86,8 @@ public class SelectListOrderActivity extends AppCompatActivity {
         eachOrderModelFromDB = sqlLite.getEachOrderModelById(shared_eachOrderModel_id);
 
         initialData();
-
-
         pressInsertOrder();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     private void initialData() {
@@ -410,7 +401,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
         return true;
     }
 
-
     private void updateEachOrderModelToDB() {
         EachOrderModel eachOrderModel = new EachOrderModel();
         eachOrderModel.setID(eachOrderModelFromDB.getID());
@@ -440,7 +430,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
         }
     }
 
-
     private void insertEachOrderModelToDB() {
         EachOrderModel eachOrderModel = new EachOrderModel();
         eachOrderModel.setQuotationNo(shared_quotationNo);
@@ -458,7 +447,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
         sqlLite = new SQLiteUtil(SelectListOrderActivity.this);
         sqlLite.insertEachOrderModel(eachOrderModel);
     }
-
 
     private void setSelectedButtonSpecial(ArrayList<String> groupSpeacial,ArrayList<String> selectSpecialReq) {
 
@@ -500,24 +488,19 @@ public class SelectListOrderActivity extends AppCompatActivity {
         String[] typeOfMItems = getResources().getStringArray(R.array.type_of_m_array);
         ArrayAdapter<String> typeOfMAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, typeOfMItems);
         typeOfMDropdown.setAdapter(typeOfMAdapter);
-        grobalSelectSpecialCase = CREATE_NEW_EACH_ORDER_MODEL;
         grobalSpecialReq = null;
         if(!selectTypeOfM.equals(CREATE_NEW_EACH_ORDER_MODEL)){
             int indexPos = Arrays.asList(typeOfMItems).indexOf(selectTypeOfM);
             typeOfMDropdown.setSelection(indexPos);
-            grobalSelectSpecialCase = eachOrderModelFromDB.getSpecialWord();
             grobalSpecialReq =  eachOrderModelFromDB.getSpecialReq();
         }
 
         typeOfMDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String[] specialItems;
                 ArrayList<String> groupSpeacial = new ArrayList<String>();
                 typeOfM = String.valueOf(parent.getItemAtPosition(pos));
                 posTypeOfM = parent.getSelectedItemPosition();
-                posSpecialWord = 99; //fix bug validate
                 specialWord = "";
-
 
                 Log.i(LOG_TAG,"TypeOfM >>>>> position : " + posTypeOfM + " item : " + typeOfM);
                 if(typeOfM.equals("มุ้งกรอบเหล็กเปิด")){
@@ -565,31 +548,9 @@ public class SelectListOrderActivity extends AppCompatActivity {
         radioGroupColor.setVisibility(View.INVISIBLE);
     }
 
-//    private void setDWSpinner(String selectDW) {
-//        Spinner DWDropdown = (Spinner)findViewById(R.id.spinnerDW);
-//        String[] DWItems = getResources().getStringArray(R.array.dw_array);
-////        String[] DWItems = new String[]{"ประเภท","ประตู","หน้าต่าง"};
-//        ArrayAdapter<String> DWAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, DWItems);
-//        DWDropdown.setAdapter(DWAdapter);
-//        if(!selectDW.equals(CREATE_NEW_EACH_ORDER_MODEL)){
-//            int indexPos = Arrays.asList(DWItems).indexOf(selectDW);
-//            DWDropdown.setSelection(indexPos);
-//        }
-//        DWDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//                DW = String.valueOf(parent.getItemAtPosition(pos));
-//                DWPosition = parent.getSelectedItemPosition();
-//                Log.i(LOG_TAG,"Position >>>>> position : " + DWPosition + " item : " + DW);
-//            }
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//    }
-
     private void setPositionSpinner(String SelectPosition) {
         Spinner positionDropdown = (Spinner)findViewById(R.id.spinnerPosition);
         String[] positionItems = getResources().getStringArray(R.array.position_array);
-//        String[] positionItems = new String[]{"ตำแหน่ง","รับแขก","นอนล่าง","โรงรถ","น้ำล่าง","ครัว","บันได","นอนใหญ่","น้ำนอนใหญ่","นอนหน้า","น้ำนอนหน้า","นอนหลังซ้าย","น้ำนอนหลังซ้าย","นอนหน้าซ้าย","น้ำนอนหน้าซ้าย","นอนหน้าขวา","น้ำนอนหน้าขวา","นอนหลังขวา","น้ำนอนหลังขวา","นอนกลาง","น้ำนอนกลาง","โถงกลาง","น้ำบน"};
         ArrayAdapter<String> postionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, positionItems);
         positionDropdown.setAdapter(postionAdapter);
 
@@ -610,29 +571,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
         });
     }
 
-//    private void setFloorSpinner(String selectFloor) {
-//        Spinner floorDropdown = (Spinner)findViewById(R.id.radFloor);
-////        String[] floorItems = new String[]{"ชั้น","1","2", "3","4","5"};
-//        String[] floorItems = getResources().getStringArray(R.array.floor_array);
-//        ArrayAdapter<String> floorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, floorItems);
-//        floorDropdown.setAdapter(floorAdapter);
-//        if(!selectFloor.equals(CREATE_NEW_EACH_ORDER_MODEL)){
-//            int indexPos = Arrays.asList(floorItems).indexOf(selectFloor);
-//            floorDropdown.setSelection(indexPos);
-//        }
-//        floorDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//                floor = String.valueOf(parent.getItemAtPosition(pos));
-//                posFloor = parent.getSelectedItemPosition();
-//                Log.i(LOG_TAG,"Floor >>>>> position : " + posFloor + " item : " + floor);
-//            }
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-//    }
-
     private boolean isInputsEmpty() {
-//        return posFloor == 0 || posPosition == 0 || DWPosition == 0 || posTypeOfM == 0 || posSpecialWord == 0 || isEmpty(txtWidth) || isEmpty(txtHeight);
         return  posPosition == 0  || posTypeOfM == 0  || isEmpty(txtWidth) || isEmpty(txtHeight);
     }
 
@@ -647,17 +586,5 @@ public class SelectListOrderActivity extends AppCompatActivity {
         finish();
     }
 
-//    private void gotoHomeActivity() {
-//        Intent myIntent = new Intent(this, HomeActivity.class);
-//        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        this.startActivity(myIntent);
-//        finish();
-//    }
-
-//    @Override
-//    public void onBackPressed() {
-//        Log.i(LOG_TAG, "onBackPressed Called");
-//        gotoHomeActivity();
-//    }
 
 }
