@@ -220,7 +220,6 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     public void openFile(String filepath, String fileName){
         final File file = new File(getExternalFilesDir(filepath), fileName);
-//        File file = new File("/sdcard/"+fileName+".pdf");
         Log.i(LOG_TAG, "read file : "+file.getAbsolutePath());
         if (file.exists()) {
             Log.i(LOG_TAG, "found file");

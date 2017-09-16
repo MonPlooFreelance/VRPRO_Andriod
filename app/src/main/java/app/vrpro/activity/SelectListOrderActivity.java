@@ -3,13 +3,12 @@ package app.vrpro.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -206,9 +205,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
     private String getSelectRadioGroupFloor(){
         radioGroupFloor = (RadioGroup) findViewById(R.id.radFloor);
-        // get selected radio button from radioGroup
         int selectedId = radioGroupFloor.getCheckedRadioButtonId();
-        // find the radiobutton by returned id
         radioButtonFloor = (RadioButton) findViewById(selectedId);
         String returnStr = radioButtonFloor.getText().toString();
         return returnStr.substring(returnStr.length()-1,returnStr.length());
@@ -216,18 +213,14 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
     private String getSelectRadioGroupDW(){
         radioGroupDW = (RadioGroup) findViewById(R.id.radDW);
-        // get selected radio button from radioGroup
         int selectedId = radioGroupDW.getCheckedRadioButtonId();
-        // find the radiobutton by returned id
         radioButtonDW = (RadioButton) findViewById(selectedId);
         return radioButtonDW.getText().toString();
     }
 
     private String getSelectRadioGroupColor(){
         radioGroupFloor = (RadioGroup) findViewById(R.id.radColor);
-        // get selected radio button from radioGroup
         int selectedId = radioGroupFloor.getCheckedRadioButtonId();
-        // find the radiobutton by returned id
         radioButtonFloor = (RadioButton) findViewById(selectedId);
         return radioButtonFloor.getText().toString();
     }
