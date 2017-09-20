@@ -28,7 +28,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class PDFTemplateUtils {
     private static List<String> fixAreaCostTypeOfMList = createFixAreaCostTypeOfMList();
 
     private static final String LOG_TAG = "PDFTemplateUtils";
+    private static final SimpleDateFormat longDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private String fontFamily = "assets/THSarabun.ttf";
     private Font bodyTile = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD);
     private Font bodyFontBold = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD);
@@ -120,10 +125,13 @@ public class PDFTemplateUtils {
         } catch (DocumentException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             return false;
+        } catch (Exception e){
+            Log.e(LOG_TAG, e.getMessage(), e);
+            return false;
         }
     }
 
-    private Element getSignatureDetail(OrderModel orderModel, ProfileSaleModel profileSaleModel) throws DocumentException {
+    private Element getSignatureDetail(OrderModel orderModel, ProfileSaleModel profileSaleModel) throws DocumentException, ParseException {
         PdfPTable itemTable = new PdfPTable(5);
         itemTable.setWidths(new float[] {25, 25, 25, 25, 25});
         itemTable.setTotalWidth(523);
@@ -132,7 +140,8 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase(profileSaleModel.getSaleName()+"\n"+profileSaleModel.getSalePhone()+"\n.........../.........../...........", bodyFontBoldRed));
+        Date date = longDateTimeFormat.parse(orderModel.getQuotationDate());
+        cell = new PdfPCell(new Phrase(profileSaleModel.getSaleName()+"\n"+profileSaleModel.getSalePhone()+"\n"+dateFormat.format(date), bodyFontBoldRed));
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);

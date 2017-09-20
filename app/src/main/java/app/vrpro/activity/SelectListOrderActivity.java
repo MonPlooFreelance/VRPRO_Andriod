@@ -55,9 +55,9 @@ public class SelectListOrderActivity extends AppCompatActivity {
     private ArrayList<String> grobalSpecialReq;
     private Double pricePer1mm;
     private RadioGroup radioGroupFloor;
-    private  RadioButton radioButtonFloor;
+    private RadioButton radioButtonFloor;
     private RadioGroup radioGroupDW;
-    private  RadioButton radioButtonDW;
+    private RadioButton radioButtonDW;
     private RadioGroup radioGroupColor;
 
     @Override
