@@ -323,7 +323,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
 
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = tempPrice;
-        }else if(typeOfM.equals("มุ้งเลื่อน(S)")){
+        }else if(typeOfM.equals("มุ้งเลื่อน")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_leuan));
             if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
@@ -504,7 +504,7 @@ public class SelectListOrderActivity extends AppCompatActivity {
                 }else if(typeOfM.equals("มุ้งประตูเปิด")){
                     setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_pratoo_perd_array)));
-                }else if(typeOfM.equals("มุ้งเลื่อน(S)")){
+                }else if(typeOfM.equals("มุ้งเลื่อน")){
                     setRadioGroupColorInvisible();
                     groupSpeacial.addAll(Arrays.asList(getResources().getStringArray(R.array.special_req_of_mung_leuan_array)));
                 }else if(typeOfM.equals("มุ้งเปิด")){

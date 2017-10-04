@@ -50,8 +50,8 @@
     <string name="price_of_key">1000</string>
     <string name="price_of_acrylic">1500</string>
     <string name="price_of_door_for_pets">1700</string>
-    <string name="price_of_kor_sub">100</string>
-    <string name="price_of_lock_mung">100</string>
+    <string name="price_of_kor_sub">150</string>
+    <string name="price_of_lock_mung">150</string>
     <string name="price_of_perm_rang">300</string>
     <string name="price_of_perm_krob">300</string>
     <string name="price_of_perm_krob_pratoo">300</string>
@@ -123,7 +123,7 @@
         <item>มุ้งกรอบเหล็กเปิด</item>
         <item>มุ้งกรอบเหล็กเลื่อน</item>
         <item>มุ้งประตูเปิด</item>
-        <item>มุ้งเลื่อน(S)</item>
+        <item>มุ้งเลื่อน</item>
         <item>มุ้งเปิด</item>
         <item>มุ้ง Fix</item>
         <item>มุ้งจีบ</item>
