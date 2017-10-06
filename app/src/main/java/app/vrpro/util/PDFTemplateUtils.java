@@ -55,6 +55,7 @@ public class PDFTemplateUtils {
     private Font bodyTile = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 16, Font.BOLD);
     private Font bodyFontBold = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD);
     private Font bodyFont = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
+    private Font bodyFontRed = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.NORMAL, BaseColor.RED);
     private Font bodyFontBoldRed = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12, Font.BOLD, BaseColor.RED);
     private Font itemTableHeader = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD, BaseColor.WHITE);
     private Font itemTableFooter = FontFactory.getFont(fontFamily,  BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD);
@@ -153,7 +154,7 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("....................................\n นาย ศุภกฤต  นิลพันธ์ \n.........../.........../...........", bodyFontBold));
+        cell = new PdfPCell(new Phrase("....................................\n นาย ศุภกฤต  นิลพันธ์ \n0876592449\n.........../.........../...........", bodyFontBold));
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
@@ -181,7 +182,7 @@ public class PDFTemplateUtils {
         itemTable.setTotalWidth(523);
         itemTable.setLockedWidth(true);
         itemTable.setPaddingTop(5f);
-        PdfPCell cell = new PdfPCell(new Phrase("รายการชาระเงิน (Terms of Payment)", bodyFontBold));
+        PdfPCell cell = new PdfPCell(new Phrase("รายการชำระเงิน (Terms of Payment)", bodyFontBold));
         cell.setBorder(0);
         itemTable.addCell(cell);
 
@@ -215,7 +216,7 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         itemTable.addCell(cell);
 
-        cell = new PdfPCell(new Phrase("การรับประกันไม่รวมกรณีแผ่นมั้งขาด และมั้งลวดตกราง", bodyFontBold));
+        cell = new PdfPCell(new Phrase("การรับประกันไม่รวมกรณีแผ่นมุ้งขาด และมุ้งลวดตกราง", bodyFontBold));
         cell.setBorder(0);
         itemTable.addCell(cell);
 
@@ -454,7 +455,7 @@ public class PDFTemplateUtils {
             cell = new PdfPCell();
             cell.setBorder(Rectangle.LEFT);
             itemTable.addCell(cell);
-            cell = new PdfPCell(new Phrase("-"+this.orderModel.getRemarks(), bodyFont));
+            cell = new PdfPCell(new Phrase("-"+this.orderModel.getRemarks(), bodyFontRed));
             cell.setBorder(Rectangle.LEFT);
             itemTable.addCell(cell);
             itemTable.addCell("");
