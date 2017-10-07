@@ -142,7 +142,7 @@ public class PDFTemplateUtils {
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
         Date date = longDateTimeFormat.parse(orderModel.getQuotationDate());
-        cell = new PdfPCell(new Phrase(profileSaleModel.getSaleName()+"\n"+profileSaleModel.getSalePhone()+"\n"+dateFormat.format(date), bodyFontBoldRed));
+        cell = new PdfPCell(new Phrase(profileSaleModel.getSaleName()+"\n"+formatPhoneNumber(profileSaleModel.getSalePhone())+"\n"+dateFormat.format(date), bodyFontBoldRed));
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
@@ -154,11 +154,16 @@ public class PDFTemplateUtils {
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
-        cell = new PdfPCell(new Phrase("....................................\n นาย ศุภกฤต  นิลพันธ์ \n0876592449\n.........../.........../...........", bodyFontBold));
+        cell = new PdfPCell(new Phrase("....................................\n นาย ศุภกฤต  นิลพันธ์ \n087-659-2449", bodyFontBold));
         cell.setBorder(0);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         itemTable.addCell(cell);
         return itemTable;
+    }
+
+    private String formatPhoneNumber(String phoneNumber) {
+        return String.format("%s-%s-%s", phoneNumber.substring(0, 3), phoneNumber.substring(3, 6),
+                phoneNumber.substring(6, 10));
     }
 
     private Element getTotalPriceDetail() throws DocumentException {
