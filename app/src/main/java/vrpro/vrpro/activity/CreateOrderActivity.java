@@ -1,4 +1,4 @@
-package app.vrpro.activity;
+package vrpro.vrpro.activity;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -39,14 +39,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import app.vrpro.Model.EachOrderModel;
-import app.vrpro.Model.OrderModel;
-import app.vrpro.Model.ProfileSaleModel;
-import app.vrpro.R;
-import app.vrpro.adapter.ListEachOrderAdapter;
-import app.vrpro.util.DecimalUtil;
-import app.vrpro.util.PDFTemplateUtils;
-import app.vrpro.util.SQLiteUtil;
+import vrpro.vrpro.Model.EachOrderModel;
+import vrpro.vrpro.Model.OrderModel;
+import vrpro.vrpro.Model.ProfileSaleModel;
+import vrpro.vrpro.R;
+import vrpro.vrpro.adapter.ListEachOrderAdapter;
+import vrpro.vrpro.util.DecimalUtil;
+import vrpro.vrpro.util.PDFTemplateUtils;
+import vrpro.vrpro.util.SQLiteUtil;
 
 
 public class CreateOrderActivity extends AppCompatActivity {

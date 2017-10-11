@@ -1,4 +1,4 @@
-package app.vrpro.adapter;
+package vrpro.vrpro.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
-import app.vrpro.Model.OrderModel;
-import app.vrpro.R;
-import app.vrpro.util.DecimalUtil;
+import vrpro.vrpro.Model.OrderModel;
+import vrpro.vrpro.R;
+import vrpro.vrpro.util.DecimalUtil;
 
 /**
  * Created by Plooer on 6/24/2017 AD.

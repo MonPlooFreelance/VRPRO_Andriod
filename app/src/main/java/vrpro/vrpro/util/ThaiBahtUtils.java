@@ -1,4 +1,4 @@
-package app.vrpro.util;
+package vrpro.vrpro.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

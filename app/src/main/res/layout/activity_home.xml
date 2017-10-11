@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.vrpro.activity.HomeActivity"
+    tools:context="vrpro.vrpro.activity.HomeActivity"
     android:weightSum="1"
     android:orientation="vertical">
 

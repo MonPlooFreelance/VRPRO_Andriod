@@ -1,4 +1,4 @@
-package app.vrpro.util;
+package vrpro.vrpro.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -36,9 +36,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import app.vrpro.Model.EachOrderModel;
-import app.vrpro.Model.OrderModel;
-import app.vrpro.Model.ProfileSaleModel;
+import vrpro.vrpro.Model.EachOrderModel;
+import vrpro.vrpro.Model.OrderModel;
+import vrpro.vrpro.Model.ProfileSaleModel;
 
 /**
  * Created by manitkannika on 7/4/2017 AD.

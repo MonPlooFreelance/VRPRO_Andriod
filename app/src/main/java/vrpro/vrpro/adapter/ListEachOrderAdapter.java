@@ -1,4 +1,4 @@
-package app.vrpro.adapter;
+package vrpro.vrpro.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import app.vrpro.Model.EachOrderModel;
-import app.vrpro.R;
-import app.vrpro.util.DecimalUtil;
+import vrpro.vrpro.Model.EachOrderModel;
+import vrpro.vrpro.R;
+import vrpro.vrpro.util.DecimalUtil;
 
 /**
  * Created by Plooer on 6/25/2017 AD.

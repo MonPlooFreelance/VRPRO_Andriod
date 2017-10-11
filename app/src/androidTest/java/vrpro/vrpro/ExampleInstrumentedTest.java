@@ -1,4 +1,4 @@
-package app.vrpro;
+package vrpro.vrpro;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

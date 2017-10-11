@@ -1,4 +1,4 @@
-package app.vrpro;
+package vrpro.vrpro;
 
 import org.junit.Test;
 
