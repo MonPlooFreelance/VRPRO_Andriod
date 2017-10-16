@@ -328,12 +328,6 @@ public class SelectListOrderActivity extends AppCompatActivity {
             if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
             }
-            if(specialReq.contains(getString(R.string.special_req_lock_mung))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_lock_mung));
-            }
-            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
-            }
             if(specialReq.contains(getString(R.string.special_req_perm_rang))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_perm_rang));
             }
@@ -342,14 +336,19 @@ public class SelectListOrderActivity extends AppCompatActivity {
             }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
+            if(specialReq.contains(getString(R.string.special_req_lock_mung))){
+                totalPrice += Double.parseDouble(getString(R.string.price_of_lock_mung));
+            }
+            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
+                totalPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
+            }
+
         }else if(typeOfM.equals("มุ้งเปิด")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_perd));
             if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))) {
                 tempPrice += Double.parseDouble(getString(R.string.price_of_pet_screen_normal));
             }
-            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
-                tempPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
-            }
+
             if(specialReq.contains(getString(R.string.special_req_perm_krob))){
                 tempPrice += Double.parseDouble(getString(R.string.price_of_perm_krob));
             }
@@ -358,6 +357,11 @@ public class SelectListOrderActivity extends AppCompatActivity {
             }
             Log.i(LOG_TAG,"temp price : " + tempPrice);
             totalPrice = areaCal * tempPrice;
+
+            if(specialReq.contains(getString(R.string.special_req_kor_sub))){
+                totalPrice += Double.parseDouble(getString(R.string.price_of_kor_sub));
+            }
+
         }else if(typeOfM.equals("มุ้ง Fix")){
             tempPrice = Double.parseDouble(getString(R.string.price_of_mung_fix));
             if(specialReq.contains(getString(R.string.special_req_pet_screen_normal))) {

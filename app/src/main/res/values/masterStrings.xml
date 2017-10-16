@@ -12,7 +12,12 @@
     <string name="special_req_look_bid">ลูกบิด</string>
     <string name="special_req_mae_lek">แม่เหล็ก</string>
     <string name="special_req_sharp">#</string>
-    <string name="special_req_klub_tarng">กลับทาง</string>
+
+    <!--<string name="special_req_klub_tarng">กลับทาง</string>-->
+    <string name="special_req_meu_jub_left">มือจับซ้าย</string>
+    <string name="special_req_meu_jub_right">มือจับขวา</string>
+    <string name="special_req_meu_jub_under">มือจับล่าง</string>
+
     <string name="special_req_perm_rang">เพิ่มราง</string>
     <string name="special_req_perm_krob">เพิ่มกรอบ</string>
     <string name="special_req_perm_krob_pratoo">เพิ่มกรอบประตู</string>
@@ -165,7 +170,9 @@
         <item>@string/special_req_acrylic</item>
         <item>@string/special_req_door_for_pets</item>
         <item>@string/special_req_kor_sub</item>
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
+        <item>@string/special_req_meu_jub_left</item>
+        <item>@string/special_req_meu_jub_right</item>
         <item>@string/special_req_darn_nork</item>
 
     </string-array>
@@ -178,7 +185,9 @@
         <item>@string/special_req_acrylic</item>
         <item>@string/special_req_door_for_pets</item>
         <item>@string/special_req_kor_sub</item>
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
+        <item>@string/special_req_meu_jub_left</item>
+        <item>@string/special_req_meu_jub_right</item>
         <item>@string/special_req_darn_nork</item>
         <item>@string/special_req_safe</item>
 
@@ -190,7 +199,9 @@
         <item>@string/special_req_perm_krob_pratoo</item>
         <item>@string/special_req_look_bid</item>
         <item>@string/special_req_mae_lek</item>
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
+        <item>@string/special_req_meu_jub_left</item>
+        <item>@string/special_req_meu_jub_right</item>
         <item>@string/special_req_darn_nork</item>
 
     </string-array>
@@ -200,7 +211,9 @@
         <item>@string/special_req_lock_mung</item>
         <item>@string/special_req_kor_sub</item>
         <item>@string/special_req_sharp</item>
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
+        <item>@string/special_req_meu_jub_left</item>
+        <item>@string/special_req_meu_jub_right</item>
         <item>@string/special_req_perm_rang</item>
         <item>@string/special_req_perm_krob</item>
         <item>@string/special_req_darn_nork</item>
@@ -215,7 +228,10 @@
         <item>@string/special_req_mae_lek</item>
         <item>@string/special_req_sharp</item>
         <item>@string/special_req_perm_krob</item>
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
+        <item>@string/special_req_meu_jub_left</item>
+        <item>@string/special_req_meu_jub_right</item>
+        <item>@string/special_req_meu_jub_under</item>
         <item>@string/special_req_ban_kred</item>
         <item>@string/special_req_darn_nork</item>
         <item>@string/special_req_safe</item>
@@ -233,7 +249,7 @@
     </string-array>
 
     <string-array name="special_req_of_mung_jeeb">
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
         <item>@string/special_req_darn_nork</item>
         <item>@string/special_req_keep_left</item>
         <item>@string/special_req_keep_right</item>
@@ -242,7 +258,7 @@
     </string-array>
 
     <string-array name="special_req_of_mung_jeeb_rang_tere">
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
         <item>@string/special_req_darn_nork</item>
         <item>@string/special_req_keep_left</item>
         <item>@string/special_req_keep_right</item>
@@ -251,7 +267,7 @@
     </string-array>
 
     <string-array name="special_req_of_mung_jeeb_walker">
-        <item>@string/special_req_klub_tarng</item>
+        <!--<item>@string/special_req_klub_tarng</item>-->
         <item>@string/special_req_darn_nork</item>
         <item>@string/special_req_keep_left</item>
         <item>@string/special_req_keep_right</item>
