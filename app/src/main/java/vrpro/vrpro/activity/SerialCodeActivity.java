@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.szagurskii.patternedtextwatcher.PatternedTextWatcher;
+
 import java.io.IOException;
 
 import vrpro.vrpro.R;
@@ -20,6 +22,7 @@ public class SerialCodeActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "SerialCodeActivity";
     private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private Button submitSerialButton;
     private EditText txtSerialCode;
 
@@ -31,13 +34,18 @@ public class SerialCodeActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         submitSerialButton = (Button) findViewById(R.id.btnSubmitSerial);
         txtSerialCode = (EditText) findViewById(R.id.txtSerialCode);
+        txtSerialCode.addTextChangedListener(new PatternedTextWatcher("####-####-####-####"));
 
         submitSerialButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try{
                     if(checkSerialNumber()){
+                        editor = sharedPref.edit();
+                        editor.putBoolean("activateSerial", true);
+                        editor.commit();
                         Intent myIntent = new Intent(SerialCodeActivity.this, HomeActivity.class);
                         SerialCodeActivity.this.startActivity(myIntent);
+                        finish();
                     } else {
                         Toast.makeText(SerialCodeActivity.this, "Wrong Serial Number!!!", Toast.LENGTH_SHORT).show();
                     }
@@ -59,6 +67,7 @@ public class SerialCodeActivity extends AppCompatActivity {
 
     private boolean checkSerialWithKey(String serialString) throws IOException {
         String serialKey = PropertiesUtils.getProperty("serialKey", SerialCodeActivity.this);
+        Log.i(LOG_TAG, "serial : "+serialKey+","+serialString);
         return serialKey.equals(serialString);
     }
 }
