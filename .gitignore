@@ -16,4 +16,5 @@ keystore.properties
 KeyStore/
 keystore.properties
 app/app-release.apk
+config.properties
 *.DS_Store
