@@ -11,7 +11,7 @@ import java.util.List;
 
 import vrpro.vrpro.Model.OrderModel;
 import vrpro.vrpro.R;
-import vrpro.vrpro.util.DecimalUtil;
+import vrpro.vrpro.util.DecimalUtils;
 
 /**
  * Created by Plooer on 6/24/2017 AD.
@@ -63,7 +63,7 @@ public class ListOrderAdapter extends BaseAdapter {
         holder.txtCustomerName.setText(orderModel.getCustomerName());
 //        DecimalFormat formatter = new DecimalFormat("#,###.00");
 
-        holder.txtTotalPrice.setText(String.valueOf(DecimalUtil.insertCommaDouble(orderModel.getTotalPrice())));
+        holder.txtTotalPrice.setText(String.valueOf(DecimalUtils.insertCommaDouble(orderModel.getTotalPrice())));
 
         return convertView;
     }

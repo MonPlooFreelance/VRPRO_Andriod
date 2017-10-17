@@ -12,7 +12,7 @@ import java.util.List;
 
 import vrpro.vrpro.Model.EachOrderModel;
 import vrpro.vrpro.R;
-import vrpro.vrpro.util.DecimalUtil;
+import vrpro.vrpro.util.DecimalUtils;
 
 /**
  * Created by Plooer on 6/25/2017 AD.
@@ -65,7 +65,7 @@ public class ListEachOrderAdapter extends BaseAdapter{
         holder.txtTypeOfM.setText(eachOrderModel.getTypeOfM());
         holder.txtSpecialWord.setText(eachOrderModel.getSpecialWordReport());
         Log.i(LOG_TAG,"eachOrderModel.getSpecialWordReport() : "  + eachOrderModel.getSpecialWordReport());
-        holder.txtTotalPrices.setText(String.valueOf(DecimalUtil.insertCommaDouble(eachOrderModel.getTotalPrice())));
+        holder.txtTotalPrices.setText(String.valueOf(DecimalUtils.insertCommaDouble(eachOrderModel.getTotalPrice())));
 
         return convertView;
     }

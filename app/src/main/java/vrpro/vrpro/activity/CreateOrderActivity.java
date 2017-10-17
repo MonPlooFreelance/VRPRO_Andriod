@@ -44,7 +44,7 @@ import vrpro.vrpro.Model.OrderModel;
 import vrpro.vrpro.Model.ProfileSaleModel;
 import vrpro.vrpro.R;
 import vrpro.vrpro.adapter.ListEachOrderAdapter;
-import vrpro.vrpro.util.DecimalUtil;
+import vrpro.vrpro.util.DecimalUtils;
 import vrpro.vrpro.util.PDFTemplateUtils;
 import vrpro.vrpro.util.SQLiteUtil;
 
@@ -128,7 +128,7 @@ public class CreateOrderActivity extends AppCompatActivity {
                     Log.i(LOG_TAG,"textDiscount : " + txtDiscount.getText().toString());
                     Log.i(LOG_TAG,"tempPrice : " + tempTotalPrice);
                     if(tempTotalPrice>=0){
-                        txtTotalPrice.setText(DecimalUtil.insertCommaDouble(tempTotalPrice));
+                        txtTotalPrice.setText(DecimalUtils.insertCommaDouble(tempTotalPrice));
                     }else{
                         txtTotalPrice.setText("0.00");
                     }
@@ -348,8 +348,8 @@ public class CreateOrderActivity extends AppCompatActivity {
             txtCustomerPhone.setText(orderModelFromDB.getCustomerPhone());
             txtCustomerTypeOfWongkob.setText(orderModelFromDB.getCustomerTypeOfWongKob());
             txtRemarks.setText(orderModelFromDB.getRemarks());
-            txtDiscount.setText(orderModelFromDB.getDiscount() == 0.0 ? "" : DecimalUtil.insertCommaDouble(orderModelFromDB.getDiscount()));
-            txtTotalPrice.setText(DecimalUtil.insertCommaDouble(orderModelFromDB.getTotalPrice()));
+            txtDiscount.setText(orderModelFromDB.getDiscount() == 0.0 ? "" : DecimalUtils.insertCommaDouble(orderModelFromDB.getDiscount()));
+            txtTotalPrice.setText(DecimalUtils.insertCommaDouble(orderModelFromDB.getTotalPrice()));
             getDataToListView(shared_quotationNo);
         }
     }

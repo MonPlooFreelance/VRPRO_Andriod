@@ -130,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.btnProfile:
                 Log.i(LOG_TAG, "click to set profile");
-                gotoSetProfileActicity();
+                gotoSetProfileActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void gotoSetProfileActicity() {
+    private void gotoSetProfileActivity() {
         Intent myIntent = new Intent(this, SetProfileActivity.class);
         this.startActivity(myIntent);
     }

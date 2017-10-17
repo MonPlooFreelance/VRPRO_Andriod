@@ -24,4 +24,5 @@
     <string name="third_floor">ชั้น 3</string>
     <string name="door">ประตู</string>
     <string name="window">หน้าต่าง</string>
+    <string name="serial_label">กรุณาใส่ Serial Number</string>
 </resources>
