@@ -67,7 +67,6 @@ public class SerialCodeActivity extends AppCompatActivity {
 
     private boolean checkSerialWithKey(String serialString) throws IOException {
         String serialKey = PropertiesUtils.getProperty("serialKey", SerialCodeActivity.this);
-        Log.i(LOG_TAG, "serial : "+serialKey+","+serialString);
         return serialKey.equals(serialString);
     }
 }
